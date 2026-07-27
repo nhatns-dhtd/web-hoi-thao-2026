@@ -1,0 +1,5 @@
+{
+  "name": "Conference Website",
+  "description": "A modern, responsive website for an international conference on educational research, built with React and Tailwind CSS. It features pages for registration, schedule schedule, call for papers, announcements, and contact information.",
+  "requestFramePermissions": []
+}
