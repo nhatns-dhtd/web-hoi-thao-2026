@@ -10,21 +10,33 @@ const {
     NAV_LINKS 
 } = require('./constants');
 
-const initialSiteContent = {
-    conferenceLogo: 'https://picsum.photos/seed/conflogo/60/60',
-    universityLogo: 'https://picsum.photos/seed/unilogo/60/60',
-    heroBackground: 'https://picsum.photos/seed/hero/1200/400',
-    callForPapersImage: 'https://picsum.photos/seed/a4-paper/842/1191',
+// Nội dung hội thảo lấy từ Thông báo số 1 — đây là phần `--force` được phép ghi đè.
+const conferenceContent = {
     keynoteSpeakers: KEYNOTE_SPEAKERS_DATA,
     conferenceTopics: CONFERENCE_TOPICS_DATA,
     sponsors: SPONSORS_DATA,
     coOrganizers: CO_ORGANIZERS_DATA,
-    navLinks: NAV_LINKS,
-    heroTitle: "Hội thảo quốc tế về nghiên cứu giáo dục",
-    heroSubtitle: "Cơ hội kết nối, chia sẻ và phát triển trong lĩnh vực giáo dục.",
-    conferenceDate: "08/11/2025",
-    conferenceLocation: "Trường Đại học Thủ đô Hà Nội, 98 Dương Quảng Hàm, Nghĩa Đô, Hà Nội",
+    heroTitle: "Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba – AFCE 2026",
+    heroSubtitle: "Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững",
+    conferenceDate: "Tháng 11/2026 (dự kiến)",
+    conferenceLocation: "Trường Đại học Thủ đô Hà Nội, số 98 Dương Quảng Hàm, Quan Hoa, Cầu Giấy, Hà Nội",
 };
+
+// Ảnh và navLinks là thứ admin tự chỉnh qua trang Admin (ảnh lưu base64 ngay trong ô JSONB,
+// không có bản sao ở nơi khác). Chỉ dùng làm giá trị khởi tạo cho DB rỗng, `--force` KHÔNG đụng tới.
+const adminManagedDefaults = {
+    conferenceLogo: 'https://picsum.photos/seed/conflogo/60/60',
+    universityLogo: 'https://picsum.photos/seed/unilogo/60/60',
+    heroBackground: 'https://picsum.photos/seed/hero/1200/400',
+    callForPapersImage: 'https://picsum.photos/seed/a4-paper/842/1191',
+    navLinks: NAV_LINKS,
+};
+
+const initialSiteContent = { ...adminManagedDefaults, ...conferenceContent };
+
+// Chạy `npm run seed -- --force` để đẩy nội dung hội thảo mới vào DB đã có dữ liệu.
+// Không đụng tới users/registrations/papers (dữ liệu người dùng thật) và ảnh/navLinks admin đã chỉnh.
+const forceContent = process.argv.includes('--force');
 
 const initialUsers = [
     { id: 1, username: 'admin', password: 'password', role: 'admin', email: 'admin1@email.com' },
@@ -145,19 +157,40 @@ async function seed(client) {
         }
 
         const { rows: annCount } = await client.sql`SELECT COUNT(*) FROM announcements;`;
-        if (parseInt(annCount[0].count) === 0) {
-            await Promise.all(
-                ANNOUNCEMENTS_DATA.map(ann =>
-                    client.sql`
-                        INSERT INTO announcements (id, title, date, content, "imageUrl", "contentImages")
-                        VALUES (${ann.id}, ${ann.title}, ${ann.date}, ${ann.content}, ${ann.imageUrl}, ${JSON.stringify(ann.contentImages || [])}::jsonb);
-                    `
-                )
-            );
-            console.log('Seeded "announcements" table.');
+        if (parseInt(annCount[0].count) === 0 || forceContent) {
+            // TRUNCATE và INSERT phải cùng một transaction: nếu insert lỗi giữa chừng
+            // mà đã truncate thì bảng thông báo mất trắng, không rollback được.
+            await client.sql`BEGIN;`;
+            try {
+                if (forceContent) {
+                    console.log('Force mode: clearing "announcements" table (đã backup chưa?).');
+                    await client.sql`TRUNCATE TABLE announcements RESTART IDENTITY;`;
+                }
+                for (const ann of ANNOUNCEMENTS_DATA) {
+                    // Không chỉ định id để SERIAL tự cấp: nếu seed ghi id tường minh thì sequence
+                    // vẫn đứng ở 1, khiến thông báo đầu tiên admin tạo qua UI bị trùng khóa chính.
+                    await client.sql`
+                        INSERT INTO announcements (title, date, content, "imageUrl", "contentImages")
+                        VALUES (${ann.title}, ${ann.date}, ${ann.content}, ${ann.imageUrl}, ${JSON.stringify(ann.contentImages || [])}::jsonb);
+                    `;
+                }
+                await client.sql`COMMIT;`;
+                console.log('Seeded "announcements" table.');
+            } catch (error) {
+                await client.sql`ROLLBACK;`;
+                throw error;
+            }
         } else {
             console.log('Announcements table already has data, skipping seed.');
         }
+
+        // Sửa sequence vô điều kiện: các bản seed cũ ghi id tường minh nên `announcements_id_seq`
+        // có thể vẫn đứng ở 1, khiến admin thêm thông báo mới bị lỗi trùng khóa chính.
+        await client.sql`
+            SELECT setval('announcements_id_seq',
+                COALESCE((SELECT MAX(id) FROM announcements), 0) + 1, false);
+        `;
+        console.log('Synced "announcements" id sequence.');
 
         const { rows: paperCount } = await client.sql`SELECT COUNT(*) FROM papers;`;
         if (parseInt(paperCount[0].count) === 0) {
@@ -181,6 +214,15 @@ async function seed(client) {
                 VALUES (1, ${JSON.stringify(initialSiteContent)});
             `;
             console.log('Seeded "site_content" table.');
+        } else if (forceContent) {
+            // Merge từng khóa (toán tử `||` của JSONB) thay vì ghi đè cả ô, để giữ nguyên
+            // logo/ảnh và navLinks admin đã cập nhật qua trang Admin.
+            await client.sql`
+                UPDATE site_content
+                SET content = content || ${JSON.stringify(conferenceContent)}::jsonb
+                WHERE id = 1;
+            `;
+            console.log('Force mode: updated conference content in "site_content" (images and navLinks kept).');
         } else {
             console.log('Site content already exists, skipping seed.');
         }
