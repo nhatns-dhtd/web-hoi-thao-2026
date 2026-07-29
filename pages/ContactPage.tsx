@@ -11,33 +11,49 @@ const ContactPage: React.FC = () => {
         <div className="space-y-6">
           <h2 className="text-xl sm:text-2xl font-bold text-yellow-100">Thông tin Ban tổ chức</h2>
           <div>
-            <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-map-marker-alt mr-3 text-yellow-500"></i>Địa chỉ</h3>
-            <p className="text-slate-100 ml-8">144 Xuân Thủy, Cầu Giấy, Hà Nội, Việt Nam</p>
-          </div>
-           <div>
-            <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-envelope mr-3 text-yellow-500"></i>Email</h3>
-            <a href="mailto:contact@iceduconf.com" className="text-yellow-100 hover:underline ml-8">contact@iceduconf.com</a>
+            <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-university mr-3 text-yellow-500"></i>Đơn vị tổ chức</h3>
+            <p className="text-slate-100 ml-8">Trường Đại học Thủ đô Hà Nội - Phòng QLKHCN-HTPT</p>
           </div>
           <div>
-            <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-phone-alt mr-3 text-yellow-500"></i>Điện thoại</h3>
-            <p className="text-slate-100 ml-8">(+84) 123 456 789</p>
+            <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-map-marker-alt mr-3 text-yellow-500"></i>Địa chỉ</h3>
+            <p className="text-slate-100 ml-8">Số 98 Dương Quảng Hàm, Quan Hoa, Cầu Giấy, Hà Nội, Việt Nam</p>
           </div>
            <div>
-            <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-globe mr-3 text-yellow-500"></i>Website</h3>
-            <a href="#" className="text-yellow-100 hover:underline ml-8">www.iceduconf.com</a>
+            <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-envelope mr-3 text-yellow-500"></i>Email nhận bài</h3>
+            <a href="mailto:afce@hnmu.edu.vn" className="text-yellow-100 hover:underline ml-8">afce@hnmu.edu.vn</a>
+          </div>
+          <div>
+            <h3 className="font-semibold text-lg text-slate-100 flex items-center"><i className="fas fa-user-tie mr-3 text-yellow-500"></i>Đầu mối liên hệ</h3>
+            <p className="text-slate-100 ml-8">TS. Đinh Thị Kim Thương</p>
+            <a href="tel:0988766307" className="text-yellow-100 hover:underline ml-8 block">0988.766.307</a>
+            <a href="mailto:dtkthuong@daihocthudo.edu.vn" className="text-yellow-100 hover:underline ml-8 block break-all">dtkthuong@daihocthudo.edu.vn</a>
           </div>
         </div>
 
-        {/* Map */}
+        {/* Địa điểm tổ chức */}
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-yellow-100 mb-4">Bản đồ chỉ đường</h2>
-          <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
-            {/* Using a static image as a placeholder for an interactive map */}
-            <img 
-              src="https://picsum.photos/seed/map/600/400" 
-              alt="Bản đồ đến địa điểm hội thảo"
-              className="w-full h-full object-cover"
-            />
+          <h2 className="text-xl sm:text-2xl font-bold text-yellow-100 mb-4">Địa điểm tổ chức</h2>
+          <div className="bg-slate-900/50 p-6 rounded-lg border border-slate-700 space-y-3">
+            <p className="text-slate-100">
+              <i className="fas fa-building mr-3 text-yellow-500"></i>
+              Trường Đại học Thủ đô Hà Nội
+            </p>
+            <p className="text-slate-100">
+              <i className="fas fa-map-pin mr-3 text-yellow-500"></i>
+              Số 98 Dương Quảng Hàm, Quan Hoa, Cầu Giấy, Hà Nội
+            </p>
+            <p className="text-slate-100">
+              <i className="fas fa-calendar-alt mr-3 text-yellow-500"></i>
+              Tháng 11/2026 (dự kiến)
+            </p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+Th%E1%BB%A7+%C4%91%C3%B4+H%C3%A0+N%E1%BB%99i+98+D%C6%B0%C6%A1ng+Qu%E1%BA%A3ng+H%C3%A0m"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-2 text-yellow-100 hover:underline"
+            >
+              <i className="fas fa-external-link-alt mr-2"></i>Xem trên Google Maps
+            </a>
           </div>
         </div>
       </div>

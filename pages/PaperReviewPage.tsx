@@ -320,7 +320,7 @@ const PaperReviewPage: React.FC = () => {
                     </td>
                     <td className="px-2 py-4 text-center">
                       <span className={`px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${topicStyles[paper.topic] || 'bg-cyan-900/70 text-cyan-300 border border-cyan-700'}`}>
-                        Tiểu ban {paper.topic}
+                        Chủ đề {paper.topic}
                       </span>
                     </td>
                     {currentUser?.role === 'admin' && (

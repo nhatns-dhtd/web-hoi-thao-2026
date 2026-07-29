@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useRegistrations } from '../contexts/RegistrationContext';
 import type { Registration } from '../types';
 
@@ -86,7 +87,12 @@ const RegistrationPage: React.FC = () => {
         </div>
         <div className="bg-gray-100 p-4 rounded-md">
             <h4 className="font-semibold text-gray-700">Thông tin thanh toán</h4>
-            <p className="text-sm text-gray-600 mt-1">Phí tham dự hội thảo sẽ được thông báo và hướng dẫn thanh toán qua email sau khi bạn hoàn tất đăng ký.</p>
+            <p className="text-sm text-gray-600 mt-1">
+              Lệ phí công bố báo cáo toàn văn: 1.500.000 VNĐ (60 USD) đối với tác giả là NCS, HVCH, SV và tác giả
+              thuộc đơn vị khác; 0 VNĐ đối với cán bộ, giảng viên Trường Đại học Thủ đô Hà Nội nếu đứng độc lập.
+              Xem thông tin chuyển khoản tại{' '}
+              <Link to="/participation-guide" className="text-blue-600 hover:underline">trang Đăng ký &amp; Nộp bài</Link>.
+            </p>
         </div>
         <div>
           <button 

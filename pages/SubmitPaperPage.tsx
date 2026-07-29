@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePapers } from '../contexts/PaperContext';
+import { useSiteContent } from '../contexts/SiteContentContext';
 import type { PaperSubmissionFormData } from '../types';
 
 const SubmitPaperPage: React.FC = () => {
@@ -18,6 +19,7 @@ const SubmitPaperPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<string>('');
   const { addPaper, uploadFullTextFile } = usePapers();
+  const { siteContent } = useSiteContent();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -207,9 +209,11 @@ const SubmitPaperPage: React.FC = () => {
             onChange={handleChange} 
             className={inputStyles}
           >
-            <option value="1">Tiểu ban 1: Giáo dục sáng tạo và phát triển bền vững</option>
-            <option value="2">Tiểu ban 2: Bản sắc văn hoá trong kỷ nguyên số</option>
-            <option value="3">Tiểu ban 3: Trí tuệ nhân tạo trong văn hóa và giáo dục</option>
+            {siteContent.conferenceTopics.map(topic => (
+              <option key={topic.id} value={String(topic.id)}>
+                Chủ đề {topic.id}: {topic.title}
+              </option>
+            ))}
           </select>
         </div>
         

@@ -44,8 +44,8 @@ const Header: React.FC = () => {
                 <img src={siteContent.universityLogo} alt="University Logo" className="w-[40px] sm:w-[50px] md:w-[60px] h-auto rounded-md object-contain" />
               </div>
               <div className="flex text-left min-w-0 flex-col gap-2">
-                <h1 className="text-sm sm:text-lg md:text-3xl font-bold text-slate-100 uppercase leading-tight">HỘI THẢO KHOA HỌC QUỐC GIA</h1>
-                <h2 className="text-xs sm:text-sm md:text-xl font-semibold text-slate-100 uppercase leading-tight">AI và GIÁO DỤC PHỔ THÔNG: Hành động vì sự chuyển đổi</h2>
+                <h1 className="text-sm sm:text-lg md:text-3xl font-bold text-slate-100 uppercase leading-tight">Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba</h1>
+                <h2 className="text-xs sm:text-sm md:text-xl font-semibold text-slate-100 uppercase leading-tight">Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững</h2>
             
               </div>
             </Link>

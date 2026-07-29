@@ -203,8 +203,8 @@ const HomePage: React.FC = () => {
             <div className="bg-violet-900/50 text-violet-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-users fa-2x"></i>
             </div>
-            <h3 className="text-xl font-bold mb-2 text-slate-100">Diễn giả</h3>
-            <p className="text-lg text-slate-100">Các chuyên gia hàng đầu</p>
+            <h3 className="text-xl font-bold mb-2 text-slate-100">Quy mô</h3>
+            <p className="text-lg text-slate-100">Hội thảo khoa học quốc tế</p>
           </div>
         </div>
       </section>
@@ -261,6 +261,12 @@ const HomePage: React.FC = () => {
               </h3>
             </div>
             <div className="p-6 flex-1">
+              {siteContent.keynoteSpeakers.length === 0 ? (
+                <div className="h-full flex flex-col items-center justify-center text-center py-10 text-slate-400">
+                  <i className="fas fa-user-clock fa-2x mb-3"></i>
+                  <p className="italic">Danh sách báo cáo viên đang được cập nhật.</p>
+                </div>
+              ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
                 {siteContent.keynoteSpeakers.map((speaker: KeynoteSpeaker) => (
                   <button
@@ -291,12 +297,17 @@ const HomePage: React.FC = () => {
                   </button>
                 ))}
               </div>
+              )}
             </div>
             {/* Footer with count */}
             <div className="px-6 py-4 bg-slate-800/30 border-t border-slate-700/50 flex items-center justify-between">
               <span className="text-sm text-slate-400">
-                <i className="fas fa-users mr-2"></i>
-                {siteContent.keynoteSpeakers.length} báo cáo viên
+                {siteContent.keynoteSpeakers.length > 0 && (
+                  <>
+                    <i className="fas fa-users mr-2"></i>
+                    {siteContent.keynoteSpeakers.length} báo cáo viên
+                  </>
+                )}
               </span>
               <Link 
                 to="/schedule" 
@@ -311,9 +322,11 @@ const HomePage: React.FC = () => {
 
       {/* Call to Action Section */}
       <section className="text-center max-w-4xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-yellow-100">Đừng bỏ lỡ sự kiện quan trọng này!</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-yellow-100">Kính mời viết bài và tham dự Diễn đàn</h2>
         <p className="text-lg text-slate-100 mb-8">
-          Hãy đăng ký tham dự ngay hôm nay để cùng chúng tôi khám phá những ý tưởng mới, gặp gỡ các chuyên gia và mở rộng mạng lưới chuyên môn của bạn.
+          Ban tổ chức trân trọng kính mời các cơ quan, tổ chức, chuyên gia, nhà khoa học, giảng viên, giáo viên,
+          nghiên cứu sinh, học viên cao học và sinh viên tham gia viết bài và tham dự Diễn đàn.
+          Hạn gửi toàn văn báo cáo: trước ngày 20/8/2026.
         </p>
         <div className="flex justify-center items-center gap-4 flex-wrap">
             <Link 

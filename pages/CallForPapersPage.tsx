@@ -16,17 +16,26 @@ const CallForPapersPage: React.FC = () => {
         <section className="lg:col-span-2 bg-white p-4 sm:p-6 rounded-lg shadow-lg">
            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800 text-center">Thông tin Kêu gọi Bài báo</h2>
            <div className="w-full max-w-2xl mx-auto">
-              <img 
-                src="https://picsum.photos/seed/a4-paper/842/1191" 
-                alt="Call for Papers A4 Document"
+              <img
+                src={siteContent.callForPapersImage}
+                alt="Thông tin kêu gọi bài báo AFCE 2026"
                 className="w-full h-auto object-contain rounded-md shadow-md border border-gray-200"
               />
            </div>
+           <p className="mt-6 text-center text-gray-700">
+              Toàn văn báo cáo gửi về email <strong>afce@hnmu.edu.vn</strong> trước ngày <strong>20/8/2026</strong>.
+              Các báo cáo được chấp nhận đăng sẽ xuất bản trong Kỷ yếu toàn văn có chỉ số ISBN tại Việt Nam.
+           </p>
         </section>
 
         {/* Keynote Speakers Section (1/3 width) */}
         <section className="lg:col-span-1">
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-yellow-300 text-center">Báo cáo viên</h2>
+          {siteContent.keynoteSpeakers.length === 0 ? (
+            <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-xl text-center text-slate-400 italic">
+              Danh sách báo cáo viên đang được cập nhật.
+            </div>
+          ) : (
           <div className="bg-slate-800/50 backdrop-blur-sm p-4 rounded-lg shadow-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
             {siteContent.keynoteSpeakers.map((speaker : KeynoteSpeaker) => (
               <div key={speaker.id} className="group relative aspect-square" title={`${speaker.name} - ${speaker.keynoteTopic}`}>
@@ -42,6 +51,7 @@ const CallForPapersPage: React.FC = () => {
               </div>
             ))}
           </div>
+          )}
         </section>
       </div>
     </div>

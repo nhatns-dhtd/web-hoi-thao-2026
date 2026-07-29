@@ -9,18 +9,22 @@ const RegisterInfoPage: React.FC = () => {
         <section>
           <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2">Hướng dẫn chung</h2>
           <p>
-            Ban tổ chức hoan nghênh sự tham gia của các nhà khoa học, nhà nghiên cứu, giảng viên, và sinh viên. Vui lòng đọc kỹ các hướng dẫn dưới đây để hoàn tất thủ tục đăng ký tham dự và nộp bài báo.
+            Ban tổ chức trân trọng kính mời các cơ quan, tổ chức, chuyên gia, nhà khoa học, giảng viên, giáo viên,
+            nghiên cứu sinh, học viên cao học và sinh viên tham gia viết bài và tham dự Diễn đàn Văn hoá và Giáo dục
+            mùa thu lần thứ ba (AFCE 2026).
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2">Nộp bài báo (Call for Papers)</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2">Nộp bài báo</h2>
           <p>
-            Chúng tôi khuyến khích các tác giả gửi các công trình nghiên cứu gốc, chưa được công bố. Các bài báo sẽ được bình duyệt bởi hội đồng khoa học.
+            Toàn văn báo cáo gửi về Ban tổ chức trước ngày <strong>20/8/2026</strong>, qua form nộp bài trên website
+            hoặc gửi file mềm tới email <a href="mailto:afce@hnmu.edu.vn" className="text-blue-600 hover:underline">afce@hnmu.edu.vn</a>.
+            Các báo cáo được chấp nhận đăng sẽ xuất bản trong Kỷ yếu toàn văn có chỉ số ISBN tại Việt Nam.
           </p>
           <div className="mt-4">
-            <Link to="/call-for-papers" className="inline-block bg-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-700 transition-transform transform hover:scale-105">
-              Xem chi tiết Call for Papers <i className="fas fa-arrow-right ml-2"></i>
+            <Link to="/participation-guide" className="inline-block bg-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-700 transition-transform transform hover:scale-105">
+              Xem hướng dẫn nộp bài <i className="fas fa-arrow-right ml-2"></i>
             </Link>
           </div>
         </section>
@@ -36,15 +40,17 @@ const RegisterInfoPage: React.FC = () => {
             </Link>
           </div>
         </section>
-        
+
         <section>
           <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2">Lệ phí</h2>
           <p>
-            Thông tin chi tiết về các mức lệ phí tham dự và hướng dẫn thanh toán.
+            Lệ phí công bố báo cáo toàn văn: <strong>1.500.000 VNĐ (60 USD)</strong> đối với tác giả là NCS, HVCH, SV
+            và tác giả thuộc đơn vị khác; <strong>0 VNĐ</strong> đối với cán bộ, giảng viên Trường Đại học Thủ đô Hà Nội
+            nếu đứng độc lập.
           </p>
           <div className="mt-4">
-             <Link to="/fees" className="inline-block bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-transform transform hover:scale-105">
-              Xem Lệ phí tham dự <i className="fas fa-arrow-right ml-2"></i>
+             <Link to="/participation-guide" className="inline-block bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-transform transform hover:scale-105">
+              Xem chi tiết lệ phí <i className="fas fa-arrow-right ml-2"></i>
             </Link>
           </div>
         </section>

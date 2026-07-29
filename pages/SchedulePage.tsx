@@ -53,8 +53,13 @@ const SchedulePage: React.FC = () => {
     return (
         <div className="max-w-7xl mx-auto px-4">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-slate-100">Chương trình Hội thảo</h1>
-            <p className="text-center text-lg text-slate-100 mb-16">Lịch trình chi tiết các phiên thảo luận, diễn giả và sự kiện.</p>
-            
+            <p className="text-center text-lg text-slate-100 mb-8">Các mốc thời gian quan trọng của Diễn đàn.</p>
+
+            <div className="max-w-3xl mx-auto mb-16 p-4 rounded-lg bg-amber-900/30 border border-amber-600/60 text-amber-100 text-center">
+                <i className="fas fa-info-circle mr-2"></i>
+                Chương trình chi tiết các phiên thảo luận và báo cáo viên sẽ được Ban tổ chức cập nhật sau.
+            </div>
+
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>

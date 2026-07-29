@@ -2,9 +2,9 @@ import React from 'react';
 
 const UtilitiesTravelPage: React.FC = () => {
   const hotels = [
-    { name: "Khách sạn Grand Plaza", distance: "1.5 km", link: "#" },
-    { name: "Khách sạn JW Marriott", distance: "2.0 km", link: "#" },
-    { name: "Khách sạn Lotte Hà Nội", distance: "3.5 km", link: "#" },
+    { name: "Khách sạn Grand Plaza" },
+    { name: "Khách sạn JW Marriott" },
+    { name: "Khách sạn Lotte Hà Nội" },
   ];
 
   const attractions = [
@@ -19,19 +19,17 @@ const UtilitiesTravelPage: React.FC = () => {
       
       <section>
         <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b pb-2">Địa điểm và Tiện ích</h2>
-        <p className="mb-2"><strong className="w-24 inline-block">Địa điểm:</strong> Trung tâm Hội nghị Quốc gia, Hà Nội.</p>
-        <p className="mb-2"><strong className="w-24 inline-block">Wi-Fi:</strong> Mạng Wi-Fi miễn phí sẽ được cung cấp cho tất cả đại biểu.</p>
-        <p><strong className="w-24 inline-block">Ăn uống:</strong> Tiệc trà và bữa trưa được phục vụ tại sảnh chính và nhà hàng trong khuôn viên.</p>
+        <p className="mb-2"><strong className="w-24 inline-block">Địa điểm:</strong> Trường Đại học Thủ đô Hà Nội, số 98 Dương Quảng Hàm, Quan Hoa, Cầu Giấy, Hà Nội.</p>
+        <p className="mb-2"><strong className="w-24 inline-block">Thời gian:</strong> Tháng 11/2026 (dự kiến).</p>
+        <p><strong className="w-24 inline-block">Tiện ích:</strong> Thông tin chi tiết về Wi-Fi, ăn uống và đưa đón sẽ được Ban tổ chức cập nhật.</p>
       </section>
 
       <section>
         <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b pb-2">Khách sạn gợi ý</h2>
+        <p className="text-gray-600 mb-3">Một số khách sạn tại khu vực trung tâm Hà Nội, thuận tiện di chuyển tới địa điểm tổ chức:</p>
         <ul className="space-y-2">
             {hotels.map((hotel, index) => (
-                <li key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                    <span>{hotel.name} (Cách địa điểm ~{hotel.distance})</span>
-                    <a href={hotel.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Xem chi tiết</a>
-                </li>
+                <li key={index} className="p-2 bg-gray-50 rounded">{hotel.name}</li>
             ))}
         </ul>
       </section>

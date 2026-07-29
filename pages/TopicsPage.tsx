@@ -1,34 +1,68 @@
 import React from 'react';
 
 const conferenceTopics = [
-    "Công nghệ trong giáo dục và học tập số (EdTech & Digital Learning)",
-    "Đổi mới phương pháp giảng dạy và kiểm tra đánh giá",
-    "Phát triển chương trình giáo dục theo định hướng năng lực",
-    "Giáo dục STEM và liên ngành",
-    "Tâm lý học đường và sức khỏe tinh thần",
-    "Quản lý giáo dục và chính sách",
-    "Giáo dục hòa nhập và công bằng xã hội",
-    "Học tập suốt đời và phát triển kỹ năng nghề nghiệp",
-    "Toàn cầu hóa và quốc tế hóa giáo dục",
-    "Văn hóa và giáo dục sáng tạo trong kỷ nguyên số",
+  {
+    title: "Văn hóa sáng tạo trong bối cảnh toàn cầu hóa",
+    subTopics: [
+      "Lý luận về văn hóa sáng tạo trong bối cảnh toàn cầu hóa.",
+      "Chính sách phát triển ngành công nghiệp văn hóa sáng tạo.",
+      "Vai trò của văn hóa sáng tạo trong việc giữ gìn bản sắc dân tộc.",
+      "Tác động của toàn cầu hóa đến sự đa dạng văn hóa.",
+      "Các mô hình thành công về việc kết hợp văn hóa truyền thống với sáng tạo hiện đại.",
+      "Ứng dụng công nghệ trong văn hóa sáng tạo.",
+    ],
+  },
+  {
+    title: "Giáo dục sáng tạo và phát triển bền vững",
+    subTopics: [
+      "Lý luận về giáo dục sáng tạo và phát triển bền vững.",
+      "Chính sách phát triển giáo dục sáng tạo.",
+      "Đổi mới phương pháp giảng dạy để khuyến khích tư duy sáng tạo.",
+      "Vai trò của giáo dục nghệ thuật, STEAM (Science, Technology, Engineering, Arts, Mathematics).",
+      "Kinh nghiệm quốc tế về giáo dục sáng tạo, các mô hình giáo dục sáng tạo, hệ sinh thái học tập sáng tạo.",
+      "Liên kết giữa giáo dục sáng tạo và năng lực giải quyết các thách thức xã hội: vấn đề kinh tế, xã hội, môi trường...",
+    ],
+  },
+  {
+    title: "Ngôn ngữ trong hệ sinh thái văn hóa và giáo dục sáng tạo",
+    subTopics: [
+      "Vai trò của ngôn ngữ trong văn hóa và giáo dục sáng tạo.",
+      "Ngôn ngữ, ngôn ngữ học ứng dụng và sự đa dạng văn hóa.",
+      "Ngôn ngữ trong giáo dục số và truyền thông sáng tạo.",
+      "Ngôn ngữ và công nghệ.",
+      "Ngôn ngữ và giải pháp phát triển bền vững.",
+      "Giáo dục ngôn ngữ; công nghệ trong giáo dục ngôn ngữ.",
+      "Trí tuệ nhân tạo trong giảng dạy ngoại ngữ, ngôn ngữ.",
+      "Đất nước học, quốc tế học; biên phiên dịch và các lĩnh vực liên quan khác.",
+    ],
+  },
 ];
-
 
 const TopicsPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-gray-800">
-      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-blue-700">Chủ đề chính của Hội thảo</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-blue-700">Chủ đề chính của Diễn đàn</h1>
       <p className="text-center text-gray-600 mb-8">
-        Hội thảo tập trung vào các lĩnh vực nghiên cứu đa dạng và cấp thiết trong giáo dục hiện đại.
+        Diễn đàn tập trung vào ba nhóm chủ đề chính dưới đây.
       </p>
-      <ul className="space-y-3">
+      <div className="space-y-8">
         {conferenceTopics.map((topic, index) => (
-            <li key={index} className="flex items-start p-3 bg-gray-50 rounded-md">
-                <i className="fas fa-lightbulb text-yellow-500 mt-1 mr-4"></i>
-                <span className="text-lg text-gray-700">{topic}</span>
-            </li>
+          <section key={index}>
+            <h2 className="text-xl font-bold text-blue-700 mb-3 flex items-start">
+              <i className="fas fa-lightbulb text-yellow-500 mt-1 mr-3"></i>
+              <span>{index + 1}. {topic.title}</span>
+            </h2>
+            <ul className="space-y-2 ml-9">
+              {topic.subTopics.map((subTopic, subIndex) => (
+                <li key={subIndex} className="flex items-start p-3 bg-gray-50 rounded-md">
+                  <i className="fas fa-angle-right text-blue-500 mt-1.5 mr-3"></i>
+                  <span className="text-gray-700">{subTopic}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
