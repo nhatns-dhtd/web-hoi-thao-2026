@@ -11,8 +11,8 @@ const Header: React.FC = () => {
   const { currentUser, logout } = useAuth();
   const { siteContent } = useSiteContent();
 
-  const linkClasses = "block py-2 px-3 text-stone-200 rounded-lg hover:bg-amber-500/10 hover:text-white md:border-0 md:px-2 md:py-1 transition-colors duration-200";
-  const activeLinkClasses = "text-amber-300 font-semibold bg-amber-500/10 md:bg-transparent";
+  const linkClasses = "block py-2 px-3 text-ink-soft rounded-lg hover:bg-amber-200/60 hover:text-brand-ink md:border-0 md:px-2 md:py-1 transition-colors duration-200";
+  const activeLinkClasses = "text-amber-700 font-semibold bg-amber-200/60 md:bg-transparent";
 
   const ExternalIcon = () => <i className="fas fa-external-link-alt text-[10px] ml-2 opacity-60"></i>;
 
@@ -37,7 +37,7 @@ const Header: React.FC = () => {
     <>
       {/* sticky chứ không fixed: header vẫn chiếm chỗ trong layout nên không cần đệm
           padding-top cho từng trang, và giữ đúng mốc `sticky top-36` của trang Chương trình. */}
-      <header className="bg-[#1c1409]/90 backdrop-blur-xl shadow-2xl shadow-amber-950/40 sticky top-0 z-50 border-b border-amber-500/20">
+      <header className="bg-page/90 backdrop-blur-xl shadow-md shadow-amber-900/10 sticky top-0 z-50 border-b border-line-strong">
         <div className="container mx-auto p-4">
           {/* Top row: Logo, Title, User Info, and Toggle */}
           <div className="flex items-center justify-between gap-2">
@@ -48,8 +48,8 @@ const Header: React.FC = () => {
                 <img src={siteContent.universityLogo} alt="University Logo" className="w-[40px] sm:w-[50px] md:w-[60px] h-auto rounded-md object-contain" />
               </div>
               <div className="flex text-left min-w-0 flex-col gap-2">
-                <h1 className="text-sm sm:text-lg md:text-2xl font-bold text-white uppercase leading-tight tracking-tight">Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba</h1>
-                <h2 className="text-xs sm:text-sm md:text-base font-medium text-amber-200/90 leading-tight">Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững</h2>
+                <h1 className="text-sm sm:text-lg md:text-2xl font-bold text-brand-ink uppercase leading-tight tracking-tight">Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba</h1>
+                <h2 className="text-xs sm:text-sm md:text-base font-medium text-amber-800/90 leading-tight">Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững</h2>
               </div>
             </Link>
 
@@ -58,8 +58,8 @@ const Header: React.FC = () => {
               {currentUser && (
                 <>
                   <div className="text-right hidden sm:block">
-                    <p className="font-semibold text-stone-100 text-sm">Welcome, {currentUser.username}</p>
-                    <p className="text-xs text-amber-300 capitalize">{currentUser.role}</p>
+                    <p className="font-semibold text-ink text-sm">Welcome, {currentUser.username}</p>
+                    <p className="text-xs text-amber-700 capitalize">{currentUser.role}</p>
                   </div>
                   <button onClick={handleLogout} className="hidden sm:inline-block text-white font-medium rounded-lg text-sm px-4 py-2 text-center bg-red-600 hover:bg-red-700 transition-colors">
                     Logout
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
               <button
                 onClick={toggleMainMenu}
                 type="button"
-                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-stone-300 rounded-lg md:hidden hover:bg-amber-500/10 focus:outline-hidden focus:ring-2 focus:ring-stone-600 flex-shrink-0"
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-ink-soft rounded-lg md:hidden hover:bg-amber-200/60 focus:outline-hidden focus:ring-2 focus:ring-stone-600 flex-shrink-0"
                 aria-controls="navbar-default"
                 aria-expanded={isMenuOpen}
               >
@@ -86,8 +86,8 @@ const Header: React.FC = () => {
             <div className="sm:hidden mt-2 pb-2 border-b border-line/50">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-stone-100 text-sm">Welcome, {currentUser.username}</p>
-                  <p className="text-xs text-amber-300 capitalize">{currentUser.role}</p>
+                  <p className="font-semibold text-ink text-sm">Welcome, {currentUser.username}</p>
+                  <p className="text-xs text-amber-700 capitalize">{currentUser.role}</p>
                 </div>
                 <button onClick={handleLogout} className="text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-red-600 hover:bg-red-700 transition-colors">
                   Logout
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
 
           {/* Navigation Menu - Full width below */}
           <div className={`${isMenuOpen ? 'block' : 'hidden'} md:block mt-4`} id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 border border-amber-500/20 rounded-xl bg-[#1c1409]/95 md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent justify-center">
+            <ul className="font-medium flex flex-col p-4 md:p-0 border border-line-strong rounded-xl bg-surface/95 md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent justify-center">
               {NAV_LINKS.map((link: NavLink) => {
                 if (link.path === '/admin' && currentUser?.role !== 'admin') {
                   return null;
@@ -110,7 +110,7 @@ const Header: React.FC = () => {
                     <li key={link.id} className="relative group">
                       <button
                         onClick={() => setOpenMobileDropdown(isMobileDropdownOpen ? null : link.name)}
-                        className="w-full flex items-center justify-between py-2 px-3 text-stone-200 rounded-lg hover:bg-amber-500/10 hover:text-white md:border-0 md:px-2 md:py-1 transition-colors duration-200"
+                        className="w-full flex items-center justify-between py-2 px-3 text-ink-soft rounded-lg hover:bg-amber-200/60 hover:text-brand-ink md:border-0 md:px-2 md:py-1 transition-colors duration-200"
                         aria-haspopup="true"
                         aria-expanded={isMobileDropdownOpen}
                       >
@@ -121,8 +121,8 @@ const Header: React.FC = () => {
                       </button>
 
                       {/* Desktop Dropdown */}
-                      <div className="absolute top-full left-0 z-20 w-64 hidden group-hover:block bg-[#1c1409]/98 backdrop-blur-xl rounded-xl shadow-2xl shadow-amber-950/50 border border-amber-500/20 mt-1 overflow-hidden">
-                        <ul className="py-2 text-sm text-stone-100" aria-label={link.name}>
+                      <div className="absolute top-full left-0 z-20 w-64 hidden group-hover:block bg-surface/98 backdrop-blur-xl rounded-xl shadow-2xl shadow-amber-900/10 border border-line-strong mt-1 overflow-hidden">
+                        <ul className="py-2 text-sm text-ink" aria-label={link.name}>
                           {link.children.map((child) => (
                             <li key={child.id}>
                               {child.external ? (
@@ -130,14 +130,14 @@ const Header: React.FC = () => {
                                   href={child.path!}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="block px-5 py-3 text-stone-200 hover:bg-amber-500/10 hover:text-white transition-colors border-b border-amber-500/5 last:border-0"
+                                  className="block px-5 py-3 text-ink-soft hover:bg-amber-200/60 hover:text-brand-ink transition-colors border-b border-line/60 last:border-0"
                                   onClick={closeAllMenus}
                                 >
                                   {child.name}
                                   <ExternalIcon />
                                 </a>
                               ) : (
-                                <RouterNavLink to={child.path!} className={({ isActive }) => `block px-5 py-3 transition-colors border-b border-amber-500/5 last:border-0 ${isActive ? 'text-amber-300 bg-amber-500/10 font-medium' : 'text-stone-200 hover:bg-amber-500/10 hover:text-white'}`} onClick={closeAllMenus}>
+                                <RouterNavLink to={child.path!} className={({ isActive }) => `block px-5 py-3 transition-colors border-b border-line/60 last:border-0 ${isActive ? 'text-amber-700 bg-amber-200/60 font-medium' : 'text-ink-soft hover:bg-amber-200/60 hover:text-brand-ink'}`} onClick={closeAllMenus}>
                                   {child.name}
                                 </RouterNavLink>
                               )}
@@ -157,14 +157,14 @@ const Header: React.FC = () => {
                                     href={child.path!}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="block px-4 py-2 rounded-lg text-stone-200 hover:bg-amber-500/10 hover:text-white transition-colors"
+                                    className="block px-4 py-2 rounded-lg text-ink-soft hover:bg-amber-200/60 hover:text-brand-ink transition-colors"
                                     onClick={closeAllMenus}
                                   >
                                     {child.name}
                                     <ExternalIcon />
                                   </a>
                                 ) : (
-                                  <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg transition-colors ${isActive ? 'text-amber-300 bg-amber-500/10 font-medium' : 'text-stone-200 hover:bg-amber-500/10 hover:text-white'}`} onClick={closeAllMenus}>
+                                  <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg transition-colors ${isActive ? 'text-amber-700 bg-amber-200/60 font-medium' : 'text-ink-soft hover:bg-amber-200/60 hover:text-brand-ink'}`} onClick={closeAllMenus}>
                                     {child.name}
                                   </RouterNavLink>
                                 )}

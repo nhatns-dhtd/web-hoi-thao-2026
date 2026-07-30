@@ -27,9 +27,9 @@ const LoginPage: React.FC = () => {
   
   return (
     <div className="flex justify-center items-center py-10">
-      <div className="bg-stone-800/50 backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-line/50">
-        <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 text-stone-100">Đăng nhập quản trị</h2>
-        <div className="text-sm bg-amber-900/40 border border-amber-700/50 text-amber-200 p-3 rounded-md mb-6">
+      <div className="bg-surface backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-line/50">
+        <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 text-ink">Đăng nhập quản trị</h2>
+        <div className="text-sm bg-amber-100 border border-amber-300 text-amber-800 p-3 rounded-md mb-6">
             <p>Trang này dành riêng cho Ban tổ chức. Liên hệ quản trị viên nếu bạn cần cấp tài khoản.</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
               required
             />
           </div>
-          {error && <p className="text-sm text-red-400">{error}</p>}
+          {error && <p className="text-sm text-red-700">{error}</p>}
           <div>
             <Button
               type="submit"

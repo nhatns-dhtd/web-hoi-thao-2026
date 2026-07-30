@@ -13,13 +13,13 @@ import React from 'react';
 export type BadgeTone = 'green' | 'red' | 'sky' | 'emerald' | 'indigo' | 'amber' | 'stone';
 
 const TONE: Record<BadgeTone, string> = {
-  green: 'bg-green-900/70 text-green-300 border border-green-700',
-  red: 'bg-red-900/70 text-red-300 border border-red-700',
-  sky: 'bg-sky-900/70 text-sky-300 border border-sky-700',
-  emerald: 'bg-emerald-900/70 text-emerald-300 border border-emerald-700',
-  indigo: 'bg-indigo-900/70 text-indigo-300 border border-indigo-700',
-  amber: 'bg-amber-900/60 text-amber-300 border border-amber-700',
-  stone: 'bg-stone-700/60 text-stone-100 border border-stone-600',
+  green: 'bg-green-100 text-green-800 border border-green-300',
+  red: 'bg-red-100 text-red-800 border border-red-300',
+  sky: 'bg-sky-100 text-sky-800 border border-sky-300',
+  emerald: 'bg-emerald-100 text-emerald-800 border border-emerald-300',
+  indigo: 'bg-indigo-100 text-indigo-800 border border-indigo-300',
+  amber: 'bg-amber-100 text-amber-800 border border-amber-300',
+  stone: 'bg-stone-100 text-stone-700 border border-stone-300',
 };
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {

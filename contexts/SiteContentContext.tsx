@@ -109,10 +109,10 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
   // Render a loading or error state until content is fetched
   if (error) {
     return (
-      <div className="fixed inset-0 bg-stone-900 flex justify-center items-center z-50 p-4">
-        <div className="text-center bg-red-900/50 border border-red-700 p-8 rounded-lg">
-          <h2 className="text-xl sm:text-2xl font-bold text-red-300 mb-4">Lỗi tải trang</h2>
-          <p className="text-stone-200">{error}</p>
+      <div className="fixed inset-0 bg-page flex justify-center items-center z-50 p-4">
+        <div className="text-center bg-red-50 border border-red-300 p-8 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-bold text-red-800 mb-4">Lỗi tải trang</h2>
+          <p className="text-ink-soft">{error}</p>
         </div>
       </div>
     );

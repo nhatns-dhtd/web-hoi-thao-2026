@@ -14,8 +14,8 @@ const UtilitiesTravelPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto bg-surface backdrop-blur-xs p-8 rounded-xl shadow-xl border border-line/50 text-stone-100 space-y-10">
-      <h1 className="text-2xl md:text-3xl font-bold text-center text-amber-100">Thông tin Tiện ích & Du lịch</h1>
+    <div className="max-w-4xl mx-auto bg-surface p-8 rounded-xl shadow-xl border border-line/50 text-ink space-y-10">
+      <h1 className="text-2xl md:text-3xl font-bold text-center text-brand-ink">Thông tin Tiện ích & Du lịch</h1>
       
       <section>
         <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b border-line pb-2">Địa điểm và Tiện ích</h2>
@@ -26,7 +26,7 @@ const UtilitiesTravelPage: React.FC = () => {
 
       <section>
         <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b border-line pb-2">Khách sạn gợi ý</h2>
-        <p className="text-stone-300 mb-3">Một số khách sạn tại khu vực trung tâm Hà Nội, thuận tiện di chuyển tới địa điểm tổ chức:</p>
+        <p className="text-ink-soft mb-3">Một số khách sạn tại khu vực trung tâm Hà Nội, thuận tiện di chuyển tới địa điểm tổ chức:</p>
         <ul className="space-y-2">
             {hotels.map((hotel, index) => (
                 <li key={index} className="p-2 bg-surface-sunken rounded">{hotel.name}</li>
@@ -40,7 +40,7 @@ const UtilitiesTravelPage: React.FC = () => {
             {attractions.map((place, index) => (
                 <div key={index}>
                     <h3 className="font-bold">{place.name}</h3>
-                    <p className="text-stone-300">{place.description}</p>
+                    <p className="text-ink-soft">{place.description}</p>
                 </div>
             ))}
         </div>

@@ -3,12 +3,12 @@ import Card from '../components/ui/Card';
 
 const AboutPage: React.FC = () => {
   return (
-    <Card className="max-w-4xl mx-auto p-8 rounded-xl shadow-xl text-stone-100">
-      <h1 className="text-2xl md:text-3xl font-bold text-center mb-2 text-amber-100">Về Diễn đàn</h1>
-      <p className="text-center text-stone-300 mb-6 italic">
+    <Card className="max-w-4xl mx-auto p-8 rounded-xl shadow-xl text-ink">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-2 text-brand-ink">Về Diễn đàn</h1>
+      <p className="text-center text-ink-soft mb-6 italic">
         Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba – AFCE 2026
       </p>
-      <div className="space-y-4 text-lg text-stone-200">
+      <div className="space-y-4 text-lg text-ink-soft">
         <p>
             Trường Đại học Thủ đô Hà Nội tổ chức Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba với chủ đề
             <strong> “Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững”</strong>, quy mô hội thảo khoa học quốc tế.

@@ -23,19 +23,19 @@ const getEventStyle = (activity: string) => {
 // Helper function to get part of day label style
 const getPartStyle = (title: string) => {
     const lowerTitle = title.toLowerCase();
-    if (lowerTitle.includes('sáng')) return 'bg-amber-500/20 border-amber-500 text-amber-300';
-    if (lowerTitle.includes('trưa')) return 'bg-orange-500/20 border-orange-500 text-orange-300';
-    if (lowerTitle.includes('chiều')) return 'bg-blue-500/20 border-blue-500 text-blue-300';
-    if (lowerTitle.includes('tối')) return 'bg-purple-500/20 border-purple-500 text-purple-300';
-    return 'bg-stone-500/20 border-stone-500 text-stone-300';
+    if (lowerTitle.includes('sáng')) return 'bg-amber-200/60 border-amber-500 text-amber-700';
+    if (lowerTitle.includes('trưa')) return 'bg-orange-500/20 border-orange-500 text-orange-700';
+    if (lowerTitle.includes('chiều')) return 'bg-blue-500/20 border-blue-500 text-blue-800';
+    if (lowerTitle.includes('tối')) return 'bg-purple-500/20 border-purple-500 text-purple-800';
+    return 'bg-stone-500/20 border-stone-500 text-ink-soft';
 };
 
 // Helper function to get session color for parallel sessions
 const getSessionColor = (index: number) => {
     const colors = [
-        { bg: 'bg-emerald-900/30', border: 'border-emerald-500', text: 'text-emerald-300', badge: 'bg-emerald-600' },
-        { bg: 'bg-violet-900/30', border: 'border-violet-500', text: 'text-violet-300', badge: 'bg-violet-600' },
-        { bg: 'bg-rose-900/30', border: 'border-rose-500', text: 'text-rose-300', badge: 'bg-rose-600' }
+        { bg: 'bg-emerald-50', border: 'border-emerald-500', text: 'text-emerald-800', badge: 'bg-emerald-600' },
+        { bg: 'bg-violet-50', border: 'border-violet-500', text: 'text-violet-800', badge: 'bg-violet-600' },
+        { bg: 'bg-rose-50', border: 'border-rose-500', text: 'text-rose-800', badge: 'bg-rose-600' }
     ];
     return colors[index % colors.length];
 };
@@ -52,10 +52,10 @@ const SchedulePage: React.FC = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-stone-100">Chương trình Hội thảo</h1>
-            <p className="text-center text-lg text-stone-100 mb-8">Các mốc thời gian quan trọng của Diễn đàn.</p>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-ink">Chương trình Hội thảo</h1>
+            <p className="text-center text-lg text-ink mb-8">Các mốc thời gian quan trọng của Diễn đàn.</p>
 
-            <div className="max-w-3xl mx-auto mb-16 p-4 rounded-lg bg-amber-900/30 border border-amber-600/60 text-amber-100 text-center">
+            <div className="max-w-3xl mx-auto mb-16 p-4 rounded-lg bg-amber-100 border border-amber-400 text-brand-ink text-center">
                 <i className="fas fa-info-circle mr-2"></i>
                 Chương trình chi tiết các phiên thảo luận và báo cáo viên sẽ được Ban tổ chức cập nhật sau.
             </div>
@@ -63,7 +63,7 @@ const SchedulePage: React.FC = () => {
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-2xl md:text-3xl font-bold text-amber-100 text-center bg-stone-900/60 backdrop-blur-xs py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-line shadow-md">
+                        <h2 className="text-2xl md:text-3xl font-bold text-brand-ink text-center bg-surface-sunken py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-line shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         
@@ -85,14 +85,14 @@ const SchedulePage: React.FC = () => {
 
                                             {/* Event Card */}
                                             <div className="ml-8 md:ml-12">
-                                                <div className="p-6 rounded-lg shadow-lg bg-surface backdrop-blur-xs border border-line/50">
-                                                    {event.time && <p className="text-amber-100 font-semibold mb-2 text-lg"><i className="far fa-clock mr-2"></i>{event.time}</p>}
-                                                    <h3 className="text-xl md:text-2xl font-bold text-stone-100 mb-3">{event.activity}</h3>
+                                                <div className="p-6 rounded-lg shadow-lg bg-surface border border-line/50">
+                                                    {event.time && <p className="text-brand-ink font-semibold mb-2 text-lg"><i className="far fa-clock mr-2"></i>{event.time}</p>}
+                                                    <h3 className="text-xl md:text-2xl font-bold text-ink mb-3">{event.activity}</h3>
                                                     
                                                     {/* Preside info */}
                                                     {event.preside && (
-                                                        <p className="text-sm text-stone-300 italic mb-4 bg-stone-700/30 p-3 rounded-md">
-                                                            <i className="fas fa-gavel mr-2 text-amber-400"></i>
+                                                        <p className="text-sm text-ink-soft italic mb-4 bg-surface-sunken p-3 rounded-md">
+                                                            <i className="fas fa-gavel mr-2 text-amber-700"></i>
                                                             <span className="font-semibold">Chủ trì:</span> {event.preside}
                                                         </p>
                                                     )}
@@ -101,9 +101,9 @@ const SchedulePage: React.FC = () => {
                                                     {event.subSessions && (
                                                         <div className="mt-4 space-y-4 pt-4 border-t border-line">
                                                             {event.subSessions.map((sub: SubSession, sIndex: number) => (
-                                                                <div key={sIndex} className="p-4 rounded-md bg-blue-900/30 border-l-4 border-blue-500">
+                                                                <div key={sIndex} className="p-4 rounded-md bg-blue-50 border-l-4 border-blue-500">
                                                                     {sub.time && (
-                                                                        <p className="text-amber-300 font-semibold text-sm mb-2">
+                                                                        <p className="text-amber-700 font-semibold text-sm mb-2">
                                                                             <i className="far fa-clock mr-2"></i>{sub.time}
                                                                         </p>
                                                                     )}
@@ -113,13 +113,13 @@ const SchedulePage: React.FC = () => {
                                                                     {sub.presenter && sub.presenter.length > 0 && (
                                                                         <div className="mt-3 space-y-2">
                                                                             {sub.presenter.map((p, pIndex) => (
-                                                                                <div key={pIndex} className="text-sm text-stone-300 bg-stone-800/50 p-3 rounded">
-                                                                                    <p className="font-semibold text-stone-100">
-                                                                                        <i className="fas fa-user mr-2 text-green-400"></i>
+                                                                                <div key={pIndex} className="text-sm text-ink-soft bg-surface p-3 rounded">
+                                                                                    <p className="font-semibold text-ink">
+                                                                                        <i className="fas fa-user mr-2 text-green-700"></i>
                                                                                         {p.name}
                                                                                     </p>
                                                                                     {p.department && (
-                                                                                        <p className="text-xs text-stone-400 mt-1 ml-6">{p.department}</p>
+                                                                                        <p className="text-xs text-ink-muted mt-1 ml-6">{p.department}</p>
                                                                                     )}
                                                                                 </div>
                                                                             ))}
@@ -157,8 +157,8 @@ const SchedulePage: React.FC = () => {
 
                                                                         {/* Preside info for parallel session */}
                                                                         {session.preside && (
-                                                                            <p className={`px-4 py-2 text-sm italic ${color.text} bg-stone-700/30`}>
-                                                                                <i className="fas fa-gavel mr-2 text-amber-400"></i>
+                                                                            <p className={`px-4 py-2 text-sm italic ${color.text} bg-surface-sunken`}>
+                                                                                <i className="fas fa-gavel mr-2 text-amber-700"></i>
                                                                                 <span className="font-semibold">Chủ trì:</span> {session.preside}
                                                                             </p>
                                                                         )}
@@ -167,9 +167,9 @@ const SchedulePage: React.FC = () => {
                                                                         {isExpanded && (
                                                                             <div className="p-4 space-y-4">
                                                                                 {session.presentations.map((pres, presIndex: number) => (
-                                                                                    <div key={presIndex} className="p-4 rounded-md bg-blue-900/30 border-l-4 border-blue-500">
+                                                                                    <div key={presIndex} className="p-4 rounded-md bg-blue-50 border-l-4 border-blue-500">
                                                                                         {pres.time && (
-                                                                                            <p className="text-amber-300 font-semibold text-sm mb-2">
+                                                                                            <p className="text-amber-700 font-semibold text-sm mb-2">
                                                                                                 <i className="far fa-clock mr-2"></i>{pres.time}
                                                                                             </p>
                                                                                         )}
@@ -179,13 +179,13 @@ const SchedulePage: React.FC = () => {
                                                                                         {pres.presenter && pres.presenter.length > 0 && (
                                                                                             <div className="mt-3 space-y-2">
                                                                                                 {pres.presenter.map((p, pIndex) => (
-                                                                                                    <div key={pIndex} className="text-sm text-stone-300 bg-stone-800/50 p-3 rounded">
-                                                                                                        <p className="font-semibold text-stone-100">
-                                                                                                            <i className="fas fa-user mr-2 text-green-400"></i>
+                                                                                                    <div key={pIndex} className="text-sm text-ink-soft bg-surface p-3 rounded">
+                                                                                                        <p className="font-semibold text-ink">
+                                                                                                            <i className="fas fa-user mr-2 text-green-700"></i>
                                                                                                             {p.name}
                                                                                                         </p>
                                                                                                         {p.department && (
-                                                                                                            <p className="text-xs text-stone-400 mt-1 ml-6">{p.department}</p>
+                                                                                                            <p className="text-xs text-ink-muted mt-1 ml-6">{p.department}</p>
                                                                                                         )}
                                                                                                     </div>
                                                                                                 ))}

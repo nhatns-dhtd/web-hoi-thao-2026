@@ -13,18 +13,18 @@ const FeesPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto bg-surface backdrop-blur-xs p-8 rounded-xl shadow-xl border border-line/50 text-stone-100">
-      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-amber-100">Lệ phí công bố, xuất bản Kỷ yếu</h1>
-      <p className="text-center text-stone-300 mb-8">
+    <div className="max-w-4xl mx-auto bg-surface p-8 rounded-xl shadow-xl border border-line/50 text-ink">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-brand-ink">Lệ phí công bố, xuất bản Kỷ yếu</h1>
+      <p className="text-center text-ink-soft mb-8">
         Các báo cáo được Hội thảo chấp nhận đăng sẽ xuất bản trong Kỷ yếu toàn văn có chỉ số ISBN tại Việt Nam.
       </p>
 
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-stone-900/60">
-              <th className="p-4 border border-line font-semibold text-amber-200">Đối tượng</th>
-              <th className="p-4 border border-line font-semibold text-amber-200 text-center">Lệ phí báo cáo toàn văn</th>
+            <tr className="bg-surface-sunken">
+              <th className="p-4 border border-line font-semibold text-amber-800">Đối tượng</th>
+              <th className="p-4 border border-line font-semibold text-amber-800 text-center">Lệ phí báo cáo toàn văn</th>
             </tr>
           </thead>
           <tbody>
@@ -38,7 +38,7 @@ const FeesPage: React.FC = () => {
         </table>
       </div>
 
-      <p className="mt-4 text-stone-300 italic">
+      <p className="mt-4 text-ink-soft italic">
         Đối với bài viết có tác giả ngoài trường tham gia, kinh phí tính theo số lượng tác giả của bài viết.
       </p>
 

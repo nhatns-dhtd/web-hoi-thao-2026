@@ -10,7 +10,7 @@ import React from 'react';
 export type CardTone = 'raised' | 'sunken';
 
 const TONE: Record<CardTone, string> = {
-  raised: 'bg-surface backdrop-blur-xs border border-line/50',
+  raised: 'bg-surface border border-line/50',
   sunken: 'bg-surface-sunken border border-line/50',
 };
 

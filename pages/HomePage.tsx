@@ -32,7 +32,7 @@ const ImageLightbox: React.FC<{
         {/* Close button */}
         <button
           onClick={onClose}
-          className="flex items-center absolute -top-10 right-0 text-white hover:text-amber-400 transition-colors"
+          className="flex items-center absolute -top-10 right-0 text-white hover:text-amber-700 transition-colors"
         >
           <i className="fas fa-times text-2xl"></i>
           <span className="ml-2 text-sm">Đóng</span>
@@ -46,7 +46,7 @@ const ImageLightbox: React.FC<{
         />
         
         {/* Zoom hint */}
-        <p className="text-center text-stone-400 text-sm mt-3">
+        <p className="text-center text-ink-muted text-sm mt-3">
           <i className="fas fa-search-plus mr-2"></i>
           Click bên ngoài để đóng
         </p>
@@ -79,7 +79,7 @@ const SpeakerModal: React.FC<{
       onMouseDown={handleBackdropMouseDown}
       onMouseUp={handleBackdropMouseUp}
     >
-      <div className="bg-stone-800 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-line">
+      <div className="bg-surface rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-line">
         {/* Header with gradient */}
         <div className="bg-gradient-to-r from-amber-900/80 to-cyan-900/60 p-6 relative">
           <button
@@ -100,7 +100,7 @@ const SpeakerModal: React.FC<{
             {/* Name & Affiliation */}
             <div className="flex-1">
               <h3 className="text-xl font-bold text-white mb-1">{speaker.name}</h3>
-              <p className="text-amber-200 text-sm flex items-center gap-2">
+              <p className="text-amber-800 text-sm flex items-center gap-2">
                 <i className="fas fa-university"></i>
                 {speaker.affiliation}
               </p>
@@ -113,11 +113,11 @@ const SpeakerModal: React.FC<{
           {/* Keynote Topic */}
           {speaker.keynoteTopic && (
             <div>
-              <h4 className="text-sm font-semibold text-amber-400 uppercase tracking-wide mb-2 flex items-center gap-2">
+              <h4 className="text-sm font-semibold text-amber-700 uppercase tracking-wide mb-2 flex items-center gap-2">
                 <i className="fas fa-microphone-alt"></i>
                 Chủ đề báo cáo
               </h4>
-              <p className="text-stone-100 bg-stone-700/50 rounded-lg p-3 border-l-4 border-amber-500">
+              <p className="text-ink bg-surface-sunken rounded-lg p-3 border-l-4 border-amber-500">
                 {speaker.keynoteTopic}
               </p>
             </div>
@@ -126,11 +126,11 @@ const SpeakerModal: React.FC<{
           {/* Bio */}
           {speaker.bio && (
             <div>
-              <h4 className="text-sm font-semibold text-emerald-400 uppercase tracking-wide mb-2 flex items-center gap-2">
+              <h4 className="text-sm font-semibold text-emerald-700 uppercase tracking-wide mb-2 flex items-center gap-2">
                 <i className="fas fa-user-tie"></i>
                 Tiểu sử
               </h4>
-              <p className="text-stone-300 leading-relaxed text-sm">
+              <p className="text-ink-soft leading-relaxed text-sm">
                 {speaker.bio}
               </p>
             </div>
@@ -138,7 +138,7 @@ const SpeakerModal: React.FC<{
           
           {/* No additional info message */}
           {!speaker.keynoteTopic && !speaker.bio && (
-            <p className="text-stone-400 text-center py-4">
+            <p className="text-ink-muted text-center py-4">
               <i className="fas fa-info-circle mr-2"></i>
               Thông tin chi tiết sẽ được cập nhật sau.
             </p>
@@ -149,7 +149,7 @@ const SpeakerModal: React.FC<{
         <div className="px-6 py-4 bg-surface-sunken border-t border-line flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded-lg transition-colors"
+            className="px-5 py-2 bg-surface-sunken hover:bg-amber-200 text-ink rounded-lg transition-colors border border-line"
           >
             Đóng
           </button>
@@ -183,28 +183,28 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Conference Details Section */}
-      <section className="bg-stone-900/40 backdrop-blur-xs p-8 rounded-lg shadow-lg border border-line/50">
+      <section className="bg-surface-sunken p-8 rounded-lg shadow-lg border border-line/50">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="flex flex-col items-center">
-             <div className="bg-amber-900/50 text-amber-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
+             <div className="bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-calendar-alt fa-2x"></i>
              </div>
-            <h3 className="text-xl font-bold mb-2 text-stone-100">Thời gian</h3>
-            <p className="text-lg text-stone-100">{siteContent.conferenceDate}</p>
+            <h3 className="text-xl font-bold mb-2 text-ink">Thời gian</h3>
+            <p className="text-lg text-ink">{siteContent.conferenceDate}</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-orange-900/50 text-orange-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
+            <div className="bg-orange-100 text-orange-700 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-map-marker-alt fa-2x"></i>
             </div>
-            <h3 className="text-xl font-bold mb-2 text-stone-100">Địa điểm</h3>
-            <p className="text-lg text-stone-100">{siteContent.conferenceLocation}</p>
+            <h3 className="text-xl font-bold mb-2 text-ink">Địa điểm</h3>
+            <p className="text-lg text-ink">{siteContent.conferenceLocation}</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-rose-900/50 text-rose-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
+            <div className="bg-rose-100 text-rose-800 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-users fa-2x"></i>
             </div>
-            <h3 className="text-xl font-bold mb-2 text-stone-100">Quy mô</h3>
-            <p className="text-lg text-stone-100">Hội thảo khoa học quốc tế</p>
+            <h3 className="text-xl font-bold mb-2 text-ink">Quy mô</h3>
+            <p className="text-lg text-ink">Hội thảo khoa học quốc tế</p>
           </div>
         </div>
       </section>
@@ -213,10 +213,10 @@ const HomePage: React.FC = () => {
       <section className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Call for Papers - Left side (2/5 width on desktop) */}
         <div className="lg:col-span-2">
-          <div className="bg-stone-900/40 backdrop-blur-xs rounded-lg shadow-lg border border-line/50 overflow-hidden h-full flex flex-col">
+          <div className="bg-surface-sunken rounded-lg shadow-lg border border-line/50 overflow-hidden h-full flex flex-col">
             <div className="bg-gradient-to-r from-amber-900/60 to-cyan-900/40 px-6 py-4 border-b border-line/50">
-              <h3 className="text-xl font-bold text-amber-100 flex items-center gap-3">
-                <i className="fas fa-newspaper text-amber-400"></i>
+              <h3 className="text-xl font-bold text-brand-ink flex items-center gap-3">
+                <i className="fas fa-newspaper text-amber-700"></i>
                 Kêu gọi Bài báo
               </h3>
             </div>
@@ -253,16 +253,16 @@ const HomePage: React.FC = () => {
 
         {/* Keynote Speakers - Right side (3/5 width on desktop) */}
         <div className="lg:col-span-3">
-          <div className="bg-stone-900/40 backdrop-blur-xs rounded-lg shadow-lg border border-line/50 overflow-hidden h-full flex flex-col">
+          <div className="bg-surface-sunken rounded-lg shadow-lg border border-line/50 overflow-hidden h-full flex flex-col">
             <div className="bg-gradient-to-r from-emerald-900/60 to-amber-900/40 px-6 py-4 border-b border-line/50">
               <h3 className="text-xl font-bold text-emerald-100 flex items-center gap-3">
-                <i className="fas fa-microphone-alt text-emerald-400"></i>
+                <i className="fas fa-microphone-alt text-emerald-700"></i>
                 Báo cáo viên
               </h3>
             </div>
             <div className="p-6 flex-1">
               {siteContent.keynoteSpeakers.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-center py-10 text-stone-400">
+                <div className="h-full flex flex-col items-center justify-center text-center py-10 text-ink-muted">
                   <i className="fas fa-user-clock fa-2x mb-3"></i>
                   <p className="italic">Danh sách báo cáo viên đang được cập nhật.</p>
                 </div>
@@ -272,14 +272,14 @@ const HomePage: React.FC = () => {
                   <button
                     key={speaker.id}
                     onClick={() => setSelectedSpeaker(speaker)}
-                    className="group text-center cursor-pointer hover:bg-stone-700/30 rounded-xl p-3 transition-all duration-300"
+                    className="group text-center cursor-pointer hover:bg-surface-sunken rounded-xl p-3 transition-all duration-300"
                   >
                     {/* Avatar with hover effect */}
                     <div className="relative mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-3">
                       <img
                         src={speaker.imageUrl}
                         alt={speaker.name}
-                        className="w-full h-full object-cover rounded-full border-3 border-line-strong group-hover:border-amber-500 transition-all duration-300 shadow-lg group-hover:shadow-amber-500/20"
+                        className="w-full h-full object-cover rounded-full border-3 border-line-strong group-hover:border-amber-500 transition-all duration-300 shadow-lg group-hover:shadow-amber-900/10"
                       />
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -287,11 +287,11 @@ const HomePage: React.FC = () => {
                       </div>
                     </div>
                     {/* Name always visible */}
-                    <h4 className="text-sm font-semibold text-stone-100 leading-tight line-clamp-2 group-hover:text-amber-300 transition-colors">
+                    <h4 className="text-sm font-semibold text-ink leading-tight line-clamp-2 group-hover:text-amber-700 transition-colors">
                       {speaker.name}
                     </h4>
                     {/* Affiliation */}
-                    <p className="text-xs text-stone-400 mt-1 line-clamp-1">
+                    <p className="text-xs text-ink-muted mt-1 line-clamp-1">
                       {speaker.affiliation}
                     </p>
                   </button>
@@ -300,8 +300,8 @@ const HomePage: React.FC = () => {
               )}
             </div>
             {/* Footer with count */}
-            <div className="px-6 py-4 bg-stone-800/30 border-t border-line/50 flex items-center justify-between">
-              <span className="text-sm text-stone-400">
+            <div className="px-6 py-4 bg-surface border-t border-line/50 flex items-center justify-between">
+              <span className="text-sm text-ink-muted">
                 {siteContent.keynoteSpeakers.length > 0 && (
                   <>
                     <i className="fas fa-users mr-2"></i>
@@ -311,7 +311,7 @@ const HomePage: React.FC = () => {
               </span>
               <Link 
                 to="/schedule" 
-                className="text-sm text-amber-400 hover:text-amber-300 font-medium transition-colors"
+                className="text-sm text-amber-700 hover:text-amber-700 font-medium transition-colors"
               >
                 Xem chương trình <i className="fas fa-arrow-right ml-1"></i>
               </Link>
@@ -322,8 +322,8 @@ const HomePage: React.FC = () => {
 
       {/* Call to Action Section */}
       <section className="text-center max-w-4xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-amber-100">Kính mời viết bài và tham dự Diễn đàn</h2>
-        <p className="text-lg text-stone-100 mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-brand-ink">Kính mời viết bài và tham dự Diễn đàn</h2>
+        <p className="text-lg text-ink mb-8">
           Ban tổ chức trân trọng kính mời các cơ quan, tổ chức, chuyên gia, nhà khoa học, giảng viên, giáo viên,
           nghiên cứu sinh, học viên cao học và sinh viên tham gia viết bài và tham dự Diễn đàn.
           Hạn gửi toàn văn báo cáo: trước ngày 20/8/2026.
@@ -337,7 +337,7 @@ const HomePage: React.FC = () => {
             </Link>
             <Link 
                 to="/schedule"
-                className="bg-amber-900/50 text-amber-50 font-bold py-3 px-8 rounded-lg hover:bg-amber-800/50 transition-transform transform hover:scale-105 shadow-lg border border-amber-700"
+                className="bg-amber-100 text-brand-ink font-bold py-3 px-8 rounded-lg hover:bg-amber-200 transition-transform transform hover:scale-105 shadow-lg border border-amber-700"
             >
                 Xem chương trình
             </Link>

@@ -14,8 +14,8 @@ export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success';
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary: 'text-white bg-brand hover:bg-brand-hover',
-  // Xám trung tính, chưa gắn token vì theme tối và sáng cần hai hướng khác nhau.
-  secondary: 'text-stone-200 bg-stone-600 hover:bg-stone-500',
+  // Xám trung tính, cố ý không dùng token thương hiệu.
+  secondary: 'text-stone-800 bg-stone-200 hover:bg-stone-300',
   danger: 'text-white bg-red-600 hover:bg-red-700',
   success: 'text-white bg-green-600 hover:bg-green-700',
 };

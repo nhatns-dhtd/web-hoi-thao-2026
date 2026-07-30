@@ -7,9 +7,9 @@ import { useAuth } from '../contexts/AuthContext';
 import { usePapers } from '../contexts/PaperContext';
 
 const reviewStatusStyles: { [key in ReviewStatus]: string } = {
-  'Duyệt': 'bg-green-900/60 text-green-300 border border-green-700',
-  'Không duyệt': 'bg-red-900/60 text-red-300 border border-red-700',
-  'Đang chờ duyệt': 'bg-sky-900/60 text-sky-300 border border-sky-700',
+  'Duyệt': 'bg-green-100 text-green-800 border border-green-300',
+  'Không duyệt': 'bg-red-100 text-red-800 border border-red-300',
+  'Đang chờ duyệt': 'bg-sky-100 text-sky-800 border border-sky-300',
 };
 
 const reviewStatusText: { [key in ReviewStatus]: string } = {
@@ -19,14 +19,14 @@ const reviewStatusText: { [key in ReviewStatus]: string } = {
 };
 
 const presentationStatusStyles: { [key in PresentationStatus]: string } = {
-  'Trình bày': 'bg-amber-900/60 text-amber-300 border border-amber-700',
-  'Không trình bày': 'bg-stone-700/60 text-stone-100 border border-line-strong',
+  'Trình bày': 'bg-amber-100 text-amber-800 border border-amber-300',
+  'Không trình bày': 'bg-stone-100 text-stone-700 border border-stone-300',
 };
 
 const topicStyles: { [key: number]: string } = {
-  1: 'bg-sky-900/70 text-sky-300 border border-sky-700',
-  2: 'bg-emerald-900/70 text-emerald-300 border border-emerald-700',
-  3: 'bg-indigo-900/70 text-indigo-300 border border-indigo-700',
+  1: 'bg-sky-100 text-sky-800 border border-sky-300',
+  2: 'bg-emerald-100 text-emerald-800 border border-emerald-300',
+  3: 'bg-indigo-100 text-indigo-800 border border-indigo-300',
 };
 
 // Sắp xếp theo mã số bài viết tăng dần. Lấy nhóm chữ số CUỐI để bỏ qua chữ số nằm
@@ -65,7 +65,7 @@ const EditPaperModal: React.FC<{
 
   return (
     <Modal onClose={onClose} className="rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-stone-100 mb-4">Chỉnh sửa bài báo</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-ink mb-4">Chỉnh sửa bài báo</h2>
 
         <div className="space-y-4 mb-6">
           <div>
@@ -158,14 +158,14 @@ const PaperReviewPage: React.FC = () => {
   return (
     <>
       <div className="max-w-screen-2xl mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-4 text-stone-100">Kết quả duyệt bài tham dự hội thảo</h1>
-        <p className="text-center text-stone-100 text-lg mb-10">
+        <h1 className="text-4xl font-bold text-center mb-4 text-ink">Kết quả duyệt bài tham dự hội thảo</h1>
+        <p className="text-center text-ink text-lg mb-10">
           Danh sách các bài báo đã nộp và trạng thái duyệt, trình bày.
         </p>
 
-        <div className="bg-surface backdrop-blur-xs rounded-lg shadow-2xl border border-line/50 overflow-hidden">
+        <div className="bg-surface rounded-lg shadow-2xl border border-line/50 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-stone-100 table-fixed">
+            <table className="w-full text-sm text-left text-ink table-fixed">
               <colgroup>
                 <col className="w-12" /> {/* STT */}
                 <col className="w-28" /> {/* Mã số */}
@@ -177,7 +177,7 @@ const PaperReviewPage: React.FC = () => {
                 <col className="w-[120px]" /> {/* Trình bày */}
                 {isAdmin && <col className="w-24" />} {/* Thao tác */}
               </colgroup>
-              <thead className="bg-surface-sunken text-xs text-stone-400 uppercase tracking-wider">
+              <thead className="bg-surface-sunken text-xs text-ink-muted uppercase tracking-wider">
                 <tr>
                   <th scope="col" className="px-3 py-3 text-center">STT</th>
                   <th scope="col" className="px-3 py-3 text-center whitespace-nowrap">Mã số</th>
@@ -195,25 +195,25 @@ const PaperReviewPage: React.FC = () => {
               <tbody className="divide-y divide-stone-700/50">
                 {sortedPapers.length === 0 && (
                   <tr>
-                    <td colSpan={isAdmin ? 9 : 8} className="px-3 py-12 text-center text-stone-400 italic">
+                    <td colSpan={isAdmin ? 9 : 8} className="px-3 py-12 text-center text-ink-muted italic">
                       Kết quả duyệt bài sẽ được Ban tổ chức cập nhật.
                     </td>
                   </tr>
                 )}
                 {sortedPapers.map((paper, index) => (
-                  <tr key={paper.id} className="hover:bg-stone-700/30 transition-colors duration-200">
-                    <td className="px-3 py-4 text-center font-medium text-stone-400">{index + 1}</td>
-                    <td className="px-3 py-4 text-center text-stone-300">
-                      {paper.paperCode || <span className="text-stone-500">—</span>}
+                  <tr key={paper.id} className="hover:bg-surface-sunken transition-colors duration-200">
+                    <td className="px-3 py-4 text-center font-medium text-ink-muted">{index + 1}</td>
+                    <td className="px-3 py-4 text-center text-ink-soft">
+                      {paper.paperCode || <span className="text-ink-muted">—</span>}
                     </td>
-                    <td className="px-3 py-4 font-medium text-stone-100">
+                    <td className="px-3 py-4 font-medium text-ink">
                       <div className="break-words whitespace-normal" title={paper.authorName}>{paper.authorName}</div>
                     </td>
                     <td className="px-3 py-4">
-                      <div className="break-words whitespace-normal text-stone-300" title={paper.organization}>{paper.organization}</div>
+                      <div className="break-words whitespace-normal text-ink-soft" title={paper.organization}>{paper.organization}</div>
                     </td>
                     <td className="px-3 py-4">
-                      <div className="font-medium text-stone-100 line-clamp-3" title={paper.paperTitle}>
+                      <div className="font-medium text-ink line-clamp-3" title={paper.paperTitle}>
                         {paper.paperTitle}
                       </div>
                     </td>
@@ -230,9 +230,9 @@ const PaperReviewPage: React.FC = () => {
                           onClick={(e) => e.stopPropagation()}
                           className={`${selectBaseClasses} ${reviewStatusStyles[paper.reviewStatus]}`}
                         >
-                          <option className="bg-stone-800 text-white" value="Duyệt">Duyệt</option>
-                          <option className="bg-stone-800 text-white" value="Không duyệt">Không duyệt</option>
-                          <option className="bg-stone-800 text-white" value="Đang chờ duyệt">Đang chờ</option>
+                          <option className="bg-surface text-white" value="Duyệt">Duyệt</option>
+                          <option className="bg-surface text-white" value="Không duyệt">Không duyệt</option>
+                          <option className="bg-surface text-white" value="Đang chờ duyệt">Đang chờ</option>
                         </select>
                       ) : (
                         <span className={`${spanBaseClasses} ${reviewStatusStyles[paper.reviewStatus]}`}>
@@ -248,8 +248,8 @@ const PaperReviewPage: React.FC = () => {
                           onClick={(e) => e.stopPropagation()}
                           className={`${selectBaseClasses} ${presentationStatusStyles[paper.presentationStatus]}`}
                         >
-                          <option className="bg-stone-800 text-white" value="Trình bày">Trình bày</option>
-                          <option className="bg-stone-800 text-white" value="Không trình bày">Không TB</option>
+                          <option className="bg-surface text-white" value="Trình bày">Trình bày</option>
+                          <option className="bg-surface text-white" value="Không trình bày">Không TB</option>
                         </select>
                       ) : (
                         <span className={`${spanBaseClasses} ${presentationStatusStyles[paper.presentationStatus]}`}>
@@ -262,14 +262,14 @@ const PaperReviewPage: React.FC = () => {
                         <div className="flex items-center justify-center gap-1">
                           <button
                             onClick={() => setEditingPaper(paper)}
-                            className="text-amber-100 hover:text-amber-300 p-1.5 rounded-md bg-amber-900/50 hover:bg-amber-800/50 border border-amber-700/50 transition-colors"
+                            className="text-brand-ink hover:text-amber-700 p-1.5 rounded-md bg-amber-100 hover:bg-amber-200 border border-amber-300 transition-colors"
                             title="Sửa"
                           >
                             <i className="fas fa-pencil-alt text-xs"></i>
                           </button>
                           <button
                             onClick={() => handleDelete(paper.id)}
-                            className="text-red-400 hover:text-red-300 p-1.5 rounded-md bg-red-900/50 hover:bg-red-800/50 border border-red-700/50 transition-colors"
+                            className="text-red-700 hover:text-red-800 p-1.5 rounded-md bg-red-100 hover:bg-red-200 border border-red-700/50 transition-colors"
                             title="Xóa"
                           >
                             <i className="fas fa-trash-alt text-xs"></i>
