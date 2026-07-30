@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// FIX: Import SiteContent from types.ts where it is now centrally defined.
-import type { KeynoteSpeaker, Sponsor, NavLink, SiteContent } from '../types';
+import type { KeynoteSpeaker, Sponsor, SiteContentImageKey } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
 import { usePapers } from '../contexts/PaperContext';
 import { useRegistrations } from '../contexts/RegistrationContext';
@@ -67,8 +66,8 @@ const ImageUploadCard: React.FC<{
 
 // Generic Modal for editing items
 const EditModal: React.FC<{
-    item: KeynoteSpeaker | Sponsor | NavLink | null;
-    itemType: 'speaker' | 'sponsor' | 'navLink';
+    item: KeynoteSpeaker | Sponsor | null;
+    itemType: 'speaker' | 'sponsor';
     onClose: () => void;
     onSave: (itemData: any) => void;
 }> = ({ item, itemType, onClose, onSave }) => {
@@ -94,7 +93,7 @@ const EditModal: React.FC<{
     };
 
     const handleSubmit = () => {
-        if (imageFile && itemType !== 'navLink') {
+        if (imageFile) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 const base64String = reader.result as string;
@@ -116,7 +115,6 @@ const EditModal: React.FC<{
     const getTitle = () => {
         if (itemType === 'speaker') return 'Keynote Speaker';
         if (itemType === 'sponsor') return 'Sponsor/Partner';
-        if (itemType === 'navLink') return 'Navigation Link';
         return 'Item';
     }
 
@@ -126,9 +124,6 @@ const EditModal: React.FC<{
                 <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">{item?.id ? 'Edit' : 'Add'} {getTitle()}</h2>
                 <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                     <input type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="Name" className={inputStyles} />
-                    {itemType === 'navLink' && (
-                         <input type="text" name="path" value={formData.path || ''} onChange={handleChange} placeholder="Path (e.g., /contact)" className={inputStyles} />
-                    )}
                     {itemType === 'speaker' && (
                         <>
                             <input type="text" name="affiliation" value={formData.affiliation || ''} onChange={handleChange} placeholder="Affiliation" className={inputStyles} />
@@ -155,14 +150,14 @@ const EditModal: React.FC<{
 
 
 const AdminPage: React.FC = () => {
-    const { siteContent, updateImage, updateConferenceInfo, addNavLink, updateNavLink, deleteNavLink, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer } = useSiteContent();
+    const { siteContent, updateImage, updateConferenceInfo, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer } = useSiteContent();
     const { papers } = usePapers();
     const { registrations } = useRegistrations();
 
     const [modalState, setModalState] = useState<{
         isOpen: boolean;
-        item: KeynoteSpeaker | Sponsor | NavLink | null;
-        itemType: 'speaker' | 'sponsor' | 'navLink';
+        item: KeynoteSpeaker | Sponsor | null;
+        itemType: 'speaker' | 'sponsor';
         subType?: 'sponsor' | 'coOrganizer';
     }>({ isOpen: false, item: null, itemType: 'sponsor' });
 
@@ -182,7 +177,7 @@ const AdminPage: React.FC = () => {
         alert('Conference info updated!');
     }
     
-    const handleImageUpload = (imageKey: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers' | 'navLinks' | 'heroTitle' | 'heroSubtitle' | 'conferenceDate' | 'conferenceLocation'>, file: File) => {
+    const handleImageUpload = (imageKey: SiteContentImageKey, file: File) => {
         const reader = new FileReader();
         reader.onloadend = () => {
             updateImage(imageKey, reader.result as string);
@@ -190,7 +185,7 @@ const AdminPage: React.FC = () => {
         reader.readAsDataURL(file);
     };
 
-    const handleOpenModal = (item: KeynoteSpeaker | Sponsor | NavLink | null, itemType: 'speaker' | 'sponsor' | 'navLink', subType?: 'sponsor' | 'coOrganizer') => {
+    const handleOpenModal = (item: KeynoteSpeaker | Sponsor | null, itemType: 'speaker' | 'sponsor', subType?: 'sponsor' | 'coOrganizer') => {
         setModalState({ isOpen: true, item, itemType, subType });
     };
 
@@ -201,18 +196,15 @@ const AdminPage: React.FC = () => {
     const handleSave = (itemData: any) => {
         if (modalState.itemType === 'speaker') {
             itemData.id ? updateKeynoteSpeaker(itemData.id, itemData) : addKeynoteSpeaker(itemData);
-        } else if (modalState.itemType === 'navLink') {
-            itemData.id ? updateNavLink(itemData.id, itemData) : addNavLink(itemData);
         } else {
             itemData.id ? updateSponsorOrCoOrganizer(itemData.id, itemData, modalState.subType!) : addSponsorOrCoOrganizer(itemData, modalState.subType!);
         }
         handleCloseModal();
     };
     
-    const handleDelete = (id: number, type: 'speaker' | 'sponsor' | 'coOrganizer' | 'navLink') => {
+    const handleDelete = (id: number, type: 'speaker' | 'sponsor' | 'coOrganizer') => {
         if (!window.confirm(`Are you sure you want to delete this ${type}?`)) return;
         if(type === 'speaker') deleteKeynoteSpeaker(id);
-        else if (type === 'navLink') deleteNavLink(id);
         else deleteSponsorOrCoOrganizer(id, type);
     }
 
@@ -257,30 +249,6 @@ const AdminPage: React.FC = () => {
                             <button onClick={handleSaveConfInfo} className="bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-700 transition-colors">Lưu</button>
                         </div>
                      </div>
-                </div>
-
-                {/* Navigation Menu */}
-                <div>
-                    <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Menu điều hướng</h3>
-                         <button onClick={() => handleOpenModal(null, 'navLink')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add Nav Link</button>
-                    </div>
-                    <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50">
-                        <ul className="space-y-2">
-                            {siteContent.navLinks.map(link => (
-                                <li key={link.id} className="flex items-center justify-between p-2 bg-slate-900/50 rounded-md">
-                                    <div>
-                                        <span className="font-semibold text-slate-100">{link.name}</span>
-                                        <span className="text-sm text-slate-400 ml-4">{link.path}</span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <button onClick={() => handleOpenModal(link, 'navLink')} className="text-sm font-medium text-yellow-100 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Edit</button>
-                                        <button onClick={() => handleDelete(link.id, 'navLink')} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Delete</button>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
                 </div>
 
                 {/* Keynote Speakers */}

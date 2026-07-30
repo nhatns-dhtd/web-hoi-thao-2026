@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import type { KeynoteSpeaker, ConferenceTopic, Sponsor, NavLink, SiteContent } from '../types';
+import type { KeynoteSpeaker, ConferenceTopic, Sponsor, SiteContent, SiteContentImageKey } from '../types';
 import LoadingSpinner from '../components/LoadingSpinner';
 import * as api from '../api';
 
@@ -7,11 +7,8 @@ import * as api from '../api';
 // Define the context type
 interface SiteContentContextType {
   siteContent: SiteContent; // No longer null after initial load
-  updateImage: (key: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers' | 'navLinks' | 'heroTitle' | 'heroSubtitle' | 'conferenceDate' | 'conferenceLocation'>, newUrl: string) => Promise<void>;
+  updateImage: (key: SiteContentImageKey, newUrl: string) => Promise<void>;
   updateConferenceInfo: (data: { title: string; subtitle: string; date: string; location: string }) => Promise<void>;
-  addNavLink: (navLinkData: Omit<NavLink, 'id'>) => Promise<void>;
-  updateNavLink: (navLinkId: number, navLinkData: Partial<NavLink>) => Promise<void>;
-  deleteNavLink: (navLinkId: number) => Promise<void>;
   addKeynoteSpeaker: (speakerData: Omit<KeynoteSpeaker, 'id'>) => Promise<void>;
   updateKeynoteSpeaker: (speakerId: number, speakerData: Partial<KeynoteSpeaker>) => Promise<void>;
   deleteKeynoteSpeaker: (speakerId: number) => Promise<void>;
@@ -44,7 +41,7 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
       setSiteContent(updatedContent);
   }
 
-  const updateImage = async (key: keyof Omit<SiteContent, 'keynoteSpeakers' | 'conferenceTopics' | 'sponsors' | 'coOrganizers' | 'navLinks' | 'heroTitle' | 'heroSubtitle' | 'conferenceDate' | 'conferenceLocation'>, newUrl: string) => {
+  const updateImage = async (key: SiteContentImageKey, newUrl: string) => {
     updateContent({ [key]: newUrl });
   };
   
@@ -54,26 +51,6 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
         heroSubtitle: data.subtitle,
         conferenceDate: data.date,
         conferenceLocation: data.location,
-    });
-  };
-
-  const addNavLink = async (navLinkData: Omit<NavLink, 'id'>) => {
-    if (!siteContent) return;
-    const newLink: NavLink = { id: Date.now(), ...navLinkData };
-    updateContent({ navLinks: [...siteContent.navLinks, newLink] });
-  };
-
-  const updateNavLink = async (navLinkId: number, navLinkData: Partial<NavLink>) => {
-    if (!siteContent) return;
-    updateContent({
-      navLinks: siteContent.navLinks.map(link => link.id === navLinkId ? { ...link, ...navLinkData } : link),
-    });
-  };
-
-  const deleteNavLink = async (navLinkId: number) => {
-    if (!siteContent) return;
-    updateContent({
-      navLinks: siteContent.navLinks.filter(link => link.id !== navLinkId),
     });
   };
 
@@ -145,7 +122,7 @@ export const SiteContentProvider: React.FC<{ children: ReactNode }> = ({ childre
     return <LoadingSpinner fullScreen />; 
   }
   
-  const value = { siteContent, updateImage, updateConferenceInfo, addNavLink, updateNavLink, deleteNavLink, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, updateConferenceTopic, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer };
+  const value = { siteContent, updateImage, updateConferenceInfo, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, updateConferenceTopic, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer };
 
   return (
     <SiteContentContext.Provider value={value}>

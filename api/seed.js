@@ -5,9 +5,8 @@ const {
     DETAILED_PAPER_SUBMISSIONS_DATA, 
     KEYNOTE_SPEAKERS_DATA, 
     CONFERENCE_TOPICS_DATA, 
-    SPONSORS_DATA, 
-    CO_ORGANIZERS_DATA, 
-    NAV_LINKS 
+    SPONSORS_DATA,
+    CO_ORGANIZERS_DATA
 } = require('./constants');
 
 // Nội dung hội thảo lấy từ Thông báo số 1 — đây là phần `--force` được phép ghi đè.
@@ -16,10 +15,6 @@ const conferenceContent = {
     conferenceTopics: CONFERENCE_TOPICS_DATA,
     sponsors: SPONSORS_DATA,
     coOrganizers: CO_ORGANIZERS_DATA,
-    // navLinks nằm trong nhóm ghi đè vì menu "Đăng ký & Nộp bài" chứa link Google Form
-    // của hội thảo — đổi link thì menu trên DB phải đổi theo. Đánh đổi: `--force` xoá
-    // phần menu admin đã tự chỉnh qua trang Admin.
-    navLinks: NAV_LINKS,
     heroTitle: "Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba – AFCE 2026",
     heroSubtitle: "Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững",
     conferenceDate: "Tháng 11/2026 (dự kiến)",
@@ -38,7 +33,7 @@ const adminManagedDefaults = {
 const initialSiteContent = { ...adminManagedDefaults, ...conferenceContent };
 
 // Chạy `npm run seed -- --force` để đẩy nội dung hội thảo mới vào DB đã có dữ liệu.
-// Không đụng tới users/registrations/papers (dữ liệu người dùng thật) và ảnh/navLinks admin đã chỉnh.
+// Không đụng tới users/registrations/papers (dữ liệu người dùng thật) và ảnh admin đã upload.
 const forceContent = process.argv.includes('--force');
 
 const initialUsers = [
@@ -219,13 +214,14 @@ async function seed(client) {
             console.log('Seeded "site_content" table.');
         } else if (forceContent) {
             // Merge từng khóa (toán tử `||` của JSONB) thay vì ghi đè cả ô, để giữ nguyên
-            // logo/ảnh và navLinks admin đã cập nhật qua trang Admin.
+            // logo/ảnh admin đã upload. Đồng thời xoá khóa `navLinks` mà các bản seed cũ
+            // để lại: menu giờ nằm trong code (`constants.ts`), khóa này không còn ai đọc.
             await client.sql`
                 UPDATE site_content
-                SET content = content || ${JSON.stringify(conferenceContent)}::jsonb
+                SET content = (content - 'navLinks') || ${JSON.stringify(conferenceContent)}::jsonb
                 WHERE id = 1;
             `;
-            console.log('Force mode: updated conference content in "site_content" (images and navLinks kept).');
+            console.log('Force mode: updated conference content in "site_content" (admin images kept, stale navLinks dropped).');
         } else {
             console.log('Site content already exists, skipping seed.');
         }

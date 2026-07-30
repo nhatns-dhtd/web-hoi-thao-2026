@@ -1,32 +1,4 @@
-// ============================================================================
-// LINK GOOGLE FORM — PHẢI TRÙNG với 3 hằng số trong `constants.ts` của frontend.
-// Bỏ trống thì mục menu tương ứng không được render (tránh menu trỏ vào link chết).
-// Sửa xong phải chạy `npm run seed -- --force` để đẩy menu mới vào DB.
-// ============================================================================
-const ABSTRACT_FORM_URL = "";
-const FULL_PAPER_FORM_URL = "";
-const ATTEND_FORM_URL = "";
-
-const REGISTRATION_FORM_LINKS = [
-  { id: 51, name: "Nộp tóm tắt", path: ABSTRACT_FORM_URL, external: true },
-  { id: 52, name: "Nộp báo cáo toàn văn", path: FULL_PAPER_FORM_URL, external: true },
-  { id: 53, name: "Đăng ký tham dự", path: ATTEND_FORM_URL, external: true },
-].filter(link => link.path);
-
-const NAV_LINKS = [
-  { id: 1, name: "Trang chủ", path: "/" },
-  { id: 2, name: "Giới thiệu", path: "/introduction" },
-  { id: 3, name: "Chương trình", path: "/schedule" },
-  { id: 4, name: "Thông báo", path: "/announcements" },
-  {
-    id: 5, name: "Đăng ký & Nộp bài", children: [
-      ...REGISTRATION_FORM_LINKS,
-      { id: 54, name: "Hướng dẫn tham dự", path: "/participation-guide" },
-    ]
-  },
-  { id: 6, name: "Kết quả duyệt bài", path: "/paper-review" },
-  { id: 7, name: "Admin", path: "/admin" },
-];
+// Menu điều hướng KHÔNG lưu trong DB — khai báo tại `constants.ts` của frontend.
 
 const ANNOUNCEMENTS_DATA = [
     {
@@ -70,7 +42,6 @@ const CONFERENCE_TOPICS_DATA = [
 const DETAILED_PAPER_SUBMISSIONS_DATA = [];
 
 module.exports = {
-    NAV_LINKS,
     ANNOUNCEMENTS_DATA,
     CO_ORGANIZERS_DATA,
     SPONSORS_DATA,

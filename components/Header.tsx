@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink as RouterNavLink, Link } from 'react-router-dom';
 import type { NavLink } from '../types';
+import { NAV_LINKS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
 import { useSiteContent } from '../contexts/SiteContentContext';
 
@@ -9,7 +10,6 @@ const Header: React.FC = () => {
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
   const { currentUser, logout } = useAuth();
   const { siteContent } = useSiteContent();
-  const { navLinks } = siteContent;
 
   const linkClasses = "block py-2 px-3 text-slate-100 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-yellow-100 md:p-0 transition-colors duration-200";
   const activeLinkClasses = "text-yellow-100 font-semibold md:bg-transparent";
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
           {/* Navigation Menu - Full width below */}
           <div className={`${isMenuOpen ? 'block' : 'hidden'} md:block mt-4`} id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 border border-slate-700 rounded-lg bg-slate-800/80 md:flex-row md:items-center md:space-x-8 rtl:space-x-reverse md:border-0 md:bg-transparent justify-center">
-              {navLinks.map((link: NavLink) => {
+              {NAV_LINKS.map((link: NavLink) => {
                 if (link.path === '/admin' && currentUser?.role !== 'admin') {
                   return null;
                 }

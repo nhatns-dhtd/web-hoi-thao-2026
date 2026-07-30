@@ -157,9 +157,15 @@ export type SiteContent = {
   conferenceTopics: ConferenceTopic[];
   sponsors: Sponsor[];
   coOrganizers: Sponsor[];
-  navLinks: NavLink[];
   heroTitle: string;
   heroSubtitle: string;
   conferenceDate: string;
   conferenceLocation: string;
 };
+
+/** Các khóa ảnh trong SiteContent mà admin upload được qua trang Admin. */
+export type SiteContentImageKey =
+  | 'conferenceLogo'
+  | 'universityLogo'
+  | 'heroBackground'
+  | 'callForPapersImage';
