@@ -6,6 +6,8 @@ const API_BASE_URL = '/api';
 const fetchAPI = async (endpoint: string, options: RequestInit = {}) => {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
+    // Cookie session là httpOnly nên JS không đọc được; phải để browser tự gửi kèm.
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
       ...options.headers,
@@ -31,6 +33,21 @@ export const login = (username: string, password: string): Promise<User> => {
     method: 'POST',
     body: JSON.stringify({ username, password }),
   });
+};
+
+export const logout = (): Promise<void> => {
+  return fetchAPI('/logout', { method: 'POST' });
+};
+
+/** Trả về user của phiên hiện tại, hoặc null nếu chưa đăng nhập (API trả 401). */
+export const getCurrentUser = async (): Promise<User | null> => {
+  const response = await fetch(`${API_BASE_URL}/me`, { credentials: 'same-origin' });
+  if (response.status === 401) return null;
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ message: 'An unknown error occurred' }));
+    throw new Error(errorData.message || 'Không kiểm tra được phiên đăng nhập');
+  }
+  return response.json();
 };
 
 export const getUsers = (): Promise<User[]> => {
