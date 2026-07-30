@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold text-amber-100 mb-4">Đối tác & Nhà tài trợ</h3>
             <div className="flex justify-center items-center gap-6 flex-wrap">
               {siteContent.sponsors.map((sponsor: Sponsor) => (
-                <div key={sponsor.id} className="bg-stone-200/80 p-2 rounded-md shadow-sm">
+                <div key={sponsor.id} className="bg-stone-200/80 p-2 rounded-md shadow-xs">
                   <img src={sponsor.logoUrl} alt={sponsor.name} className="h-12 object-contain" />
                 </div>
               ))}

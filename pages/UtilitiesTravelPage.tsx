@@ -14,7 +14,7 @@ const UtilitiesTravelPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100 space-y-10">
+    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-xs p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100 space-y-10">
       <h1 className="text-2xl md:text-3xl font-bold text-center text-amber-100">Thông tin Tiện ích & Du lịch</h1>
       
       <section>

@@ -7,7 +7,7 @@ import { getUsers } from '../api';
 import type { User } from '../types';
 
 const TableCard: React.FC<{ title: string; headers: string[]; children: React.ReactNode }> = ({ title, headers, children }) => (
-    <div className="bg-stone-800/40 backdrop-blur-sm rounded-lg shadow-2xl border border-stone-700/50 overflow-hidden mb-12">
+    <div className="bg-stone-800/40 backdrop-blur-xs rounded-lg shadow-2xl border border-stone-700/50 overflow-hidden mb-12">
         <h2 className="text-xl sm:text-2xl font-bold text-amber-100 p-4 bg-stone-900/50">{title}</h2>
         <div className="overflow-x-auto">
             <table className="min-w-full text-sm text-left text-stone-100">

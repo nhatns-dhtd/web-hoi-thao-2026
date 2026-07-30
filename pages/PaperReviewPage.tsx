@@ -60,7 +60,7 @@ const EditPaperModal: React.FC<{
     onSave(paper.id, formData);
   };
 
-  const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500";
+  const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500";
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onMouseDown={onClose}>
@@ -151,7 +151,7 @@ const PaperReviewPage: React.FC = () => {
     }
   };
 
-  const selectBaseClasses = "w-full text-xs font-semibold rounded-md py-1.5 px-2 focus:ring-2 focus:ring-amber-500 focus:outline-none transition appearance-none text-center";
+  const selectBaseClasses = "w-full text-xs font-semibold rounded-md py-1.5 px-2 focus:ring-2 focus:ring-amber-500 focus:outline-hidden transition appearance-none text-center";
   const spanBaseClasses = "inline-block px-2.5 py-1 text-xs font-semibold leading-none rounded-full whitespace-nowrap";
 
   const sortedPapers = [...papers].sort((a, b) => paperCodeOrder(a.paperCode) - paperCodeOrder(b.paperCode));
@@ -164,7 +164,7 @@ const PaperReviewPage: React.FC = () => {
           Danh sách các bài báo đã nộp và trạng thái duyệt, trình bày.
         </p>
 
-        <div className="bg-stone-800/40 backdrop-blur-sm rounded-lg shadow-2xl border border-stone-700/50 overflow-hidden">
+        <div className="bg-stone-800/40 backdrop-blur-xs rounded-lg shadow-2xl border border-stone-700/50 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-stone-100 table-fixed">
               <colgroup>

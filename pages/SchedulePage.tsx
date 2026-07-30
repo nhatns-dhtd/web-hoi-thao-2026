@@ -63,7 +63,7 @@ const SchedulePage: React.FC = () => {
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-2xl md:text-3xl font-bold text-amber-100 text-center bg-stone-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-stone-700 shadow-md">
+                        <h2 className="text-2xl md:text-3xl font-bold text-amber-100 text-center bg-stone-900/60 backdrop-blur-xs py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-stone-700 shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         
@@ -85,7 +85,7 @@ const SchedulePage: React.FC = () => {
 
                                             {/* Event Card */}
                                             <div className="ml-8 md:ml-12">
-                                                <div className="p-6 rounded-lg shadow-lg bg-stone-800/40 backdrop-blur-sm border border-stone-700/50">
+                                                <div className="p-6 rounded-lg shadow-lg bg-stone-800/40 backdrop-blur-xs border border-stone-700/50">
                                                     {event.time && <p className="text-amber-100 font-semibold mb-2 text-lg"><i className="far fa-clock mr-2"></i>{event.time}</p>}
                                                     <h3 className="text-xl md:text-2xl font-bold text-stone-100 mb-3">{event.activity}</h3>
                                                     

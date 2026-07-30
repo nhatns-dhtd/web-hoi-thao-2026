@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+/* Chỉ quét source thật. dist/ đã nằm trong .gitignore nên Tailwind tự bỏ qua,
+   nhưng khai báo tường minh để CLI không bao giờ nhặt class cũ từ dist/bundle.js. */
+@source "../index.html";
+@source "../index.tsx";
+@source "../App.tsx";
+@source "../components/**/*.tsx";
+@source "../pages/**/*.tsx";
+@source "../contexts/**/*.tsx";
+
+/* ===== TOKEN THEME =====
+   Nguồn duy nhất của bảng màu. `@theme` vừa sinh ra utility class (bg-surface,
+   text-ink, border-line…) vừa xuất ra CSS variable dùng được ngay trong CSS thuần
+   bên dưới — nên không phải khai báo màu hai nơi.
+
+   Đổi theme = sửa đúng khối này. */
+@theme {
+  /* Bề mặt */
+  --color-page: #1c1409;                      /* nền body */
+  --color-surface: rgba(41, 37, 36, 0.4);     /* panel nổi */
+  --color-surface-sunken: rgba(28, 25, 23, 0.5); /* hộp lõm/inset */
+  --color-surface-raised: #292524;            /* tầng đục: modal, ô nhập */
+
+  /* Chữ */
+  --color-ink: #f5f5f4;                       /* chữ chính */
+  --color-ink-soft: #d6d3d1;                  /* chữ phụ */
+  --color-ink-muted: #a8a29e;                 /* chữ mờ */
+
+  /* Viền */
+  --color-line: #44403c;                      /* phân tách */
+  --color-line-strong: #57534e;               /* viền card/input */
+
+  /* Thương hiệu */
+  --color-brand: #d97706;                     /* nút chính */
+  --color-brand-hover: #b45309;
+  --color-brand-ink: #fef3c7;                 /* tiêu đề */
+  --color-brand-soft: rgba(120, 53, 15, 0.5); /* nền chip */
+}
+
+@layer base {
+  /* v4 đặt `cursor: default` cho button, v3 là `pointer`. Trả lại pointer —
+     mất con trỏ tay trên nút là bước lùi về trải nghiệm, không phải ý đồ thiết kế. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* v4 bỏ màu placeholder mặc định (chuyển sang currentColor 50%). Neo tường minh
+     vào token để placeholder không đổi nghĩa khi lật theme. */
+  ::placeholder {
+    color: var(--color-ink-muted);
+  }
+}
+
+/* ===== BASE ===== */
+* { box-sizing: border-box; }
+
+body {
+  /* Be Vietnam Pro: dấu tiếng Việt hiển thị đều hơn font hệ thống */
+  font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  /* Nền nâu sẫm ấm, ăn với hệ neutral `stone` dùng cho các panel */
+  background-color: var(--color-page);
+  color: #e7e0d6;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* ===== NỀN ĐỘNG =====
+   Ba khối gradient vàng thu / cam / hổ phách mờ, thở nhẹ theo chu kỳ 20s. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(180,83,9,0.40) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 70%, rgba(217,119,6,0.20) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(253,224,71,0.07) 0%, transparent 70%);
+  animation: bgPulse 20s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Lưới mờ phủ lên trên, tạo cảm giác có cấu trúc */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(253,224,71,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(253,224,71,0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* Giữ nội dung nằm trên hai lớp pseudo-element ở trên. Bỏ là cả site mất tương tác. */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-page); }
+::-webkit-scrollbar-thumb { background: #78350f; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #b45309; }
+
+/* ===== SELECTION ===== */
+::selection {
+  background: rgba(180,83,9,0.40);
+  color: #fef3c7;
+}
+
+/* ===== SMOOTH SCROLL ===== */
+html { scroll-behavior: smooth; }

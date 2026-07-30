@@ -31,7 +31,7 @@ const FormButton: React.FC<{ url: string; label: string; colorClass: string }> =
 
 
 const SectionCard: React.FC<{ title: string; children: React.ReactNode; icon: string }> = ({ title, children, icon }) => (
-    <section className="bg-stone-800/40 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-stone-700/50">
+    <section className="bg-stone-800/40 backdrop-blur-xs p-6 rounded-lg shadow-xl border border-stone-700/50">
         <h2 className="text-xl sm:text-2xl md:text-3xl sm:text-xl sm:text-2xl font-bold text-amber-100 mb-6 flex items-center">
             <i className={`fas ${icon} mr-4 text-amber-500`}></i>
             {title}

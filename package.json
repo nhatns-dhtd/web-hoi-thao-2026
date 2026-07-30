@@ -5,7 +5,7 @@
   "description": "Full-stack conference website for Vercel deployment",
   "scripts": {
     "start": "echo 'This project is intended for Vercel deployment.'",
-    "build": "mkdir -p dist && esbuild index.tsx --bundle --outfile=dist/bundle.js --jsx=automatic --platform=browser --target=es2020 --define:process.env.NODE_ENV='\"production\"' && cp index.html dist/index.html && sed -i 's|<script type=\"module\" src=\"/index.tsx\"></script>|<script src=\"/bundle.js\"></script>|' dist/index.html && sed -i '/<script type=\"importmap\">/,/<\\/script>/d' dist/index.html",
+    "build": "mkdir -p dist && esbuild index.tsx --bundle --outfile=dist/bundle.js --jsx=automatic --platform=browser --target=es2020 --define:process.env.NODE_ENV='\"production\"' && tailwindcss -i src/input.css -o dist/style.css --minify && cp index.html dist/index.html && sed -i 's|<script type=\"module\" src=\"/index.tsx\"></script>|<script src=\"/bundle.js\"></script>|' dist/index.html && sed -i '/<script type=\"importmap\">/,/<\\/script>/d' dist/index.html",
     "seed": "node api/seed.js",
     "set-admin-password": "node api/set-admin-password.js",
     "postinstall": "node api/seed.js"
@@ -16,13 +16,15 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.20.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "esbuild": "^0.20.2",
-    "typescript": "^5.0.0",
-    "dotenv": "^16.4.5"
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.0.0"
   }
 }

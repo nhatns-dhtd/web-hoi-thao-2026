@@ -69,7 +69,7 @@ const Header: React.FC = () => {
               <button
                 onClick={toggleMainMenu}
                 type="button"
-                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-stone-300 rounded-lg md:hidden hover:bg-amber-500/10 focus:outline-none focus:ring-2 focus:ring-stone-600 flex-shrink-0"
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-stone-300 rounded-lg md:hidden hover:bg-amber-500/10 focus:outline-hidden focus:ring-2 focus:ring-stone-600 flex-shrink-0"
                 aria-controls="navbar-default"
                 aria-expanded={isMenuOpen}
               >

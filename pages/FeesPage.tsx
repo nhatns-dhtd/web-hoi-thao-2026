@@ -13,7 +13,7 @@ const FeesPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100">
+    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-xs p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100">
       <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-amber-100">Lệ phí công bố, xuất bản Kỷ yếu</h1>
       <p className="text-center text-stone-300 mb-8">
         Các báo cáo được Hội thảo chấp nhận đăng sẽ xuất bản trong Kỷ yếu toàn văn có chỉ số ISBN tại Việt Nam.

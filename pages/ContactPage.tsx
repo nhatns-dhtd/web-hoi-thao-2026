@@ -6,7 +6,7 @@ const ContactPage: React.FC = () => {
       <h1 className="text-4xl font-bold text-center mb-4 text-stone-100">Liên hệ</h1>
       <p className="text-center text-stone-100 text-lg mb-10">Chúng tôi sẵn sàng giải đáp mọi thắc mắc của bạn.</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-stone-800/50 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-stone-700/50">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-stone-800/50 backdrop-blur-xs p-8 rounded-lg shadow-lg border border-stone-700/50">
         {/* Contact Info */}
         <div className="space-y-6">
           <h2 className="text-xl sm:text-2xl font-bold text-amber-100">Thông tin Ban tổ chức</h2>

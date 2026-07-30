@@ -24,7 +24,7 @@ const ImageLightbox: React.FC<{
 
   return (
     <div 
-      className="fixed inset-0 bg-black/80 z-50 flex justify-center items-center p-4 backdrop-blur-sm"
+      className="fixed inset-0 bg-black/80 z-50 flex justify-center items-center p-4 backdrop-blur-xs"
       onMouseDown={handleBackdropMouseDown}
       onMouseUp={handleBackdropMouseUp}
     >
@@ -75,7 +75,7 @@ const SpeakerModal: React.FC<{
 
   return (
     <div 
-      className="fixed inset-0 bg-black/70 z-50 flex justify-center items-center p-4 backdrop-blur-sm"
+      className="fixed inset-0 bg-black/70 z-50 flex justify-center items-center p-4 backdrop-blur-xs"
       onMouseDown={handleBackdropMouseDown}
       onMouseUp={handleBackdropMouseUp}
     >
@@ -183,7 +183,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Conference Details Section */}
-      <section className="bg-stone-900/40 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-stone-700/50">
+      <section className="bg-stone-900/40 backdrop-blur-xs p-8 rounded-lg shadow-lg border border-stone-700/50">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="flex flex-col items-center">
              <div className="bg-amber-900/50 text-amber-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
@@ -213,7 +213,7 @@ const HomePage: React.FC = () => {
       <section className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Call for Papers - Left side (2/5 width on desktop) */}
         <div className="lg:col-span-2">
-          <div className="bg-stone-900/40 backdrop-blur-sm rounded-lg shadow-lg border border-stone-700/50 overflow-hidden h-full flex flex-col">
+          <div className="bg-stone-900/40 backdrop-blur-xs rounded-lg shadow-lg border border-stone-700/50 overflow-hidden h-full flex flex-col">
             <div className="bg-gradient-to-r from-amber-900/60 to-cyan-900/40 px-6 py-4 border-b border-stone-700/50">
               <h3 className="text-xl font-bold text-amber-100 flex items-center gap-3">
                 <i className="fas fa-newspaper text-amber-400"></i>
@@ -253,7 +253,7 @@ const HomePage: React.FC = () => {
 
         {/* Keynote Speakers - Right side (3/5 width on desktop) */}
         <div className="lg:col-span-3">
-          <div className="bg-stone-900/40 backdrop-blur-sm rounded-lg shadow-lg border border-stone-700/50 overflow-hidden h-full flex flex-col">
+          <div className="bg-stone-900/40 backdrop-blur-xs rounded-lg shadow-lg border border-stone-700/50 overflow-hidden h-full flex flex-col">
             <div className="bg-gradient-to-r from-emerald-900/60 to-amber-900/40 px-6 py-4 border-b border-stone-700/50">
               <h3 className="text-xl font-bold text-emerald-100 flex items-center gap-3">
                 <i className="fas fa-microphone-alt text-emerald-400"></i>

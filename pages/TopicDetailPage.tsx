@@ -22,7 +22,7 @@ const TopicDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="bg-stone-800/40 backdrop-blur-sm rounded-lg shadow-xl border border-stone-700/50 overflow-hidden">
+      <div className="bg-stone-800/40 backdrop-blur-xs rounded-lg shadow-xl border border-stone-700/50 overflow-hidden">
         <img src={topic.imageUrl} alt={topic.title} className="w-full h-64 md:h-96 object-cover" />
         <div className="p-8 md:p-12">
             <h1 className="text-2xl md:text-3xl md:text-4xl font-bold text-amber-100 mb-6">{topic.title}</h1>

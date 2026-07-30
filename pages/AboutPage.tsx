@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100">
+    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-xs p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100">
       <h1 className="text-2xl md:text-3xl font-bold text-center mb-2 text-amber-100">Về Diễn đàn</h1>
       <p className="text-center text-stone-300 mb-6 italic">
         Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba – AFCE 2026

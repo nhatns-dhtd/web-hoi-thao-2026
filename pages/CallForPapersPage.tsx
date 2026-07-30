@@ -13,7 +13,7 @@ const CallForPapersPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
 
         {/* Call for Papers Image Section (2/3 width) */}
-        <section className="lg:col-span-2 bg-stone-800/40 backdrop-blur-sm p-4 sm:p-6 rounded-xl shadow-xl border border-stone-700/50">
+        <section className="lg:col-span-2 bg-stone-800/40 backdrop-blur-xs p-4 sm:p-6 rounded-xl shadow-xl border border-stone-700/50">
            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-amber-100 text-center">Thông tin Kêu gọi Bài báo</h2>
            <div className="w-full max-w-2xl mx-auto">
               <img
@@ -32,17 +32,17 @@ const CallForPapersPage: React.FC = () => {
         <section className="lg:col-span-1">
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-amber-300 text-center">Báo cáo viên</h2>
           {siteContent.keynoteSpeakers.length === 0 ? (
-            <div className="bg-stone-800/50 backdrop-blur-sm p-6 rounded-lg shadow-xl text-center text-stone-400 italic">
+            <div className="bg-stone-800/50 backdrop-blur-xs p-6 rounded-lg shadow-xl text-center text-stone-400 italic">
               Danh sách báo cáo viên đang được cập nhật.
             </div>
           ) : (
-          <div className="bg-stone-800/50 backdrop-blur-sm p-4 rounded-lg shadow-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
+          <div className="bg-stone-800/50 backdrop-blur-xs p-4 rounded-lg shadow-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
             {siteContent.keynoteSpeakers.map((speaker : KeynoteSpeaker) => (
               <div key={speaker.id} className="group relative aspect-square" title={`${speaker.name} - ${speaker.keynoteTopic}`}>
                 <img 
                   src={speaker.imageUrl} 
                   alt={speaker.name} 
-                  className="w-full h-full object-cover rounded-full transition-all duration-300 ease-in-out group-hover:blur-sm group-hover:brightness-50" 
+                  className="w-full h-full object-cover rounded-full transition-all duration-300 ease-in-out group-hover:blur-xs group-hover:brightness-50" 
                 />
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-2 bg-black/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                   <p className="text-xs sm:text-sm font-bold text-white leading-tight">{speaker.name}</p>

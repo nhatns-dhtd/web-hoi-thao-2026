@@ -64,7 +64,7 @@ const EditTopicModal: React.FC<{
               id="topic-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500"
             />
           </div>
            <div>
@@ -74,7 +74,7 @@ const EditTopicModal: React.FC<{
               rows={5}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500"
             ></textarea>
           </div>
           <div>

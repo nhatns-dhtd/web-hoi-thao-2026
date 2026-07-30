@@ -17,7 +17,7 @@ const REVIEW_STATUSES: ReviewStatus[] = ['Duyệt', 'Không duyệt', 'Đang ch�
 const PRESENTATION_STATUSES: PresentationStatus[] = ['Trình bày', 'Không trình bày'];
 
 const StatCard: React.FC<{ icon: string; title: string; value: number; color: string }> = ({ icon, title, value, color }) => (
-    <div className="bg-stone-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md flex items-center border border-stone-700/50">
+    <div className="bg-stone-800/50 backdrop-blur-xs p-6 rounded-lg shadow-md flex items-center border border-stone-700/50">
         <div className={`rounded-full p-4 mr-4 ${color}`}>
             <i className={`fas ${icon} fa-2x text-white`}></i>
         </div>
@@ -120,7 +120,7 @@ const EditModal: React.FC<{
         }
     };
     
-    const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500";
+    const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500";
     const labelStyles = "block text-sm font-medium text-stone-100";
 
     const getTitle = () => {
@@ -202,7 +202,7 @@ const PaperModal: React.FC<{
         }
     };
 
-    const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 text-stone-100";
+    const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500 text-stone-100";
     const labelStyles = "block text-sm font-medium text-stone-100";
 
     return (

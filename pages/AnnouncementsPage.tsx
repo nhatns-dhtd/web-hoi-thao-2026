@@ -82,10 +82,10 @@ const AnnouncementForm: React.FC<{
     processFiles();
   };
 
-  const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-800/50 border border-stone-600 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-amber-500 focus:border-amber-500";
+  const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-800/50 border border-stone-600 rounded-md shadow-xs placeholder-stone-400 focus:outline-hidden focus:ring-amber-500 focus:border-amber-500";
 
   return (
-    <div className="bg-stone-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6 border-l-4 border-amber-500">
+    <div className="bg-stone-800/50 backdrop-blur-xs p-6 rounded-lg shadow-md mb-6 border-l-4 border-amber-500">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 text-stone-100">{announcement ? 'Chỉnh sửa thông báo' : 'Thêm mới thông báo'}</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -151,8 +151,8 @@ const AnnouncementDetailModal: React.FC<{
   onClose: () => void;
 }> = ({ announcement, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-stone-800/80 backdrop-blur-sm p-8 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-stone-600">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-stone-800/80 backdrop-blur-xs p-8 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-stone-600">
         <div className="flex justify-between items-start mb-4">
           <h2 className="text-2xl font-bold text-stone-100">{announcement.title}</h2>
           <button onClick={onClose} className="text-stone-400 hover:text-stone-100 text-xl">&times;</button>
@@ -246,7 +246,7 @@ const AnnouncementsPage: React.FC = () => {
         {announcements.map((announcement: Announcement) => (
           <div 
             key={announcement.id} 
-            className="bg-stone-800/50 backdrop-blur-sm rounded-lg shadow-md border border-stone-700/50 overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+            className="bg-stone-800/50 backdrop-blur-xs rounded-lg shadow-md border border-stone-700/50 overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
             onClick={() => handleViewDetail(announcement)}
           >
             {announcement.imageUrl && (
