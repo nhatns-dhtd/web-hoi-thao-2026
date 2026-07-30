@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Button from '../components/ui/Button';
 import { Link } from 'react-router-dom';
 import { useSiteContent } from '../contexts/SiteContentContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -55,7 +56,7 @@ const EditTopicModal: React.FC<{
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
       <div className="bg-surface rounded-lg shadow-xl w-full max-w-lg p-6 border border-line" onClick={e => e.stopPropagation()}>
-        <h2 className="text-xl sm:text-2xl font-bold text-ink mb-4">Edit Topic</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-ink mb-4">Sửa chủ đề</h2>
         <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
           <div>
             <label htmlFor="topic-title" className="block text-sm font-medium text-ink">Title</label>
@@ -89,10 +90,10 @@ const EditTopicModal: React.FC<{
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-4">
-          <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-ink-soft bg-stone-600 hover:bg-stone-500">Cancel</button>
-          <button type="button" onClick={handleSave} disabled={isSaving} className="px-4 py-2 rounded-md text-white bg-brand hover:bg-brand-hover disabled:bg-stone-500">
-            {isSaving ? 'Saving...' : 'Save Changes'}
-          </button>
+          <Button variant="secondary" type="button" onClick={onClose} className="px-4 py-2 rounded-md">Hủy</Button>
+          <Button type="button" onClick={handleSave} disabled={isSaving} className="px-4 py-2 rounded-md disabled:opacity-50">
+            {isSaving ? 'Đang lưu...' : 'Lưu thay đổi'}
+          </Button>
         </div>
       </div>
     </div>

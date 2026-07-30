@@ -120,8 +120,13 @@ const Header: React.FC = () => {
                         </svg>
                       </button>
 
-                      {/* Desktop Dropdown */}
-                      <div className="absolute top-full left-0 z-20 w-64 hidden group-hover:block bg-surface/98 backdrop-blur-xl rounded-xl shadow-2xl shadow-amber-900/10 border border-line-strong mt-1 overflow-hidden">
+                      {/* Desktop Dropdown.
+                          Khoảng hở với nút cha phải là `pt-1` của lớp bọc, KHÔNG phải `mt-1`
+                          của panel: margin đẩy panel ra ngoài, 4px ở giữa không thuộc phần tử
+                          nào nên chuột đi qua là mất group-hover và menu tắt giữa chừng.
+                          Padding giữ nguyên khoảng hở thị giác nhưng vẫn nằm trong vùng hover. */}
+                      <div className="absolute top-full left-0 z-20 w-64 hidden group-hover:block pt-1">
+                       <div className="bg-surface/98 backdrop-blur-xl rounded-xl shadow-2xl shadow-amber-900/10 border border-line-strong overflow-hidden">
                         <ul className="py-2 text-sm text-ink" aria-label={link.name}>
                           {link.children.map((child) => (
                             <li key={child.id}>
@@ -144,6 +149,7 @@ const Header: React.FC = () => {
                             </li>
                           ))}
                         </ul>
+                       </div>
                       </div>
 
                       {/* Mobile Dropdown */}

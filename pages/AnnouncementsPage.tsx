@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Button from '../components/ui/Button';
 import { Input, TextArea, Label } from '../components/ui/Field';
 import type { Announcement } from '../types';
 import { useAuth } from '../contexts/AuthContext';
@@ -137,7 +138,7 @@ const AnnouncementForm: React.FC<{
           />
         </div>
         <div className="flex justify-end gap-4">
-          <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-ink-soft bg-stone-600 hover:bg-stone-500">Hủy</button>
+          <Button variant="secondary" type="button" onClick={onCancel} className="px-4 py-2 rounded-md">Hủy</Button>
           <button type="submit" className="px-4 py-2 rounded-md text-white bg-brand hover:bg-brand-hover">Lưu</button>
         </div>
       </form>

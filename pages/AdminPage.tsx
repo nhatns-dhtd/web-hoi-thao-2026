@@ -45,8 +45,8 @@ const ManagementCard: React.FC<{
             {description && <p className="text-sm text-ink-muted">{description}</p>}
         </div>
         <div className="mt-4 flex justify-end gap-2">
-            <button onClick={onEdit} className="text-sm font-medium text-brand-ink hover:text-amber-700 py-1 px-3 rounded bg-amber-100 hover:bg-amber-200">Edit</button>
-            <button onClick={onDelete} className="text-sm font-medium text-red-700 hover:text-red-800 py-1 px-3 rounded bg-red-100 hover:bg-red-200">Delete</button>
+            <button onClick={onEdit} className="text-sm font-medium text-brand-ink hover:text-amber-700 py-1 px-3 rounded bg-amber-100 hover:bg-amber-200">Sửa</button>
+            <button onClick={onDelete} className="text-sm font-medium text-red-700 hover:text-red-800 py-1 px-3 rounded bg-red-100 hover:bg-red-200">Xóa</button>
         </div>
     </div>
 );
@@ -71,7 +71,7 @@ const ImageUploadCard: React.FC<{
               <img src={currentImage} alt={title} className="w-full h-full rounded-md bg-surface-sunken p-1 object-contain" />
             </div>
             <label htmlFor={inputId} className="cursor-pointer w-full text-center block bg-brand text-white font-bold py-2 px-4 rounded-lg hover:bg-brand-hover transition-colors mt-auto">
-                Change Image
+                Đổi ảnh
             </label>
             <input id={inputId} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
         </div>
@@ -124,34 +124,34 @@ const EditModal: React.FC<{
     };
     
     const getTitle = () => {
-        if (itemType === 'speaker') return 'Keynote Speaker';
-        if (itemType === 'sponsor') return 'Sponsor/Partner';
-        return 'Item';
+        if (itemType === 'speaker') return 'báo cáo viên';
+        if (itemType === 'sponsor') return 'nhà tài trợ / đối tác';
+        return 'mục';
     }
 
     return (
         <Modal onClose={onClose} className="rounded-lg shadow-xl w-full max-w-lg p-6">
-            <h2 className="text-xl sm:text-2xl font-bold text-ink mb-4">{item?.id ? 'Edit' : 'Add'} {getTitle()}</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-ink mb-4">{item?.id ? 'Sửa' : 'Thêm'} {getTitle()}</h2>
             <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
-                <Input type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="Name" />
+                <Input type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="Họ tên" />
                 {itemType === 'speaker' && (
                     <>
-                        <Input type="text" name="affiliation" value={formData.affiliation || ''} onChange={handleChange} placeholder="Affiliation" />
-                        <TextArea name="bio" value={formData.bio || ''} onChange={handleChange} placeholder="Bio" rows={3} />
-                        <Input type="text" name="keynoteTopic" value={formData.keynoteTopic || ''} onChange={handleChange} placeholder="Keynote Topic" />
+                        <Input type="text" name="affiliation" value={formData.affiliation || ''} onChange={handleChange} placeholder="Đơn vị công tác" />
+                        <TextArea name="bio" value={formData.bio || ''} onChange={handleChange} placeholder="Tiểu sử" rows={3} />
+                        <Input type="text" name="keynoteTopic" value={formData.keynoteTopic || ''} onChange={handleChange} placeholder="Chủ đề báo cáo" />
                     </>
                 )}
                 {(itemType === 'speaker' || itemType === 'sponsor') && (
                     <div>
-                        <Label>Image/Logo</Label>
-                        {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-40 object-contain rounded-md my-2 bg-field" />}
+                        <Label>Ảnh / Logo</Label>
+                        {imagePreview && <img src={imagePreview} alt="Xem trước" className="w-full h-40 object-contain rounded-md my-2 bg-field" />}
                         <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-ink-muted file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-100 file:text-amber-700 hover:file:bg-amber-200"/>
                     </div>
                 )}
             </div>
             <div className="mt-6 flex justify-end gap-4">
-                <Button variant="secondary" onClick={onClose} className="px-4 py-2 rounded-md">Cancel</Button>
-                <Button onClick={handleSubmit} className="px-4 py-2 rounded-md">Save</Button>
+                <Button variant="secondary" onClick={onClose} className="px-4 py-2 rounded-md">Hủy</Button>
+                <Button onClick={handleSubmit} className="px-4 py-2 rounded-md">Lưu</Button>
             </div>
         </Modal>
     );
@@ -353,8 +353,10 @@ const AdminPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Content Management Section */}
-            <div className="space-y-12">
+            {/* Content Management Section.
+                `space-y-12` chỉ giãn các con BÊN TRONG khối này, không giãn nó với khối
+                thống kê phía trên — nên phải có `mt-12` riêng. */}
+            <div className="mt-12 space-y-12">
                 <h2 className="text-2xl md:text-3xl font-bold text-center text-ink border-b-2 border-line pb-4">Quản lý nội dung</h2>
                 
                 {/* General Conference Info */}
