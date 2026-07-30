@@ -1,32 +1,29 @@
 const express = require('express');
 const cors = require('cors');
-const multer = require('multer');
 const { sql } = require('@vercel/postgres');
-const { put, del, list } = require('@vercel/blob');
 
 const app = express();
 
 // Middleware
 app.use(cors());
+// Giới hạn 10mb vì ảnh admin upload được nhúng base64 vào body của PUT /api/site-content.
 app.use(express.json({ limit: '10mb' }));
 
-// Multer config for file uploads (store in memory)
-const upload = multer({ 
-    storage: multer.memoryStorage(),
-    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
-    fileFilter: (req, file, cb) => {
-        const allowedTypes = [
-            'application/pdf',
-            'application/msword',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        ];
-        if (allowedTypes.includes(file.mimetype)) {
-            cb(null, true);
-        } else {
-            cb(new Error('Only PDF and Word files are allowed!'));
-        }
-    }
-});
+// Giá trị hợp lệ của các cột trạng thái bài báo. Phải trùng union ReviewStatus /
+// PresentationStatus ở types.ts — giá trị lạ lọt vào DB sẽ làm badge và select trên
+// trang Kết quả duyệt bài hiển thị trống.
+const REVIEW_STATUSES = ['Duyệt', 'Không duyệt', 'Đang chờ duyệt'];
+const PRESENTATION_STATUSES = ['Trình bày', 'Không trình bày'];
+
+const pickReviewStatus = (value) => (REVIEW_STATUSES.includes(value) ? value : null);
+const pickPresentationStatus = (value) => (PRESENTATION_STATUSES.includes(value) ? value : null);
+
+/** Trả về 1..3 nếu hợp lệ, null nếu không gửi, undefined nếu gửi giá trị sai. */
+const parseTopic = (value) => {
+    if (value === undefined || value === null || value === '') return null;
+    const parsed = parseInt(value, 10);
+    return parsed >= 1 && parsed <= 3 ? parsed : undefined;
+};
 
 app.get('/api/test-db', async (req, res) => {
   try {
@@ -64,26 +61,15 @@ app.get('/api/users', async (req, res) => {
 });
 
 // --- REGISTRATIONS ---
+// Chỉ còn đường đọc: đăng ký tham dự giờ đi qua Google Form, không có UI nào ghi vào
+// bảng này nữa. `POST /api/registrations` đã xoá vì không còn caller mà lại là endpoint
+// ghi không auth. Bảng và dữ liệu cũ giữ nguyên.
 app.get('/api/registrations', async (req, res) => {
     try {
         const { rows } = await sql`SELECT * FROM registrations ORDER BY id DESC;`;
         res.json(rows);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch registrations', details: error.message });
-    }
-});
-
-app.post('/api/registrations', async (req, res) => {
-    const { name, organization, email, phone, withPaper } = req.body;
-    try {
-        const { rows } = await sql`
-            INSERT INTO registrations (name, organization, email, phone, "withPaper")
-            VALUES (${name}, ${organization}, ${email}, ${phone}, ${withPaper})
-            RETURNING *;
-        `;
-        res.status(201).json(rows[0]);
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to create registration', details: error.message });
     }
 });
 
@@ -175,11 +161,34 @@ app.get('/api/papers/:id', async (req, res) => {
 });
 
 app.post('/api/papers', async (req, res) => {
-    const { authorName, organization, paperTitle, topic } = req.body;
+    const {
+        paperCode, authorName, organization, paperTitle, topic,
+        abstractStatus, fullTextStatus, reviewStatus, presentationStatus,
+    } = req.body;
+
+    if (!authorName?.trim() || !paperTitle?.trim()) {
+        return res.status(400).json({ message: 'authorName và paperTitle là bắt buộc' });
+    }
+
+    const parsedTopic = parseTopic(topic);
+    if (parsedTopic === undefined) {
+        return res.status(400).json({ message: `topic không hợp lệ: ${topic}. Chỉ nhận 1, 2 hoặc 3.` });
+    }
+
     try {
         const { rows } = await sql`
-            INSERT INTO papers ("authorName", organization, "paperTitle", topic, "abstractStatus", "fullTextStatus", "reviewStatus", "presentationStatus")
-            VALUES (${authorName}, ${organization}, ${paperTitle}, ${parseInt(topic, 10)}, 'Duyệt', 'Đang chờ duyệt', 'Đang chờ duyệt', 'Không trình bày')
+            INSERT INTO papers ("paperCode", "authorName", organization, "paperTitle", topic, "abstractStatus", "fullTextStatus", "reviewStatus", "presentationStatus")
+            VALUES (
+                ${paperCode?.trim() || null},
+                ${authorName.trim()},
+                ${organization?.trim() || null},
+                ${paperTitle.trim()},
+                ${parsedTopic ?? 1},
+                ${pickReviewStatus(abstractStatus) || 'Đang chờ duyệt'},
+                ${pickReviewStatus(fullTextStatus) || 'Đang chờ duyệt'},
+                ${pickReviewStatus(reviewStatus) || 'Đang chờ duyệt'},
+                ${pickPresentationStatus(presentationStatus) || 'Không trình bày'}
+            )
             RETURNING *;
         `;
         res.status(201).json(rows[0]);
@@ -190,18 +199,35 @@ app.post('/api/papers', async (req, res) => {
 
 app.put('/api/papers/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
-    const { authorName, organization, paperTitle, abstractStatus, fullTextStatus, reviewStatus, presentationStatus } = req.body;
+    const { paperCode, authorName, organization, paperTitle, topic, abstractStatus, fullTextStatus, reviewStatus, presentationStatus } = req.body;
+
+    // Hai cột này là NOT NULL nhưng chuỗi rỗng vẫn lọt qua, dẫn tới dòng trống trên
+    // trang công khai. Không gửi thì giữ nguyên; gửi rỗng thì coi là sai.
+    if (authorName !== undefined && !authorName.trim()) {
+        return res.status(400).json({ message: 'authorName không được để trống' });
+    }
+    if (paperTitle !== undefined && !paperTitle.trim()) {
+        return res.status(400).json({ message: 'paperTitle không được để trống' });
+    }
+
+    const parsedTopic = parseTopic(topic);
+    if (parsedTopic === undefined) {
+        return res.status(400).json({ message: `topic không hợp lệ: ${topic}. Chỉ nhận 1, 2 hoặc 3.` });
+    }
+
     try {
          const { rows } = await sql`
             UPDATE papers
-            SET 
-                "authorName" = COALESCE(${authorName}, "authorName"),
-                organization = COALESCE(${organization}, organization),
-                "paperTitle" = COALESCE(${paperTitle}, "paperTitle"),
-                "abstractStatus" = COALESCE(${abstractStatus}, "abstractStatus"),
-                "fullTextStatus" = COALESCE(${fullTextStatus}, "fullTextStatus"),
-                "reviewStatus" = COALESCE(${reviewStatus}, "reviewStatus"),
-                "presentationStatus" = COALESCE(${presentationStatus}, "presentationStatus")
+            SET
+                "paperCode" = COALESCE(${paperCode ?? null}, "paperCode"),
+                "authorName" = COALESCE(${authorName?.trim() ?? null}, "authorName"),
+                organization = COALESCE(${organization ?? null}, organization),
+                "paperTitle" = COALESCE(${paperTitle?.trim() ?? null}, "paperTitle"),
+                topic = COALESCE(${parsedTopic}, topic),
+                "abstractStatus" = COALESCE(${pickReviewStatus(abstractStatus)}, "abstractStatus"),
+                "fullTextStatus" = COALESCE(${pickReviewStatus(fullTextStatus)}, "fullTextStatus"),
+                "reviewStatus" = COALESCE(${pickReviewStatus(reviewStatus)}, "reviewStatus"),
+                "presentationStatus" = COALESCE(${pickPresentationStatus(presentationStatus)}, "presentationStatus")
             WHERE id = ${id}
             RETURNING *;
         `;
@@ -218,24 +244,6 @@ app.put('/api/papers/:id', async (req, res) => {
 app.delete('/api/papers/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     try {
-        // Get file URLs before deleting
-        const { rows } = await sql`SELECT "fullTextUrl" FROM papers WHERE id = ${id};`;
-        
-        if (rows.length === 0) {
-            return res.status(404).json({ message: "Paper not found" });
-        }
-
-        const paper = rows[0];
-
-        if (paper.fullTextUrl) {
-            try {
-                await del(paper.fullTextUrl);
-            } catch (err) {
-                console.error('Error deleting fulltext file:', err);
-            }
-        }
-
-        // Delete paper from database
         const result = await sql`DELETE FROM papers WHERE id = ${id};`;
         if (result.rowCount > 0) {
             res.status(200).json({ id: id });
@@ -244,112 +252,6 @@ app.delete('/api/papers/:id', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ message: 'Failed to delete paper', details: error.message });
-    }
-});
-
-// --- FILE UPLOAD ENDPOINTS ---
-
-// Upload fulltext file
-app.post('/api/papers/:id/upload-fulltext', upload.single('file'), async (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    
-    if (!req.file) {
-        return res.status(400).json({ message: 'No file uploaded' });
-    }
-
-    try {
-        // Check if paper exists
-        const { rows: paperRows } = await sql`SELECT id, "fullTextUrl" FROM papers WHERE id = ${id};`;
-        if (paperRows.length === 0) {
-            return res.status(404).json({ message: 'Paper not found' });
-        }
-
-        // Delete old file if exists
-        if (paperRows[0].fullTextUrl) {
-            try {
-                await del(paperRows[0].fullTextUrl);
-            } catch (err) {
-                console.error('Error deleting old fulltext:', err);
-            }
-        }
-
-        // Upload new file to Vercel Blob
-        const fileName = `${id}-fulltext-${Date.now()}-${req.file.originalname}`;
-        const blob = await put(`papers/${fileName}`, req.file.buffer, {
-            access: 'public',
-            contentType: req.file.mimetype,
-        });
-
-        // Update database
-        const { rows } = await sql`
-            UPDATE papers
-            SET 
-                "fullTextUrl" = ${blob.url},
-                "fullTextFileName" = ${req.file.originalname},
-                "fullTextStatus" = 'Duyệt'
-            WHERE id = ${id}
-            RETURNING *;
-        `;
-
-        res.json({
-            message: 'Full text uploaded successfully',
-            paper: rows[0],
-            fileUrl: blob.url
-        });
-    } catch (error) {
-        console.error('Upload error:', error);
-        res.status(500).json({ message: 'Failed to upload full text', details: error.message });
-    }
-});
-
-// Delete fulltext file
-app.delete('/api/papers/:id/delete-fulltext', async (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    
-    try {
-        const { rows: paperRows } = await sql`SELECT "fullTextUrl" FROM papers WHERE id = ${id};`;
-        if (paperRows.length === 0) {
-            return res.status(404).json({ message: 'Paper not found' });
-        }
-
-        if (paperRows[0].fullTextUrl) {
-            await del(paperRows[0].fullTextUrl);
-        }
-
-        const { rows } = await sql`
-            UPDATE papers
-            SET 
-                "fullTextUrl" = NULL,
-                "fullTextFileName" = NULL,
-                "fullTextStatus" = 'Đang chờ duyệt'
-            WHERE id = ${id}
-            RETURNING *;
-        `;
-
-        res.json({
-            message: 'Full text deleted successfully',
-            paper: rows[0]
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to delete full text', details: error.message });
-    }
-});
-
-// List all files in Vercel Blob (for admin)
-app.get('/api/papers/files/list', async (req, res) => {
-    try {
-        const { blobs } = await list({ prefix: 'papers/' });
-        res.json({
-            count: blobs.length,
-            files: blobs.map(blob => ({
-                url: blob.url,
-                pathname: blob.pathname,
-                size: blob.size,
-                uploadedAt: blob.uploadedAt
-            }))
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to list files', details: error.message });
     }
 });
 

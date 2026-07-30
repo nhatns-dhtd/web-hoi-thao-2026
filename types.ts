@@ -84,18 +84,6 @@ export type AdminStats = {
   papersSubmitted: number;
 };
 
-export type PaperStatus = 'approved' | 'pending' | 'rejected';
-
-export type PaperSubmission = {
-  id: number;
-  title: string;
-  author: string;
-  status: PaperStatus;
-  submissionDate: string;
-  abstract: string;
-  fullTextUrl?: string;
-};
-
 export type User = {
   id: number;
   username: string;
@@ -108,6 +96,8 @@ export type PresentationStatus = 'Trình bày' | 'Không trình bày';
 
 export type DetailedPaperSubmission = {
   id: number;
+  /** Mã số bài viết do Ban tổ chức đặt, vd "AFCE01". */
+  paperCode?: string;
   authorName: string;
   organization: string;
   paperTitle: string;
@@ -116,19 +106,10 @@ export type DetailedPaperSubmission = {
   fullTextStatus: ReviewStatus;
   reviewStatus: ReviewStatus;
   presentationStatus: PresentationStatus;
-  fullTextFileName?: string;
-  fullTextUrl?: string;
 };
 
-export type PaperSubmissionFormData = {
-  authorName: string;
-  organization: string;
-  email: string;
-  phone: string;
-  paperTitle: string;
-  topic: '1' | '2' | '3';
-  fullPaperFile: File | null;
-};
+/** Dữ liệu admin nhập khi thêm/sửa một bài trong bảng kết quả duyệt. */
+export type AddPaperInput = Omit<DetailedPaperSubmission, 'id'>;
 
 export type Registration = {
   id: number;

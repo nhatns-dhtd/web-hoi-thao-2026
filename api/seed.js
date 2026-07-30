@@ -90,6 +90,7 @@ async function seed(client) {
         await client.sql`
             CREATE TABLE IF NOT EXISTS papers (
                 id SERIAL PRIMARY KEY,
+                "paperCode" TEXT,
                 "authorName" TEXT NOT NULL,
                 organization TEXT,
                 "paperTitle" TEXT NOT NULL,
@@ -97,22 +98,18 @@ async function seed(client) {
                 "abstractStatus" TEXT,
                 "fullTextStatus" TEXT,
                 "reviewStatus" TEXT,
-                "presentationStatus" TEXT,
-                "fullTextUrl" TEXT,
-                "fullTextFileName" TEXT
+                "presentationStatus" TEXT
             );
         `;
         console.log('Checked/Created "papers" table.');
 
-        // Add new columns if they don't exist (migration-safe)
-        try {
-            await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "fullTextUrl" TEXT;`;
-            await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "fullTextFileName" TEXT;`;
-            await client.sql`ALTER TABLE announcements ADD COLUMN IF NOT EXISTS "contentImages" JSONB;`;
-            console.log('Added file columns to papers and announcements tables (if not exist).');
-        } catch (error) {
-            console.log('File columns already exist or error adding them:', error.message);
-        }
+        // Migration-safe: DB cũ chưa có cột "paperCode". Hai cột "fullTextUrl"/"fullTextFileName"
+        // của luồng upload đã bỏ thì để nguyên trong DB, không DROP để tránh mất dữ liệu cũ.
+        // Không bọc try/catch: ADD COLUMN IF NOT EXISTS đã idempotent, câu này fail mà seed
+        // vẫn báo thành công thì mọi INSERT có "paperCode" sau đó sẽ lỗi 500.
+        await client.sql`ALTER TABLE papers ADD COLUMN IF NOT EXISTS "paperCode" TEXT;`;
+        await client.sql`ALTER TABLE announcements ADD COLUMN IF NOT EXISTS "contentImages" JSONB;`;
+        console.log('Checked/Added "paperCode" and "contentImages" columns.');
 
         await client.sql`
             CREATE TABLE IF NOT EXISTS site_content (
@@ -193,10 +190,11 @@ async function seed(client) {
         const { rows: paperCount } = await client.sql`SELECT COUNT(*) FROM papers;`;
         if (parseInt(paperCount[0].count) === 0) {
             await Promise.all(
+                // Không ghi id tường minh, xem lý do ở phần seed announcements.
                 DETAILED_PAPER_SUBMISSIONS_DATA.map(paper =>
                     client.sql`
-                        INSERT INTO papers (id, "authorName", organization, "paperTitle", topic, "abstractStatus", "fullTextStatus", "reviewStatus", "presentationStatus")
-                        VALUES (${paper.id}, ${paper.authorName}, ${paper.organization}, ${paper.paperTitle}, ${paper.topic}, ${paper.abstractStatus}, ${paper.fullTextStatus}, ${paper.reviewStatus}, ${paper.presentationStatus});
+                        INSERT INTO papers ("paperCode", "authorName", organization, "paperTitle", topic, "abstractStatus", "fullTextStatus", "reviewStatus", "presentationStatus")
+                        VALUES (${paper.paperCode || null}, ${paper.authorName}, ${paper.organization}, ${paper.paperTitle}, ${paper.topic}, ${paper.abstractStatus}, ${paper.fullTextStatus}, ${paper.reviewStatus}, ${paper.presentationStatus});
                     `
                 )
             );
@@ -204,6 +202,18 @@ async function seed(client) {
         } else {
             console.log('Papers table already has data, skipping seed.');
         }
+
+        // Cùng lý do như announcements: bản seed template ghi id 1..3 tường minh nên
+        // `papers_id_seq` vẫn đứng ở 1, khiến admin thêm bài đầu tiên bị trùng khóa chính.
+        await client.sql`
+            SELECT setval('papers_id_seq',
+                COALESCE((SELECT MAX(id) FROM papers), 0) + 1, false);
+        `;
+        await client.sql`
+            SELECT setval('registrations_id_seq',
+                COALESCE((SELECT MAX(id) FROM registrations), 0) + 1, false);
+        `;
+        console.log('Synced "papers" and "registrations" id sequences.');
 
         const { rows: contentCount } = await client.sql`SELECT COUNT(*) FROM site_content;`;
         if (parseInt(contentCount[0].count) === 0) {

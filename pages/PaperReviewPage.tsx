@@ -26,141 +26,23 @@ const topicStyles: { [key: number]: string } = {
   3: 'bg-indigo-900/70 text-yellow-300 border border-indigo-700',
 };
 
-// File Manager Component
-const FileManager: React.FC<{
-  paper: DetailedPaperSubmission;
-  onUpload: (paperId: number, file: File) => void;
-  onDelete: (paperId: number) => void;
-}> = ({ paper, onUpload, onDelete }) => {
-  const [uploadingFulltext, setUploadingFulltext] = useState(false);
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Validate file
-    if (file.size > 10 * 1024 * 1024) {
-      alert('File quá lớn. Vui lòng chọn file nhỏ hơn 10MB.');
-      return;
-    }
-
-    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    if (!allowedTypes.includes(file.type)) {
-      alert('Chỉ chấp nhận file PDF, DOC, hoặc DOCX.');
-      return;
-    }
-
-    setUploadingFulltext(true);
-
-    try {
-      await onUpload(paper.id, file);
-    } catch (error) {
-      console.error('Upload error:', error);
-      alert('Có lỗi xảy ra khi tải file lên.');
-    } finally {
-      setUploadingFulltext(false);
-      // Reset input
-      e.target.value = '';
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!window.confirm(`Bạn có chắc chắn muốn xóa file toàn văn này không?`)) {
-      return;
-    }
-
-    try {
-      await onDelete(paper.id);
-    } catch (error) {
-      console.error('Delete error:', error);
-      alert('Có lỗi xảy ra khi xóa file.');
-    }
-  };
-
-  return (
-    <div className="space-y-4">
-      {/* Fulltext File */}
-      <div className="border border-slate-600 rounded-lg p-4 bg-slate-800/50">
-        <div className="flex items-center justify-between mb-2">
-          <h4 className="text-sm font-semibold text-slate-100">File Toàn văn</h4>
-          {paper.fullTextUrl && (
-            <span className="text-xs text-green-400">
-              <i className="fas fa-check-circle mr-1"></i>
-              Đã có file
-            </span>
-          )}
-        </div>
-
-        {paper.fullTextUrl ? (
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-sm text-slate-300">
-              <i className="fas fa-file-alt text-blue-400"></i>
-              <span className="truncate flex-1">{paper.fullTextFileName || 'fulltext.pdf'}</span>
-            </div>
-            <div className="flex gap-2">
-              <a
-                href={paper.fullTextUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 text-center px-3 py-2 text-xs bg-blue-900/50 hover:bg-blue-800/50 text-blue-300 rounded border border-blue-700 transition-colors"
-              >
-                <i className="fas fa-download mr-1"></i>
-                Tải xuống
-              </a>
-              <button
-                onClick={handleDelete}
-                className="px-3 py-2 text-xs bg-red-900/50 hover:bg-red-800/50 text-red-300 rounded border border-red-700 transition-colors"
-                title="Xóa file"
-              >
-                <i className="fas fa-trash"></i>
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="relative">
-            <input
-              type="file"
-              accept=".pdf,.doc,.docx"
-              onChange={(e) => handleFileUpload(e)}
-              disabled={uploadingFulltext}
-              className="hidden"
-              id={`fulltext-upload-${paper.id}`}
-            />
-            <label
-              htmlFor={`fulltext-upload-${paper.id}`}
-              className={`block w-full text-center px-3 py-2 text-xs rounded border cursor-pointer transition-colors ${uploadingFulltext
-                  ? 'bg-slate-700 text-slate-400 border-slate-600 cursor-not-allowed'
-                  : 'bg-yellow-900/50 hover:bg-yellow-800/50 text-yellow-300 border-yellow-700'
-                }`}
-            >
-              {uploadingFulltext ? (
-                <>
-                  <i className="fas fa-spinner fa-spin mr-1"></i>
-                  Đang tải lên...
-                </>
-              ) : (
-                <>
-                  <i className="fas fa-upload mr-1"></i>
-                  Tải lên file toàn văn
-                </>
-              )}
-            </label>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+// Sắp xếp theo mã số bài viết tăng dần. Lấy nhóm chữ số CUỐI để bỏ qua chữ số nằm
+// trong phần tiền tố (vd "AFCE2026-07"); bài chưa có mã xếp cuối bảng.
+// Dùng MAX_SAFE_INTEGER chứ không phải Infinity: hai bài đều chưa có mã thì
+// Infinity - Infinity = NaN, khiến comparator không nhất quán và thứ tự sort
+// trở thành không xác định — mà "chưa có mã" là trạng thái mặc định khi mới nhập.
+const paperCodeOrder = (code?: string): number => {
+  const nums = code?.match(/\d+/g);
+  return nums ? parseInt(nums[nums.length - 1], 10) : Number.MAX_SAFE_INTEGER;
 };
 
-// Edit Paper Modal Component with File Manager
 const EditPaperModal: React.FC<{
   paper: DetailedPaperSubmission;
   onSave: (paperId: number, data: Partial<DetailedPaperSubmission>) => void;
   onClose: () => void;
-  onUploadFile: (paperId: Number, file: File) => void;
-  onDeleteFile: (paperId: Number) => void;
-}> = ({ paper, onSave, onClose, onUploadFile, onDeleteFile }) => {
+}> = ({ paper, onSave, onClose }) => {
   const [formData, setFormData] = useState({
+    paperCode: paper.paperCode || '',
     authorName: paper.authorName,
     organization: paper.organization,
     paperTitle: paper.paperTitle,
@@ -171,6 +53,10 @@ const EditPaperModal: React.FC<{
   };
 
   const handleSave = () => {
+    if (!formData.authorName.trim() || !formData.paperTitle.trim()) {
+      alert('Tên tác giả và tên bài báo không được để trống.');
+      return;
+    }
     onSave(paper.id, formData);
   };
 
@@ -181,8 +67,11 @@ const EditPaperModal: React.FC<{
       <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 border border-slate-700" onMouseDown={e => e.stopPropagation()}>
         <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">Chỉnh sửa bài báo</h2>
 
-        {/* Paper Info */}
         <div className="space-y-4 mb-6">
+          <div>
+            <label htmlFor="paperCode" className="block text-sm font-medium text-slate-100">Mã số bài viết</label>
+            <input type="text" id="paperCode" name="paperCode" value={formData.paperCode} onChange={handleChange} className={inputStyles} />
+          </div>
           <div>
             <label htmlFor="authorName" className="block text-sm font-medium text-slate-100">Tên tác giả</label>
             <input type="text" id="authorName" name="authorName" value={formData.authorName} onChange={handleChange} className={inputStyles} />
@@ -197,19 +86,6 @@ const EditPaperModal: React.FC<{
           </div>
         </div>
 
-        <hr className="border-slate-600 my-6" />
-
-        {/* File Manager */}
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold text-slate-100 mb-4">Quản lý file</h3>
-          <FileManager
-            paper={paper}
-            onUpload={onUploadFile}
-            onDelete={onDeleteFile}
-          />
-        </div>
-
-        {/* Action Buttons */}
         <div className="flex justify-end gap-4 pt-4 border-t border-slate-600">
           <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500 transition-colors">
             Đóng
@@ -228,37 +104,57 @@ const PaperReviewPage: React.FC = () => {
   const {
     papers,
     updatePaperDetails,
-    updateAbstractStatus,
-    updateFullTextStatus,
     updateReviewStatus,
     updatePresentationStatus,
     deletePaper,
-    uploadFullTextFile,
-    deleteFullTextFile
   } = usePapers();
   const [editingPaper, setEditingPaper] = useState<DetailedPaperSubmission | null>(null);
 
-  const handleSavePaper = (paperId: number, data: Partial<DetailedPaperSubmission>) => {
-    updatePaperDetails(paperId, data);
-    setEditingPaper(null);
+  const isAdmin = currentUser?.role === 'admin';
+
+  const reportError = (action: string, err: unknown) => {
+    console.error(`${action} thất bại:`, err);
+    alert(`${action} thất bại: ${err instanceof Error ? err.message : String(err)}`);
   };
 
-  const handleUploadFile = async (paperId: number, file: File) => {
-    await uploadFullTextFile(paperId, file);
+  const handleSavePaper = async (paperId: number, data: Partial<DetailedPaperSubmission>) => {
+    try {
+      await updatePaperDetails(paperId, data);
+      setEditingPaper(null);
+    } catch (err) {
+      reportError('Lưu bài báo', err);
+    }
   };
 
-  const handleDeleteFile = async (paperId: number) => {
-    await deleteFullTextFile(paperId);
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Bạn có chắc chắn muốn xóa bài báo này không? Thao tác này không thể hoàn tác.')) return;
+    try {
+      await deletePaper(id);
+    } catch (err) {
+      reportError('Xóa bài báo', err);
+    }
   };
 
-  const handleDelete = (id: number) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa bài báo này không? Thao tác này không thể hoàn tác.')) {
-      deletePaper(id);
+  const handleReviewStatusChange = async (id: number, status: ReviewStatus) => {
+    try {
+      await updateReviewStatus(id, status);
+    } catch (err) {
+      reportError('Cập nhật kết quả duyệt', err);
+    }
+  };
+
+  const handlePresentationStatusChange = async (id: number, status: PresentationStatus) => {
+    try {
+      await updatePresentationStatus(id, status);
+    } catch (err) {
+      reportError('Cập nhật trạng thái trình bày', err);
     }
   };
 
   const selectBaseClasses = "w-full text-xs font-semibold rounded-md py-1.5 px-2 focus:ring-2 focus:ring-sky-500 focus:outline-none transition appearance-none text-center";
   const spanBaseClasses = "inline-block px-2.5 py-1 text-xs font-semibold leading-none rounded-full whitespace-nowrap";
+
+  const sortedPapers = [...papers].sort((a, b) => paperCodeOrder(a.paperCode) - paperCodeOrder(b.paperCode));
 
   return (
     <>
@@ -272,46 +168,50 @@ const PaperReviewPage: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-slate-100 table-fixed">
               <colgroup>
-                <col className="w-12" /> {/* TT */}
+                <col className="w-12" /> {/* STT */}
+                <col className="w-28" /> {/* Mã số */}
                 <col className="w-40" /> {/* Họ tên */}
                 <col className="w-48" /> {/* Đơn vị */}
-                <col className="min-w-[320px] w-auto" /> {/* Tên bài - flexible */}
-                <col className="w-24" /> {/* Chủ đề */}
-                {currentUser?.role === 'admin' && <col className="w-20" />} {/* Files */}
-                <col className="w-[110px]" /> {/* Tóm tắt */}
-                <col className="w-[110px]" /> {/* Toàn văn */}
-                <col className="w-[110px]" /> {/* Kết quả */}
-                <col className="w-[110px]" /> {/* Trình bày */}
-                {currentUser?.role === 'admin' && <col className="w-24" />} {/* Hành động */}
+                <col className="min-w-[320px] w-auto" /> {/* Tên bài */}
+                <col className="w-[120px]" /> {/* Chủ đề */}
+                <col className="w-[120px]" /> {/* Kết quả */}
+                <col className="w-[120px]" /> {/* Trình bày */}
+                {isAdmin && <col className="w-24" />} {/* Thao tác */}
               </colgroup>
               <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase tracking-wider">
                 <tr>
                   <th scope="col" className="px-3 py-3 text-center">STT</th>
+                  <th scope="col" className="px-3 py-3 text-center whitespace-nowrap">Mã số</th>
                   <th scope="col" className="px-3 py-3">Họ tên</th>
                   <th scope="col" className="px-3 py-3">Đơn vị công tác</th>
                   <th scope="col" className="px-3 py-3">Tên bài</th>
                   <th scope="col" className="px-2 py-3 text-center">Chủ đề</th>
-                  {currentUser?.role === 'admin' && (
-                    <th scope="col" className="px-2 py-3 text-center">Files</th>
-                  )}
-                  <th scope="col" className="px-2 py-3 text-center">Tóm tắt</th>
-                  <th scope="col" className="px-2 py-3 text-center">Toàn văn</th>
                   <th scope="col" className="px-2 py-3 text-center">Kết quả</th>
                   <th scope="col" className="px-2 py-3 text-center">Trình bày</th>
-                  {currentUser?.role === 'admin' && (
+                  {isAdmin && (
                     <th scope="col" className="px-2 py-3 text-center">Thao tác</th>
                   )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-700/50">
-                {papers.map((paper, index) => (
+                {sortedPapers.length === 0 && (
+                  <tr>
+                    <td colSpan={isAdmin ? 9 : 8} className="px-3 py-12 text-center text-slate-400 italic">
+                      Kết quả duyệt bài sẽ được Ban tổ chức cập nhật.
+                    </td>
+                  </tr>
+                )}
+                {sortedPapers.map((paper, index) => (
                   <tr key={paper.id} className="hover:bg-slate-700/30 transition-colors duration-200">
                     <td className="px-3 py-4 text-center font-medium text-slate-400">{index + 1}</td>
+                    <td className="px-3 py-4 text-center text-slate-300">
+                      {paper.paperCode || <span className="text-slate-500">—</span>}
+                    </td>
                     <td className="px-3 py-4 font-medium text-slate-100">
-                      <div className="truncate" title={paper.authorName}>{paper.authorName}</div>
+                      <div className="break-words whitespace-normal" title={paper.authorName}>{paper.authorName}</div>
                     </td>
                     <td className="px-3 py-4">
-                      <div className="truncate text-slate-300" title={paper.organization}>{paper.organization}</div>
+                      <div className="break-words whitespace-normal text-slate-300" title={paper.organization}>{paper.organization}</div>
                     </td>
                     <td className="px-3 py-4">
                       <div className="font-medium text-slate-100 line-clamp-3" title={paper.paperTitle}>
@@ -323,65 +223,11 @@ const PaperReviewPage: React.FC = () => {
                         Chủ đề {paper.topic}
                       </span>
                     </td>
-                    {currentUser?.role === 'admin' && (
-                      <td className="px-2 py-4 text-center">
-                        {paper.fullTextUrl ? (
-                          <a
-                            href={paper.fullTextUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-green-400 hover:text-green-300 text-xs whitespace-nowrap"
-                            title="Tải file toàn văn"
-                          >
-                            <i className="fas fa-file-alt mr-1"></i>
-                            Có
-                          </a>
-                        ) : (
-                          <span className="text-slate-500 text-xs">—</span>
-                        )}
-                      </td>
-                    )}
                     <td className="px-2 py-4 text-center">
-                      {currentUser?.role === 'admin' ? (
-                        <select
-                          value={paper.abstractStatus}
-                          onChange={(e) => updateAbstractStatus(paper.id, e.target.value as ReviewStatus)}
-                          onClick={(e) => e.stopPropagation()}
-                          className={`${selectBaseClasses} ${reviewStatusStyles[paper.abstractStatus]}`}
-                        >
-                          <option className="bg-slate-800 text-white" value="Duyệt">Duyệt</option>
-                          <option className="bg-slate-800 text-white" value="Không duyệt">Không duyệt</option>
-                          <option className="bg-slate-800 text-white" value="Đang chờ duyệt">Đang chờ</option>
-                        </select>
-                      ) : (
-                        <span className={`${spanBaseClasses} ${reviewStatusStyles[paper.abstractStatus]}`}>
-                          {reviewStatusText[paper.abstractStatus]}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-2 py-4 text-center">
-                      {currentUser?.role === 'admin' ? (
-                        <select
-                          value={paper.fullTextStatus}
-                          onChange={(e) => updateFullTextStatus(paper.id, e.target.value as ReviewStatus)}
-                          onClick={(e) => e.stopPropagation()}
-                          className={`${selectBaseClasses} ${reviewStatusStyles[paper.fullTextStatus]}`}
-                        >
-                          <option className="bg-slate-800 text-white" value="Duyệt">Duyệt</option>
-                          <option className="bg-slate-800 text-white" value="Không duyệt">Không duyệt</option>
-                          <option className="bg-slate-800 text-white" value="Đang chờ duyệt">Đang chờ</option>
-                        </select>
-                      ) : (
-                        <span className={`${spanBaseClasses} ${reviewStatusStyles[paper.fullTextStatus]}`}>
-                          {reviewStatusText[paper.fullTextStatus]}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-2 py-4 text-center">
-                      {currentUser?.role === 'admin' ? (
+                      {isAdmin ? (
                         <select
                           value={paper.reviewStatus}
-                          onChange={(e) => updateReviewStatus(paper.id, e.target.value as ReviewStatus)}
+                          onChange={(e) => handleReviewStatusChange(paper.id, e.target.value as ReviewStatus)}
                           onClick={(e) => e.stopPropagation()}
                           className={`${selectBaseClasses} ${reviewStatusStyles[paper.reviewStatus]}`}
                         >
@@ -396,10 +242,10 @@ const PaperReviewPage: React.FC = () => {
                       )}
                     </td>
                     <td className="px-2 py-4 text-center">
-                      {currentUser?.role === 'admin' ? (
+                      {isAdmin ? (
                         <select
                           value={paper.presentationStatus}
-                          onChange={(e) => updatePresentationStatus(paper.id, e.target.value as PresentationStatus)}
+                          onChange={(e) => handlePresentationStatusChange(paper.id, e.target.value as PresentationStatus)}
                           onClick={(e) => e.stopPropagation()}
                           className={`${selectBaseClasses} ${presentationStatusStyles[paper.presentationStatus]}`}
                         >
@@ -412,7 +258,7 @@ const PaperReviewPage: React.FC = () => {
                         </span>
                       )}
                     </td>
-                    {currentUser?.role === 'admin' && (
+                    {isAdmin && (
                       <td className="px-2 py-4 text-center">
                         <div className="flex items-center justify-center gap-1">
                           <button
@@ -445,8 +291,6 @@ const PaperReviewPage: React.FC = () => {
           paper={editingPaper}
           onSave={handleSavePaper}
           onClose={() => setEditingPaper(null)}
-          onUploadFile={handleUploadFile}
-          onDeleteFile={handleDeleteFile}
         />
       )}
     </>

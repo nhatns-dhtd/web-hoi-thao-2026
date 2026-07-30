@@ -1,4 +1,4 @@
-import type { User, Registration, Announcement, DetailedPaperSubmission, PaperSubmissionFormData, SiteContent } from './types';
+import type { AddPaperInput, User, Registration, Announcement, DetailedPaperSubmission, SiteContent } from './types';
 
 const API_BASE_URL = '/api';
 
@@ -24,22 +24,6 @@ const fetchAPI = async (endpoint: string, options: RequestInit = {}) => {
   return response.json();
 };
 
-// Helper function for file uploads (multipart/form-data)
-const fetchAPIWithFile = async (endpoint: string, formData: FormData) => {
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    method: 'POST',
-    body: formData,
-    // Don't set Content-Type header - browser will set it with boundary
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({ message: 'An unknown error occurred' }));
-    throw new Error(errorData.message || 'File upload failed');
-  }
-
-  return response.json();
-};
-
 
 // --- AUTH & USERS ---
 export const login = (username: string, password: string): Promise<User> => {
@@ -57,13 +41,6 @@ export const getUsers = (): Promise<User[]> => {
 // --- REGISTRATIONS ---
 export const getRegistrations = (): Promise<Registration[]> => {
   return fetchAPI('/registrations');
-};
-
-export const addRegistration = (formData: Omit<Registration, 'id'>): Promise<Registration> => {
-  return fetchAPI('/registrations', {
-    method: 'POST',
-    body: JSON.stringify(formData),
-  });
 };
 
 
@@ -102,11 +79,10 @@ export const getPaper = (id: number): Promise<DetailedPaperSubmission> => {
   return fetchAPI(`/papers/${id}`);
 };
 
-export const addPaper = (formData: PaperSubmissionFormData): Promise<DetailedPaperSubmission> => {
-  const { fullPaperFile, ...dataToSend } = formData;
+export const addPaper = (data: AddPaperInput): Promise<DetailedPaperSubmission> => {
   return fetchAPI('/papers', {
     method: 'POST',
-    body: JSON.stringify(dataToSend),
+    body: JSON.stringify(data),
   });
 };
 
@@ -119,18 +95,6 @@ export const updatePaper = (id: number, data: Partial<DetailedPaperSubmission>):
 
 export const deletePaper = (id: number): Promise<{ id: number }> => {
   return fetchAPI(`/papers/${id}`, {
-    method: 'DELETE',
-  });
-};
-
-export const uploadFullTextFile = (paperId: number, file: File): Promise<{ message: string; paper: DetailedPaperSubmission; fileUrl: string }> => {
-  const formData = new FormData();
-  formData.append('file', file);
-  return fetchAPIWithFile(`/papers/${paperId}/upload-fulltext`, formData);
-};
-
-export const deleteFullTextFile = (paperId: number): Promise<{ message: string; paper: DetailedPaperSubmission }> => {
-  return fetchAPI(`/papers/${paperId}/delete-fulltext`, {
     method: 'DELETE',
   });
 };

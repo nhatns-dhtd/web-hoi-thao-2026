@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import type { KeynoteSpeaker, Sponsor, SiteContentImageKey } from '../types';
+import type {
+    AddPaperInput,
+    DetailedPaperSubmission,
+    KeynoteSpeaker,
+    PresentationStatus,
+    ReviewStatus,
+    Sponsor,
+    SiteContentImageKey,
+} from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
 import { usePapers } from '../contexts/PaperContext';
 import { useRegistrations } from '../contexts/RegistrationContext';
+
+const REVIEW_STATUSES: ReviewStatus[] = ['Duyệt', 'Không duyệt', 'Đang chờ duyệt'];
+const PRESENTATION_STATUSES: PresentationStatus[] = ['Trình bày', 'Không trình bày'];
 
 const StatCard: React.FC<{ icon: string; title: string; value: number; color: string }> = ({ icon, title, value, color }) => (
     <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md flex items-center border border-slate-700/50">
@@ -149,10 +160,123 @@ const EditModal: React.FC<{
 };
 
 
+// Bài báo không còn nộp qua web (tác giả nộp bằng Google Form), nên admin tự nhập
+// danh sách vào bảng để công bố kết quả duyệt.
+const PaperModal: React.FC<{
+    paper: DetailedPaperSubmission | null;
+    topics: { id: number; title: string }[];
+    onClose: () => void;
+    onSave: (data: AddPaperInput) => Promise<void>;
+}> = ({ paper, topics, onClose, onSave }) => {
+    const [form, setForm] = useState<AddPaperInput>({
+        paperCode: paper?.paperCode || '',
+        authorName: paper?.authorName || '',
+        organization: paper?.organization || '',
+        paperTitle: paper?.paperTitle || '',
+        topic: paper?.topic || 1,
+        abstractStatus: paper?.abstractStatus || 'Đang chờ duyệt',
+        fullTextStatus: paper?.fullTextStatus || 'Đang chờ duyệt',
+        reviewStatus: paper?.reviewStatus || 'Đang chờ duyệt',
+        presentationStatus: paper?.presentationStatus || 'Không trình bày',
+    });
+    const [saving, setSaving] = useState(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setForm(prev => ({ ...prev, [name]: name === 'topic' ? parseInt(value, 10) as 1 | 2 | 3 : value }));
+    };
+
+    const handleSubmit = async () => {
+        if (!form.authorName.trim() || !form.paperTitle.trim()) {
+            alert('Vui lòng nhập tên tác giả và tên bài báo.');
+            return;
+        }
+        setSaving(true);
+        try {
+            await onSave(form);
+            onClose();
+        } catch (err) {
+            alert(`Lưu thất bại: ${err instanceof Error ? err.message : String(err)}`);
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 text-slate-100";
+    const labelStyles = "block text-sm font-medium text-slate-100";
+
+    return (
+        <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onMouseDown={onClose}>
+            <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-2xl p-6 border border-slate-700" onMouseDown={e => e.stopPropagation()}>
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">{paper ? 'Sửa bài báo' : 'Thêm bài báo'}</h2>
+                <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+                    <div>
+                        <label className={labelStyles}>Mã số bài viết</label>
+                        <input type="text" name="paperCode" value={form.paperCode || ''} onChange={handleChange} className={inputStyles} />
+                    </div>
+                    <div>
+                        <label className={labelStyles}>Tên tác giả *</label>
+                        <input type="text" name="authorName" value={form.authorName} onChange={handleChange} className={inputStyles} />
+                    </div>
+                    <div>
+                        <label className={labelStyles}>Đơn vị công tác</label>
+                        <input type="text" name="organization" value={form.organization} onChange={handleChange} className={inputStyles} />
+                    </div>
+                    <div>
+                        <label className={labelStyles}>Tên bài báo *</label>
+                        <input type="text" name="paperTitle" value={form.paperTitle} onChange={handleChange} className={inputStyles} />
+                    </div>
+                    <div>
+                        <label className={labelStyles}>Chủ đề</label>
+                        <select name="topic" value={form.topic} onChange={handleChange} className={inputStyles}>
+                            {topics.map(t => (
+                                <option key={t.id} value={t.id}>Chủ đề {t.id}: {t.title}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label className={labelStyles}>Duyệt tóm tắt</label>
+                            <select name="abstractStatus" value={form.abstractStatus} onChange={handleChange} className={inputStyles}>
+                                {REVIEW_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                        </div>
+                        <div>
+                            <label className={labelStyles}>Duyệt toàn văn</label>
+                            <select name="fullTextStatus" value={form.fullTextStatus} onChange={handleChange} className={inputStyles}>
+                                {REVIEW_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                        </div>
+                        <div>
+                            <label className={labelStyles}>Duyệt đăng kỷ yếu</label>
+                            <select name="reviewStatus" value={form.reviewStatus} onChange={handleChange} className={inputStyles}>
+                                {REVIEW_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                        </div>
+                        <div>
+                            <label className={labelStyles}>Trình bày</label>
+                            <select name="presentationStatus" value={form.presentationStatus} onChange={handleChange} className={inputStyles}>
+                                {PRESENTATION_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-6 flex justify-end gap-4">
+                    <button onClick={onClose} disabled={saving} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500 disabled:opacity-50">Hủy</button>
+                    <button onClick={handleSubmit} disabled={saving} className="px-4 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700 disabled:opacity-50">
+                        {saving ? 'Đang lưu...' : 'Lưu'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const AdminPage: React.FC = () => {
     const { siteContent, updateImage, updateConferenceInfo, addKeynoteSpeaker, updateKeynoteSpeaker, deleteKeynoteSpeaker, addSponsorOrCoOrganizer, updateSponsorOrCoOrganizer, deleteSponsorOrCoOrganizer } = useSiteContent();
-    const { papers } = usePapers();
+    const { papers, addPaper, updatePaperDetails, deletePaper } = usePapers();
     const { registrations } = useRegistrations();
+    const [paperModal, setPaperModal] = useState<{ isOpen: boolean; paper: DetailedPaperSubmission | null }>({ isOpen: false, paper: null });
 
     const [modalState, setModalState] = useState<{
         isOpen: boolean;
@@ -202,6 +326,23 @@ const AdminPage: React.FC = () => {
         handleCloseModal();
     };
     
+    const handleSavePaper = async (data: AddPaperInput) => {
+        if (paperModal.paper) {
+            await updatePaperDetails(paperModal.paper.id, data);
+        } else {
+            await addPaper(data);
+        }
+    };
+
+    const handleDeletePaper = async (id: number) => {
+        if (!window.confirm('Xóa bài báo này?')) return;
+        try {
+            await deletePaper(id);
+        } catch (err) {
+            alert(`Xóa thất bại: ${err instanceof Error ? err.message : String(err)}`);
+        }
+    };
+
     const handleDelete = (id: number, type: 'speaker' | 'sponsor' | 'coOrganizer') => {
         if (!window.confirm(`Are you sure you want to delete this ${type}?`)) return;
         if(type === 'speaker') deleteKeynoteSpeaker(id);
@@ -249,6 +390,43 @@ const AdminPage: React.FC = () => {
                             <button onClick={handleSaveConfInfo} className="bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-700 transition-colors">Lưu</button>
                         </div>
                      </div>
+                </div>
+
+                {/* Papers / Review results */}
+                <div>
+                    <div className="flex justify-between items-center mb-8">
+                        <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Kết quả duyệt bài</h3>
+                        <button onClick={() => setPaperModal({ isOpen: true, paper: null })} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm bài báo</button>
+                    </div>
+                    <p className="text-sm text-slate-400 mb-4">
+                        Tác giả nộp bài qua Google Form, Ban tổ chức nhập danh sách tại đây để công bố trên trang Kết quả duyệt bài.
+                    </p>
+                    <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50">
+                        {papers.length === 0 ? (
+                            <p className="text-slate-400 italic text-center py-6">Chưa có bài báo nào.</p>
+                        ) : (
+                            <ul className="space-y-2">
+                                {papers.map(paper => (
+                                    <li key={paper.id} className="flex items-center justify-between gap-4 p-3 bg-slate-900/50 rounded-md">
+                                        <div className="min-w-0">
+                                            <p className="font-semibold text-slate-100 truncate" title={paper.paperTitle}>
+                                                {paper.paperCode ? `[${paper.paperCode}] ` : ''}{paper.paperTitle}
+                                            </p>
+                                            <p className="text-sm text-slate-400 truncate">
+                                                {paper.authorName}
+                                                {paper.organization ? ` — ${paper.organization}` : ''}
+                                                {` · Chủ đề ${paper.topic} · ${paper.reviewStatus}`}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-2 flex-shrink-0">
+                                            <button onClick={() => setPaperModal({ isOpen: true, paper })} className="text-sm font-medium text-yellow-100 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Sửa</button>
+                                            <button onClick={() => handleDeletePaper(paper.id)} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Xóa</button>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                 </div>
 
                 {/* Keynote Speakers */}
@@ -335,6 +513,15 @@ const AdminPage: React.FC = () => {
                     itemType={modalState.itemType}
                     onClose={handleCloseModal}
                     onSave={handleSave}
+                />
+            )}
+
+            {paperModal.isOpen && (
+                <PaperModal
+                    paper={paperModal.paper}
+                    topics={siteContent.conferenceTopics ?? []}
+                    onClose={() => setPaperModal({ isOpen: false, paper: null })}
+                    onSave={handleSavePaper}
                 />
             )}
         </div>
