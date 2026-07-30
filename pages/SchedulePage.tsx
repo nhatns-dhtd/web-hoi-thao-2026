@@ -63,7 +63,7 @@ const SchedulePage: React.FC = () => {
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-2xl md:text-3xl font-bold text-amber-100 text-center bg-stone-900/60 backdrop-blur-xs py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-stone-700 shadow-md">
+                        <h2 className="text-2xl md:text-3xl font-bold text-amber-100 text-center bg-stone-900/60 backdrop-blur-xs py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-line shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         
@@ -75,7 +75,7 @@ const SchedulePage: React.FC = () => {
                                     {part.title}
                                 </div>
                                 
-                                <div className="relative pl-8 md:pl-12 border-l-2 border-stone-600">
+                                <div className="relative pl-8 md:pl-12 border-l-2 border-line-strong">
                                     {part.events.map((event: ScheduleEvent, eventIndex: number) => (
                                         <div key={eventIndex} className="relative mb-12">
                                             {/* Timeline Node/Dot with Icon */}
@@ -85,7 +85,7 @@ const SchedulePage: React.FC = () => {
 
                                             {/* Event Card */}
                                             <div className="ml-8 md:ml-12">
-                                                <div className="p-6 rounded-lg shadow-lg bg-stone-800/40 backdrop-blur-xs border border-stone-700/50">
+                                                <div className="p-6 rounded-lg shadow-lg bg-surface backdrop-blur-xs border border-line/50">
                                                     {event.time && <p className="text-amber-100 font-semibold mb-2 text-lg"><i className="far fa-clock mr-2"></i>{event.time}</p>}
                                                     <h3 className="text-xl md:text-2xl font-bold text-stone-100 mb-3">{event.activity}</h3>
                                                     
@@ -99,7 +99,7 @@ const SchedulePage: React.FC = () => {
                                                     
                                                     {/* Sub-sessions (presentations) */}
                                                     {event.subSessions && (
-                                                        <div className="mt-4 space-y-4 pt-4 border-t border-stone-700">
+                                                        <div className="mt-4 space-y-4 pt-4 border-t border-line">
                                                             {event.subSessions.map((sub: SubSession, sIndex: number) => (
                                                                 <div key={sIndex} className="p-4 rounded-md bg-blue-900/30 border-l-4 border-blue-500">
                                                                     {sub.time && (
@@ -132,7 +132,7 @@ const SchedulePage: React.FC = () => {
 
                                                     {/* Parallel Sessions */}
                                                     {event.parallelSessions && (
-                                                        <div className="mt-4 space-y-6 pt-4 border-t border-stone-700">
+                                                        <div className="mt-4 space-y-6 pt-4 border-t border-line">
                                                             {event.parallelSessions.map((session: ParallelSession, sessionIndex: number) => {
                                                                 const sessionKey = `${day.day}-${partIndex}-${eventIndex}-${sessionIndex}`;
                                                                 const isExpanded = expandedSessions[sessionKey] ?? false;

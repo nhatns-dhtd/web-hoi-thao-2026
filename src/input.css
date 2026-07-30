@@ -20,7 +20,9 @@
   --color-page: #1c1409;                      /* nền body */
   --color-surface: rgba(41, 37, 36, 0.4);     /* panel nổi */
   --color-surface-sunken: rgba(28, 25, 23, 0.5); /* hộp lõm/inset */
-  --color-surface-raised: #292524;            /* tầng đục: modal, ô nhập */
+  --color-surface-raised: #292524;            /* tầng đục: hộp modal */
+  --color-field: #1c1917;                     /* ô nhập trong modal */
+  --color-field-soft: rgba(41, 37, 36, 0.5);  /* ô nhập nằm trên panel */
 
   /* Chữ */
   --color-ink: #f5f5f4;                       /* chữ chính */

@@ -79,7 +79,7 @@ const SpeakerModal: React.FC<{
       onMouseDown={handleBackdropMouseDown}
       onMouseUp={handleBackdropMouseUp}
     >
-      <div className="bg-stone-800 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-stone-700">
+      <div className="bg-stone-800 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-line">
         {/* Header with gradient */}
         <div className="bg-gradient-to-r from-amber-900/80 to-cyan-900/60 p-6 relative">
           <button
@@ -146,7 +146,7 @@ const SpeakerModal: React.FC<{
         </div>
         
         {/* Footer */}
-        <div className="px-6 py-4 bg-stone-900/50 border-t border-stone-700 flex justify-end">
+        <div className="px-6 py-4 bg-surface-sunken border-t border-line flex justify-end">
           <button
             onClick={onClose}
             className="px-5 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded-lg transition-colors"
@@ -183,7 +183,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Conference Details Section */}
-      <section className="bg-stone-900/40 backdrop-blur-xs p-8 rounded-lg shadow-lg border border-stone-700/50">
+      <section className="bg-stone-900/40 backdrop-blur-xs p-8 rounded-lg shadow-lg border border-line/50">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="flex flex-col items-center">
              <div className="bg-amber-900/50 text-amber-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
@@ -213,8 +213,8 @@ const HomePage: React.FC = () => {
       <section className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Call for Papers - Left side (2/5 width on desktop) */}
         <div className="lg:col-span-2">
-          <div className="bg-stone-900/40 backdrop-blur-xs rounded-lg shadow-lg border border-stone-700/50 overflow-hidden h-full flex flex-col">
-            <div className="bg-gradient-to-r from-amber-900/60 to-cyan-900/40 px-6 py-4 border-b border-stone-700/50">
+          <div className="bg-stone-900/40 backdrop-blur-xs rounded-lg shadow-lg border border-line/50 overflow-hidden h-full flex flex-col">
+            <div className="bg-gradient-to-r from-amber-900/60 to-cyan-900/40 px-6 py-4 border-b border-line/50">
               <h3 className="text-xl font-bold text-amber-100 flex items-center gap-3">
                 <i className="fas fa-newspaper text-amber-400"></i>
                 Kêu gọi Bài báo
@@ -242,7 +242,7 @@ const HomePage: React.FC = () => {
             <div className="p-4 pt-0">
               <Link 
                 to="/participation-guide" 
-                className="block w-full text-center bg-amber-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-amber-700 transition-all hover:shadow-lg"
+                className="block w-full text-center bg-brand text-white font-semibold py-3 px-6 rounded-lg hover:bg-brand-hover transition-all hover:shadow-lg"
               >
                 <i className="fas fa-paper-plane mr-2"></i>
                 Nộp bài ngay
@@ -253,8 +253,8 @@ const HomePage: React.FC = () => {
 
         {/* Keynote Speakers - Right side (3/5 width on desktop) */}
         <div className="lg:col-span-3">
-          <div className="bg-stone-900/40 backdrop-blur-xs rounded-lg shadow-lg border border-stone-700/50 overflow-hidden h-full flex flex-col">
-            <div className="bg-gradient-to-r from-emerald-900/60 to-amber-900/40 px-6 py-4 border-b border-stone-700/50">
+          <div className="bg-stone-900/40 backdrop-blur-xs rounded-lg shadow-lg border border-line/50 overflow-hidden h-full flex flex-col">
+            <div className="bg-gradient-to-r from-emerald-900/60 to-amber-900/40 px-6 py-4 border-b border-line/50">
               <h3 className="text-xl font-bold text-emerald-100 flex items-center gap-3">
                 <i className="fas fa-microphone-alt text-emerald-400"></i>
                 Báo cáo viên
@@ -279,7 +279,7 @@ const HomePage: React.FC = () => {
                       <img
                         src={speaker.imageUrl}
                         alt={speaker.name}
-                        className="w-full h-full object-cover rounded-full border-3 border-stone-600 group-hover:border-amber-500 transition-all duration-300 shadow-lg group-hover:shadow-amber-500/20"
+                        className="w-full h-full object-cover rounded-full border-3 border-line-strong group-hover:border-amber-500 transition-all duration-300 shadow-lg group-hover:shadow-amber-500/20"
                       />
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -300,7 +300,7 @@ const HomePage: React.FC = () => {
               )}
             </div>
             {/* Footer with count */}
-            <div className="px-6 py-4 bg-stone-800/30 border-t border-stone-700/50 flex items-center justify-between">
+            <div className="px-6 py-4 bg-stone-800/30 border-t border-line/50 flex items-center justify-between">
               <span className="text-sm text-stone-400">
                 {siteContent.keynoteSpeakers.length > 0 && (
                   <>
@@ -331,7 +331,7 @@ const HomePage: React.FC = () => {
         <div className="flex justify-center items-center gap-4 flex-wrap">
             <Link 
                 to="/participation-guide" 
-                className="bg-amber-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-amber-700 transition-transform transform hover:scale-105 shadow-lg"
+                className="bg-brand text-white font-bold py-3 px-8 rounded-lg hover:bg-brand-hover transition-transform transform hover:scale-105 shadow-lg"
             >
                 Đăng ký ngay
             </Link>

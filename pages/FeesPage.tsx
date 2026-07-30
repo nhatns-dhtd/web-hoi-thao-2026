@@ -13,7 +13,7 @@ const FeesPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-xs p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100">
+    <div className="max-w-4xl mx-auto bg-surface backdrop-blur-xs p-8 rounded-xl shadow-xl border border-line/50 text-stone-100">
       <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-amber-100">Lệ phí công bố, xuất bản Kỷ yếu</h1>
       <p className="text-center text-stone-300 mb-8">
         Các báo cáo được Hội thảo chấp nhận đăng sẽ xuất bản trong Kỷ yếu toàn văn có chỉ số ISBN tại Việt Nam.
@@ -23,15 +23,15 @@ const FeesPage: React.FC = () => {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-stone-900/60">
-              <th className="p-4 border border-stone-700 font-semibold text-amber-200">Đối tượng</th>
-              <th className="p-4 border border-stone-700 font-semibold text-amber-200 text-center">Lệ phí báo cáo toàn văn</th>
+              <th className="p-4 border border-line font-semibold text-amber-200">Đối tượng</th>
+              <th className="p-4 border border-line font-semibold text-amber-200 text-center">Lệ phí báo cáo toàn văn</th>
             </tr>
           </thead>
           <tbody>
             {feesData.map((item, index) => (
-              <tr key={index} className="hover:bg-stone-900/50">
-                <td className="p-4 border border-stone-700 font-medium">{item.category}</td>
-                <td className="p-4 border border-stone-700 text-center">{item.fee}</td>
+              <tr key={index} className="hover:bg-surface-sunken">
+                <td className="p-4 border border-line font-medium">{item.category}</td>
+                <td className="p-4 border border-line text-center">{item.fee}</td>
               </tr>
             ))}
           </tbody>
@@ -45,7 +45,7 @@ const FeesPage: React.FC = () => {
       <div className="mt-8 space-y-4">
         <h2 className="text-xl sm:text-2xl font-semibold">Cách thức nộp tiền</h2>
         <p>Tác giả nộp lệ phí về tài khoản sau:</p>
-        <ul className="space-y-2 bg-stone-900/50 p-4 rounded-md border border-stone-700">
+        <ul className="space-y-2 bg-surface-sunken p-4 rounded-md border border-line">
           <li><strong>Tên tài khoản:</strong> Trường Đại học Thủ đô Hà Nội</li>
           <li><strong>Số tài khoản:</strong> 1507201069189</li>
           <li><strong>Ngân hàng:</strong> Agribank - Chi nhánh Cầu Giấy</li>

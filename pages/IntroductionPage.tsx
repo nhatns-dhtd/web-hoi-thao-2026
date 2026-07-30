@@ -54,7 +54,7 @@ const EditTopicModal: React.FC<{
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
-      <div className="bg-stone-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-stone-700" onClick={e => e.stopPropagation()}>
+      <div className="bg-stone-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-line" onClick={e => e.stopPropagation()}>
         <h2 className="text-xl sm:text-2xl font-bold text-stone-100 mb-4">Edit Topic</h2>
         <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
           <div>
@@ -64,7 +64,7 @@ const EditTopicModal: React.FC<{
               id="topic-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500"
+              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-line-strong rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500"
             />
           </div>
            <div>
@@ -74,7 +74,7 @@ const EditTopicModal: React.FC<{
               rows={5}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500"
+              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-line-strong rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500"
             ></textarea>
           </div>
           <div>
@@ -90,7 +90,7 @@ const EditTopicModal: React.FC<{
         </div>
         <div className="mt-6 flex justify-end gap-4">
           <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-stone-200 bg-stone-600 hover:bg-stone-500">Cancel</button>
-          <button type="button" onClick={handleSave} disabled={isSaving} className="px-4 py-2 rounded-md text-white bg-amber-600 hover:bg-amber-700 disabled:bg-stone-500">
+          <button type="button" onClick={handleSave} disabled={isSaving} className="px-4 py-2 rounded-md text-white bg-brand hover:bg-brand-hover disabled:bg-stone-500">
             {isSaving ? 'Saving...' : 'Save Changes'}
           </button>
         </div>

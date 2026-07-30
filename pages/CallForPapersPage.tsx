@@ -13,13 +13,13 @@ const CallForPapersPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
 
         {/* Call for Papers Image Section (2/3 width) */}
-        <section className="lg:col-span-2 bg-stone-800/40 backdrop-blur-xs p-4 sm:p-6 rounded-xl shadow-xl border border-stone-700/50">
+        <section className="lg:col-span-2 bg-surface backdrop-blur-xs p-4 sm:p-6 rounded-xl shadow-xl border border-line/50">
            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-amber-100 text-center">Thông tin Kêu gọi Bài báo</h2>
            <div className="w-full max-w-2xl mx-auto">
               <img
                 src={siteContent.callForPapersImage}
                 alt="Thông tin kêu gọi bài báo AFCE 2026"
-                className="w-full h-auto object-contain rounded-md shadow-md border border-stone-700"
+                className="w-full h-auto object-contain rounded-md shadow-md border border-line"
               />
            </div>
            <p className="mt-6 text-center text-stone-200">

@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Modal from '../components/ui/Modal';
+import Button from '../components/ui/Button';
+import { Input, Label } from '../components/ui/Field';
 import type { ReviewStatus, PresentationStatus, DetailedPaperSubmission } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import { usePapers } from '../contexts/PaperContext';
@@ -17,7 +20,7 @@ const reviewStatusText: { [key in ReviewStatus]: string } = {
 
 const presentationStatusStyles: { [key in PresentationStatus]: string } = {
   'Trình bày': 'bg-amber-900/60 text-amber-300 border border-amber-700',
-  'Không trình bày': 'bg-stone-700/60 text-stone-100 border border-stone-600',
+  'Không trình bày': 'bg-stone-700/60 text-stone-100 border border-line-strong',
 };
 
 const topicStyles: { [key: number]: string } = {
@@ -60,42 +63,38 @@ const EditPaperModal: React.FC<{
     onSave(paper.id, formData);
   };
 
-  const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-xs focus:outline-hidden focus:ring-amber-500 focus:border-amber-500";
-
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onMouseDown={onClose}>
-      <div className="bg-stone-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 border border-stone-700" onMouseDown={e => e.stopPropagation()}>
+    <Modal onClose={onClose} className="rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
         <h2 className="text-xl sm:text-2xl font-bold text-stone-100 mb-4">Chỉnh sửa bài báo</h2>
 
         <div className="space-y-4 mb-6">
           <div>
-            <label htmlFor="paperCode" className="block text-sm font-medium text-stone-100">Mã số bài viết</label>
-            <input type="text" id="paperCode" name="paperCode" value={formData.paperCode} onChange={handleChange} className={inputStyles} />
+            <Label htmlFor="paperCode">Mã số bài viết</Label>
+            <Input type="text" id="paperCode" name="paperCode" value={formData.paperCode} onChange={handleChange} />
           </div>
           <div>
-            <label htmlFor="authorName" className="block text-sm font-medium text-stone-100">Tên tác giả</label>
-            <input type="text" id="authorName" name="authorName" value={formData.authorName} onChange={handleChange} className={inputStyles} />
+            <Label htmlFor="authorName">Tên tác giả</Label>
+            <Input type="text" id="authorName" name="authorName" value={formData.authorName} onChange={handleChange} />
           </div>
           <div>
-            <label htmlFor="organization" className="block text-sm font-medium text-stone-100">Đơn vị công tác</label>
-            <input type="text" id="organization" name="organization" value={formData.organization} onChange={handleChange} className={inputStyles} />
+            <Label htmlFor="organization">Đơn vị công tác</Label>
+            <Input type="text" id="organization" name="organization" value={formData.organization} onChange={handleChange} />
           </div>
           <div>
-            <label htmlFor="paperTitle" className="block text-sm font-medium text-stone-100">Tên bài báo</label>
-            <input type="text" id="paperTitle" name="paperTitle" value={formData.paperTitle} onChange={handleChange} className={inputStyles} />
+            <Label htmlFor="paperTitle">Tên bài báo</Label>
+            <Input type="text" id="paperTitle" name="paperTitle" value={formData.paperTitle} onChange={handleChange} />
           </div>
         </div>
 
-        <div className="flex justify-end gap-4 pt-4 border-t border-stone-600">
-          <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-stone-200 bg-stone-600 hover:bg-stone-500 transition-colors">
+        <div className="flex justify-end gap-4 pt-4 border-t border-line-strong">
+          <Button variant="secondary" type="button" onClick={onClose} className="px-4 py-2 rounded-md transition-colors">
             Đóng
-          </button>
-          <button type="button" onClick={handleSave} className="px-4 py-2 rounded-md text-white bg-amber-600 hover:bg-amber-700 transition-colors">
+          </Button>
+          <Button type="button" onClick={handleSave} className="px-4 py-2 rounded-md transition-colors">
             Lưu thay đổi
-          </button>
+          </Button>
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 };
 
@@ -164,7 +163,7 @@ const PaperReviewPage: React.FC = () => {
           Danh sách các bài báo đã nộp và trạng thái duyệt, trình bày.
         </p>
 
-        <div className="bg-stone-800/40 backdrop-blur-xs rounded-lg shadow-2xl border border-stone-700/50 overflow-hidden">
+        <div className="bg-surface backdrop-blur-xs rounded-lg shadow-2xl border border-line/50 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-stone-100 table-fixed">
               <colgroup>
@@ -178,7 +177,7 @@ const PaperReviewPage: React.FC = () => {
                 <col className="w-[120px]" /> {/* Trình bày */}
                 {isAdmin && <col className="w-24" />} {/* Thao tác */}
               </colgroup>
-              <thead className="bg-stone-900/50 text-xs text-stone-400 uppercase tracking-wider">
+              <thead className="bg-surface-sunken text-xs text-stone-400 uppercase tracking-wider">
                 <tr>
                   <th scope="col" className="px-3 py-3 text-center">STT</th>
                   <th scope="col" className="px-3 py-3 text-center whitespace-nowrap">Mã số</th>

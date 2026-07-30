@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Button from '../components/ui/Button';
+import { Input, Label } from '../components/ui/Field';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -23,47 +25,45 @@ const LoginPage: React.FC = () => {
     }
   };
   
-  const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-800/50 border border-stone-600 rounded-md shadow-xs placeholder-stone-400 focus:outline-hidden focus:ring-amber-500 focus:border-amber-500";
-
   return (
     <div className="flex justify-center items-center py-10">
-      <div className="bg-stone-800/50 backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-stone-700/50">
+      <div className="bg-stone-800/50 backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-line/50">
         <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 text-stone-100">Đăng nhập quản trị</h2>
         <div className="text-sm bg-amber-900/40 border border-amber-700/50 text-amber-200 p-3 rounded-md mb-6">
             <p>Trang này dành riêng cho Ban tổ chức. Liên hệ quản trị viên nếu bạn cần cấp tài khoản.</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-stone-100">Tên đăng nhập</label>
-            <input
+            <Label htmlFor="username">Tên đăng nhập</Label>
+            <Input
+              tone="panel"
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className={inputStyles}
               required
             />
           </div>
           <div>
-            <label htmlFor="password"  className="block text-sm font-medium text-stone-100">Mật khẩu</label>
-            <input
+            <Label htmlFor="password">Mật khẩu</Label>
+            <Input
+              tone="panel"
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={inputStyles}
               required
             />
           </div>
           {error && <p className="text-sm text-red-400">{error}</p>}
           <div>
-            <button
+            <Button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-xs text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:bg-stone-600"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-xs text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:bg-stone-600"
             >
               {isLoading ? 'Đang đăng nhập...' : 'Đăng nhập'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

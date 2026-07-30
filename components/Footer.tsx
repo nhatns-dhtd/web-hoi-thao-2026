@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const { siteContent } = useSiteContent();
   
   return (
-    <footer className="bg-transparent border-t border-stone-700 mt-12">
+    <footer className="bg-transparent border-t border-line mt-12">
       <div className="container mx-auto px-4 py-8">
         {siteContent.sponsors.length > 0 && (
           <div className="text-center mb-8">

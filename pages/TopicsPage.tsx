@@ -40,7 +40,7 @@ const conferenceTopics = [
 
 const TopicsPage: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-xs p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100">
+    <div className="max-w-4xl mx-auto bg-surface backdrop-blur-xs p-8 rounded-xl shadow-xl border border-line/50 text-stone-100">
       <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-amber-100">Chủ đề chính của Diễn đàn</h1>
       <p className="text-center text-stone-300 mb-8">
         Diễn đàn tập trung vào ba nhóm chủ đề chính dưới đây.
@@ -54,7 +54,7 @@ const TopicsPage: React.FC = () => {
             </h2>
             <ul className="space-y-2 ml-9">
               {topic.subTopics.map((subTopic, subIndex) => (
-                <li key={subIndex} className="flex items-start p-3 bg-stone-900/50 rounded-md">
+                <li key={subIndex} className="flex items-start p-3 bg-surface-sunken rounded-md">
                   <i className="fas fa-angle-right text-amber-400 mt-1.5 mr-3"></i>
                   <span className="text-stone-200">{subTopic}</span>
                 </li>

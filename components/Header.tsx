@@ -83,7 +83,7 @@ const Header: React.FC = () => {
 
           {/* Mobile User Info (shown when logged in on mobile) */}
           {currentUser && (
-            <div className="sm:hidden mt-2 pb-2 border-b border-stone-700/50">
+            <div className="sm:hidden mt-2 pb-2 border-b border-line/50">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-semibold text-stone-100 text-sm">Welcome, {currentUser.username}</p>
