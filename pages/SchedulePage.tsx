@@ -8,8 +8,8 @@ const getEventStyle = (activity: string) => {
     if (lowerActivity.includes('khai mạc')) return { icon: 'fa-bullhorn', color: 'bg-green-500' };
     if (lowerActivity.includes('báo cáo') || lowerActivity.includes('phiên toàn thể')) return { icon: 'fa-microphone-alt', color: 'bg-blue-500' };
     if (lowerActivity.includes('nghỉ') || lowerActivity.includes('break') || lowerActivity.includes('tiệc trà')) return { icon: 'fa-coffee', color: 'bg-orange-500' };
-    if (lowerActivity.includes('kết thúc')) return { icon: 'fa-flag-checkered', color: 'bg-slate-700' };
-    if (lowerActivity.includes('ăn trưa') || lowerActivity.includes('nghỉ trưa')) return { icon: 'fa-utensils', color: 'bg-teal-500' };
+    if (lowerActivity.includes('kết thúc')) return { icon: 'fa-flag-checkered', color: 'bg-stone-700' };
+    if (lowerActivity.includes('ăn trưa') || lowerActivity.includes('nghỉ trưa')) return { icon: 'fa-utensils', color: 'bg-lime-600' };
     if (lowerActivity.includes('tiểu ban') || lowerActivity.includes('phiên chuyên đề')) return { icon: 'fa-comments', color: 'bg-indigo-500' };
     if (lowerActivity.includes('thảo luận')) return { icon: 'fa-question-circle', color: 'bg-purple-500' };
     if (lowerActivity.includes('bế mạc')) return { icon: 'fa-door-closed', color: 'bg-red-500' };
@@ -17,7 +17,7 @@ const getEventStyle = (activity: string) => {
     if (lowerActivity.includes('du lịch') || lowerActivity.includes('tham quan')) return { icon: 'fa-bus-alt', color: 'bg-cyan-500' };
     if (lowerActivity.includes('đón tiếp')) return { icon: 'fa-handshake', color: 'bg-amber-500' };
     if (lowerActivity.includes('tuyên bố') || lowerActivity.includes('giới thiệu')) return { icon: 'fa-users', color: 'bg-indigo-400' };
-    return { icon: 'fa-calendar-day', color: 'bg-slate-600' };
+    return { icon: 'fa-calendar-day', color: 'bg-stone-600' };
 };
 
 // Helper function to get part of day label style
@@ -27,7 +27,7 @@ const getPartStyle = (title: string) => {
     if (lowerTitle.includes('trưa')) return 'bg-orange-500/20 border-orange-500 text-orange-300';
     if (lowerTitle.includes('chiều')) return 'bg-blue-500/20 border-blue-500 text-blue-300';
     if (lowerTitle.includes('tối')) return 'bg-purple-500/20 border-purple-500 text-purple-300';
-    return 'bg-slate-500/20 border-slate-500 text-slate-300';
+    return 'bg-stone-500/20 border-stone-500 text-stone-300';
 };
 
 // Helper function to get session color for parallel sessions
@@ -52,8 +52,8 @@ const SchedulePage: React.FC = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-slate-100">Chương trình Hội thảo</h1>
-            <p className="text-center text-lg text-slate-100 mb-8">Các mốc thời gian quan trọng của Diễn đàn.</p>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-stone-100">Chương trình Hội thảo</h1>
+            <p className="text-center text-lg text-stone-100 mb-8">Các mốc thời gian quan trọng của Diễn đàn.</p>
 
             <div className="max-w-3xl mx-auto mb-16 p-4 rounded-lg bg-amber-900/30 border border-amber-600/60 text-amber-100 text-center">
                 <i className="fas fa-info-circle mr-2"></i>
@@ -63,7 +63,7 @@ const SchedulePage: React.FC = () => {
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-2xl md:text-3xl font-bold text-teal-100 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-slate-700 shadow-md">
+                        <h2 className="text-2xl md:text-3xl font-bold text-amber-100 text-center bg-stone-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-stone-700 shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         
@@ -75,23 +75,23 @@ const SchedulePage: React.FC = () => {
                                     {part.title}
                                 </div>
                                 
-                                <div className="relative pl-8 md:pl-12 border-l-2 border-slate-600">
+                                <div className="relative pl-8 md:pl-12 border-l-2 border-stone-600">
                                     {part.events.map((event: ScheduleEvent, eventIndex: number) => (
                                         <div key={eventIndex} className="relative mb-12">
                                             {/* Timeline Node/Dot with Icon */}
-                                            <div className={`absolute -left-[26px] md:-left-[34px] top-1 h-12 w-12 md:h-16 md:w-16 rounded-full flex items-center justify-center ring-8 ring-slate-800 ${getEventStyle(event.activity).color}`}>
+                                            <div className={`absolute -left-[26px] md:-left-[34px] top-1 h-12 w-12 md:h-16 md:w-16 rounded-full flex items-center justify-center ring-8 ring-stone-800 ${getEventStyle(event.activity).color}`}>
                                                 <i className={`fas ${getEventStyle(event.activity).icon} text-white text-xl md:text-2xl`}></i>
                                             </div>
 
                                             {/* Event Card */}
                                             <div className="ml-8 md:ml-12">
-                                                <div className="p-6 rounded-lg shadow-lg bg-slate-800/40 backdrop-blur-sm border border-slate-700/50">
-                                                    {event.time && <p className="text-teal-100 font-semibold mb-2 text-lg"><i className="far fa-clock mr-2"></i>{event.time}</p>}
-                                                    <h3 className="text-xl md:text-2xl font-bold text-slate-100 mb-3">{event.activity}</h3>
+                                                <div className="p-6 rounded-lg shadow-lg bg-stone-800/40 backdrop-blur-sm border border-stone-700/50">
+                                                    {event.time && <p className="text-amber-100 font-semibold mb-2 text-lg"><i className="far fa-clock mr-2"></i>{event.time}</p>}
+                                                    <h3 className="text-xl md:text-2xl font-bold text-stone-100 mb-3">{event.activity}</h3>
                                                     
                                                     {/* Preside info */}
                                                     {event.preside && (
-                                                        <p className="text-sm text-slate-300 italic mb-4 bg-slate-700/30 p-3 rounded-md">
+                                                        <p className="text-sm text-stone-300 italic mb-4 bg-stone-700/30 p-3 rounded-md">
                                                             <i className="fas fa-gavel mr-2 text-amber-400"></i>
                                                             <span className="font-semibold">Chủ trì:</span> {event.preside}
                                                         </p>
@@ -99,11 +99,11 @@ const SchedulePage: React.FC = () => {
                                                     
                                                     {/* Sub-sessions (presentations) */}
                                                     {event.subSessions && (
-                                                        <div className="mt-4 space-y-4 pt-4 border-t border-slate-700">
+                                                        <div className="mt-4 space-y-4 pt-4 border-t border-stone-700">
                                                             {event.subSessions.map((sub: SubSession, sIndex: number) => (
                                                                 <div key={sIndex} className="p-4 rounded-md bg-blue-900/30 border-l-4 border-blue-500">
                                                                     {sub.time && (
-                                                                        <p className="text-teal-300 font-semibold text-sm mb-2">
+                                                                        <p className="text-amber-300 font-semibold text-sm mb-2">
                                                                             <i className="far fa-clock mr-2"></i>{sub.time}
                                                                         </p>
                                                                     )}
@@ -113,13 +113,13 @@ const SchedulePage: React.FC = () => {
                                                                     {sub.presenter && sub.presenter.length > 0 && (
                                                                         <div className="mt-3 space-y-2">
                                                                             {sub.presenter.map((p, pIndex) => (
-                                                                                <div key={pIndex} className="text-sm text-slate-300 bg-slate-800/50 p-3 rounded">
-                                                                                    <p className="font-semibold text-slate-100">
+                                                                                <div key={pIndex} className="text-sm text-stone-300 bg-stone-800/50 p-3 rounded">
+                                                                                    <p className="font-semibold text-stone-100">
                                                                                         <i className="fas fa-user mr-2 text-green-400"></i>
                                                                                         {p.name}
                                                                                     </p>
                                                                                     {p.department && (
-                                                                                        <p className="text-xs text-slate-400 mt-1 ml-6">{p.department}</p>
+                                                                                        <p className="text-xs text-stone-400 mt-1 ml-6">{p.department}</p>
                                                                                     )}
                                                                                 </div>
                                                                             ))}
@@ -132,7 +132,7 @@ const SchedulePage: React.FC = () => {
 
                                                     {/* Parallel Sessions */}
                                                     {event.parallelSessions && (
-                                                        <div className="mt-4 space-y-6 pt-4 border-t border-slate-700">
+                                                        <div className="mt-4 space-y-6 pt-4 border-t border-stone-700">
                                                             {event.parallelSessions.map((session: ParallelSession, sessionIndex: number) => {
                                                                 const sessionKey = `${day.day}-${partIndex}-${eventIndex}-${sessionIndex}`;
                                                                 const isExpanded = expandedSessions[sessionKey] ?? false;
@@ -157,7 +157,7 @@ const SchedulePage: React.FC = () => {
 
                                                                         {/* Preside info for parallel session */}
                                                                         {session.preside && (
-                                                                            <p className={`px-4 py-2 text-sm italic ${color.text} bg-slate-700/30`}>
+                                                                            <p className={`px-4 py-2 text-sm italic ${color.text} bg-stone-700/30`}>
                                                                                 <i className="fas fa-gavel mr-2 text-amber-400"></i>
                                                                                 <span className="font-semibold">Chủ trì:</span> {session.preside}
                                                                             </p>
@@ -169,7 +169,7 @@ const SchedulePage: React.FC = () => {
                                                                                 {session.presentations.map((pres, presIndex: number) => (
                                                                                     <div key={presIndex} className="p-4 rounded-md bg-blue-900/30 border-l-4 border-blue-500">
                                                                                         {pres.time && (
-                                                                                            <p className="text-teal-300 font-semibold text-sm mb-2">
+                                                                                            <p className="text-amber-300 font-semibold text-sm mb-2">
                                                                                                 <i className="far fa-clock mr-2"></i>{pres.time}
                                                                                             </p>
                                                                                         )}
@@ -179,13 +179,13 @@ const SchedulePage: React.FC = () => {
                                                                                         {pres.presenter && pres.presenter.length > 0 && (
                                                                                             <div className="mt-3 space-y-2">
                                                                                                 {pres.presenter.map((p, pIndex) => (
-                                                                                                    <div key={pIndex} className="text-sm text-slate-300 bg-slate-800/50 p-3 rounded">
-                                                                                                        <p className="font-semibold text-slate-100">
+                                                                                                    <div key={pIndex} className="text-sm text-stone-300 bg-stone-800/50 p-3 rounded">
+                                                                                                        <p className="font-semibold text-stone-100">
                                                                                                             <i className="fas fa-user mr-2 text-green-400"></i>
                                                                                                             {p.name}
                                                                                                         </p>
                                                                                                         {p.department && (
-                                                                                                            <p className="text-xs text-slate-400 mt-1 ml-6">{p.department}</p>
+                                                                                                            <p className="text-xs text-stone-400 mt-1 ml-6">{p.department}</p>
                                                                                                         )}
                                                                                                     </div>
                                                                                                 ))}

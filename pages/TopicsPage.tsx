@@ -40,23 +40,23 @@ const conferenceTopics = [
 
 const TopicsPage: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto bg-slate-800/40 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-slate-700/50 text-slate-100">
-      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-teal-100">Chủ đề chính của Diễn đàn</h1>
-      <p className="text-center text-slate-300 mb-8">
+    <div className="max-w-4xl mx-auto bg-stone-800/40 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-stone-700/50 text-stone-100">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-amber-100">Chủ đề chính của Diễn đàn</h1>
+      <p className="text-center text-stone-300 mb-8">
         Diễn đàn tập trung vào ba nhóm chủ đề chính dưới đây.
       </p>
       <div className="space-y-8">
         {conferenceTopics.map((topic, index) => (
           <section key={index}>
-            <h2 className="text-xl font-bold text-teal-100 mb-3 flex items-start">
-              <i className="fas fa-lightbulb text-teal-500 mt-1 mr-3"></i>
+            <h2 className="text-xl font-bold text-amber-100 mb-3 flex items-start">
+              <i className="fas fa-lightbulb text-amber-500 mt-1 mr-3"></i>
               <span>{index + 1}. {topic.title}</span>
             </h2>
             <ul className="space-y-2 ml-9">
               {topic.subTopics.map((subTopic, subIndex) => (
-                <li key={subIndex} className="flex items-start p-3 bg-slate-900/50 rounded-md">
-                  <i className="fas fa-angle-right text-teal-400 mt-1.5 mr-3"></i>
-                  <span className="text-slate-200">{subTopic}</span>
+                <li key={subIndex} className="flex items-start p-3 bg-stone-900/50 rounded-md">
+                  <i className="fas fa-angle-right text-amber-400 mt-1.5 mr-3"></i>
+                  <span className="text-stone-200">{subTopic}</span>
                 </li>
               ))}
             </ul>

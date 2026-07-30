@@ -23,18 +23,18 @@ const LoginPage: React.FC = () => {
     }
   };
   
-  const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-800/50 border border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500";
+  const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-800/50 border border-stone-600 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-amber-500 focus:border-amber-500";
 
   return (
     <div className="flex justify-center items-center py-10">
-      <div className="bg-slate-800/50 backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-slate-700/50">
-        <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 text-slate-100">Đăng nhập quản trị</h2>
-        <div className="text-sm bg-teal-900/40 border border-teal-700/50 text-teal-200 p-3 rounded-md mb-6">
+      <div className="bg-stone-800/50 backdrop-blur-md rounded-lg shadow-xl w-full max-w-md p-8 border border-stone-700/50">
+        <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 text-stone-100">Đăng nhập quản trị</h2>
+        <div className="text-sm bg-amber-900/40 border border-amber-700/50 text-amber-200 p-3 rounded-md mb-6">
             <p>Trang này dành riêng cho Ban tổ chức. Liên hệ quản trị viên nếu bạn cần cấp tài khoản.</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-slate-100">Tên đăng nhập</label>
+            <label htmlFor="username" className="block text-sm font-medium text-stone-100">Tên đăng nhập</label>
             <input
               type="text"
               id="username"
@@ -45,7 +45,7 @@ const LoginPage: React.FC = () => {
             />
           </div>
           <div>
-            <label htmlFor="password"  className="block text-sm font-medium text-slate-100">Mật khẩu</label>
+            <label htmlFor="password"  className="block text-sm font-medium text-stone-100">Mật khẩu</label>
             <input
               type="password"
               id="password"
@@ -60,7 +60,7 @@ const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:bg-slate-600"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:bg-stone-600"
             >
               {isLoading ? 'Đang đăng nhập...' : 'Đăng nhập'}
             </button>

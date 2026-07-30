@@ -17,13 +17,13 @@ const REVIEW_STATUSES: ReviewStatus[] = ['Duyệt', 'Không duyệt', 'Đang ch�
 const PRESENTATION_STATUSES: PresentationStatus[] = ['Trình bày', 'Không trình bày'];
 
 const StatCard: React.FC<{ icon: string; title: string; value: number; color: string }> = ({ icon, title, value, color }) => (
-    <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md flex items-center border border-slate-700/50">
+    <div className="bg-stone-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md flex items-center border border-stone-700/50">
         <div className={`rounded-full p-4 mr-4 ${color}`}>
             <i className={`fas ${icon} fa-2x text-white`}></i>
         </div>
         <div>
-            <p className="text-sm text-slate-400">{title}</p>
-            <p className="text-2xl md:text-3xl font-bold text-slate-100">{value}</p>
+            <p className="text-sm text-stone-400">{title}</p>
+            <p className="text-2xl md:text-3xl font-bold text-stone-100">{value}</p>
         </div>
     </div>
 );
@@ -35,14 +35,14 @@ const ManagementCard: React.FC<{
     onEdit: () => void;
     onDelete: () => void;
 }> = ({ imageUrl, title, description, onEdit, onDelete }) => (
-    <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50 flex flex-col">
-        <img src={imageUrl} alt={title} className="w-full h-32 object-contain rounded-md bg-slate-900/50 p-1 mb-4" />
+    <div className="bg-stone-800/50 p-4 rounded-lg shadow-md border border-stone-700/50 flex flex-col">
+        <img src={imageUrl} alt={title} className="w-full h-32 object-contain rounded-md bg-stone-900/50 p-1 mb-4" />
         <div className="flex-grow">
-            <h3 className="text-lg font-semibold text-slate-100 truncate" title={title}>{title}</h3>
-            {description && <p className="text-sm text-slate-400">{description}</p>}
+            <h3 className="text-lg font-semibold text-stone-100 truncate" title={title}>{title}</h3>
+            {description && <p className="text-sm text-stone-400">{description}</p>}
         </div>
         <div className="mt-4 flex justify-end gap-2">
-            <button onClick={onEdit} className="text-sm font-medium text-teal-100 hover:text-teal-300 py-1 px-3 rounded bg-teal-900/50 hover:bg-teal-800/50">Edit</button>
+            <button onClick={onEdit} className="text-sm font-medium text-amber-100 hover:text-amber-300 py-1 px-3 rounded bg-amber-900/50 hover:bg-amber-800/50">Edit</button>
             <button onClick={onDelete} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Delete</button>
         </div>
     </div>
@@ -62,12 +62,12 @@ const ImageUploadCard: React.FC<{
     };
 
     return (
-        <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50 flex flex-col">
-            <h3 className="text-lg font-semibold text-slate-100 mb-2 truncate" title={title}>{title}</h3>
+        <div className="bg-stone-800/50 p-4 rounded-lg shadow-md border border-stone-700/50 flex flex-col">
+            <h3 className="text-lg font-semibold text-stone-100 mb-2 truncate" title={title}>{title}</h3>
             <div className="w-full h-32 mb-4">
-              <img src={currentImage} alt={title} className="w-full h-full rounded-md bg-slate-900/50 p-1 object-contain" />
+              <img src={currentImage} alt={title} className="w-full h-full rounded-md bg-stone-900/50 p-1 object-contain" />
             </div>
-            <label htmlFor={inputId} className="cursor-pointer w-full text-center block bg-teal-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors mt-auto">
+            <label htmlFor={inputId} className="cursor-pointer w-full text-center block bg-amber-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-amber-700 transition-colors mt-auto">
                 Change Image
             </label>
             <input id={inputId} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
@@ -120,8 +120,8 @@ const EditModal: React.FC<{
         }
     };
     
-    const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500";
-    const labelStyles = "block text-sm font-medium text-slate-100";
+    const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500";
+    const labelStyles = "block text-sm font-medium text-stone-100";
 
     const getTitle = () => {
         if (itemType === 'speaker') return 'Keynote Speaker';
@@ -131,8 +131,8 @@ const EditModal: React.FC<{
 
     return (
         <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onMouseDown={onClose}>
-            <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onMouseDown={e => e.stopPropagation()}>
-                <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">{item?.id ? 'Edit' : 'Add'} {getTitle()}</h2>
+            <div className="bg-stone-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-stone-700" onMouseDown={e => e.stopPropagation()}>
+                <h2 className="text-xl sm:text-2xl font-bold text-stone-100 mb-4">{item?.id ? 'Edit' : 'Add'} {getTitle()}</h2>
                 <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                     <input type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="Name" className={inputStyles} />
                     {itemType === 'speaker' && (
@@ -145,14 +145,14 @@ const EditModal: React.FC<{
                     {(itemType === 'speaker' || itemType === 'sponsor') && (
                         <div>
                             <label className={labelStyles}>Image/Logo</label>
-                            {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-40 object-contain rounded-md my-2 bg-slate-900" />}
-                            <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/50 file:text-teal-300 hover:file:bg-teal-800/50"/>
+                            {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-40 object-contain rounded-md my-2 bg-stone-900" />}
+                            <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-stone-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-900/50 file:text-amber-300 hover:file:bg-amber-800/50"/>
                         </div>
                     )}
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
-                    <button onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
-                    <button onClick={handleSubmit} className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700">Save</button>
+                    <button onClick={onClose} className="px-4 py-2 rounded-md text-stone-200 bg-stone-600 hover:bg-stone-500">Cancel</button>
+                    <button onClick={handleSubmit} className="px-4 py-2 rounded-md text-white bg-amber-600 hover:bg-amber-700">Save</button>
                 </div>
             </div>
         </div>
@@ -202,13 +202,13 @@ const PaperModal: React.FC<{
         }
     };
 
-    const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 text-slate-100";
-    const labelStyles = "block text-sm font-medium text-slate-100";
+    const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 text-stone-100";
+    const labelStyles = "block text-sm font-medium text-stone-100";
 
     return (
         <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onMouseDown={onClose}>
-            <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-2xl p-6 border border-slate-700" onMouseDown={e => e.stopPropagation()}>
-                <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">{paper ? 'Sửa bài báo' : 'Thêm bài báo'}</h2>
+            <div className="bg-stone-800 rounded-lg shadow-xl w-full max-w-2xl p-6 border border-stone-700" onMouseDown={e => e.stopPropagation()}>
+                <h2 className="text-xl sm:text-2xl font-bold text-stone-100 mb-4">{paper ? 'Sửa bài báo' : 'Thêm bài báo'}</h2>
                 <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                     <div>
                         <label className={labelStyles}>Mã số bài viết</label>
@@ -262,8 +262,8 @@ const PaperModal: React.FC<{
                     </div>
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
-                    <button onClick={onClose} disabled={saving} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500 disabled:opacity-50">Hủy</button>
-                    <button onClick={handleSubmit} disabled={saving} className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700 disabled:opacity-50">
+                    <button onClick={onClose} disabled={saving} className="px-4 py-2 rounded-md text-stone-200 bg-stone-600 hover:bg-stone-500 disabled:opacity-50">Hủy</button>
+                    <button onClick={handleSubmit} disabled={saving} className="px-4 py-2 rounded-md text-white bg-amber-600 hover:bg-amber-700 disabled:opacity-50">
                         {saving ? 'Đang lưu...' : 'Lưu'}
                     </button>
                 </div>
@@ -352,8 +352,8 @@ const AdminPage: React.FC = () => {
     return (
         <div className="max-w-7xl mx-auto">
             <div>
-                <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Admin Dashboard</h1>
-                <p className="text-center text-slate-100 text-lg mb-10">Thống kê và báo cáo tổng quan hội thảo.</p>
+                <h1 className="text-4xl font-bold text-center mb-4 text-stone-100">Admin Dashboard</h1>
+                <p className="text-center text-stone-100 text-lg mb-10">Thống kê và báo cáo tổng quan hội thảo.</p>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <StatCard icon="fa-users" title="Tổng số đăng ký" value={registrations.length} color="bg-blue-500" />
                     <StatCard icon="fa-file-alt" title="Bài báo đã nộp" value={papers.length} color="bg-purple-500" />
@@ -362,32 +362,32 @@ const AdminPage: React.FC = () => {
 
             {/* Content Management Section */}
             <div className="space-y-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-center text-slate-100 border-b-2 border-slate-700 pb-4">Quản lý nội dung</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-center text-stone-100 border-b-2 border-stone-700 pb-4">Quản lý nội dung</h2>
                 
                 {/* General Conference Info */}
                 <div>
-                     <h3 className="text-xl sm:text-2xl font-semibold text-teal-100 mb-8">Thông tin chung về hội thảo</h3>
-                     <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 space-y-4">
+                     <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-8">Thông tin chung về hội thảo</h3>
+                     <div className="bg-stone-800/50 p-6 rounded-lg shadow-md border border-stone-700/50 space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-100">Tiêu đề chính homepage</label>
-                            <input type="text" name="title" value={confInfo.title} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
+                            <label className="block text-sm font-medium text-stone-100">Tiêu đề chính homepage</label>
+                            <input type="text" name="title" value={confInfo.title} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md"/>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-100">Tiêu đề phụ homepage</label>
-                            <input type="text" name="subtitle" value={confInfo.subtitle} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
+                            <label className="block text-sm font-medium text-stone-100">Tiêu đề phụ homepage</label>
+                            <input type="text" name="subtitle" value={confInfo.subtitle} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md"/>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-100">Ngày diễn ra hội thảo</label>
-                                <input type="text" name="date" value={confInfo.date} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
+                                <label className="block text-sm font-medium text-stone-100">Ngày diễn ra hội thảo</label>
+                                <input type="text" name="date" value={confInfo.date} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md"/>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-slate-100">Địa điểm hội thảo</label>
-                                <input type="text" name="location" value={confInfo.location} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md"/>
+                                <label className="block text-sm font-medium text-stone-100">Địa điểm hội thảo</label>
+                                <input type="text" name="location" value={confInfo.location} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md"/>
                             </div>
                         </div>
                         <div className="text-right">
-                            <button onClick={handleSaveConfInfo} className="bg-teal-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors">Lưu</button>
+                            <button onClick={handleSaveConfInfo} className="bg-amber-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-amber-700 transition-colors">Lưu</button>
                         </div>
                      </div>
                 </div>
@@ -395,31 +395,31 @@ const AdminPage: React.FC = () => {
                 {/* Papers / Review results */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                        <h3 className="text-xl sm:text-2xl font-semibold text-teal-100">Kết quả duyệt bài</h3>
+                        <h3 className="text-xl sm:text-2xl font-semibold text-amber-100">Kết quả duyệt bài</h3>
                         <button onClick={() => setPaperModal({ isOpen: true, paper: null })} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm bài báo</button>
                     </div>
-                    <p className="text-sm text-slate-400 mb-4">
+                    <p className="text-sm text-stone-400 mb-4">
                         Tác giả nộp bài qua Google Form, Ban tổ chức nhập danh sách tại đây để công bố trên trang Kết quả duyệt bài.
                     </p>
-                    <div className="bg-slate-800/50 p-4 rounded-lg shadow-md border border-slate-700/50">
+                    <div className="bg-stone-800/50 p-4 rounded-lg shadow-md border border-stone-700/50">
                         {papers.length === 0 ? (
-                            <p className="text-slate-400 italic text-center py-6">Chưa có bài báo nào.</p>
+                            <p className="text-stone-400 italic text-center py-6">Chưa có bài báo nào.</p>
                         ) : (
                             <ul className="space-y-2">
                                 {papers.map(paper => (
-                                    <li key={paper.id} className="flex items-center justify-between gap-4 p-3 bg-slate-900/50 rounded-md">
+                                    <li key={paper.id} className="flex items-center justify-between gap-4 p-3 bg-stone-900/50 rounded-md">
                                         <div className="min-w-0">
-                                            <p className="font-semibold text-slate-100 truncate" title={paper.paperTitle}>
+                                            <p className="font-semibold text-stone-100 truncate" title={paper.paperTitle}>
                                                 {paper.paperCode ? `[${paper.paperCode}] ` : ''}{paper.paperTitle}
                                             </p>
-                                            <p className="text-sm text-slate-400 truncate">
+                                            <p className="text-sm text-stone-400 truncate">
                                                 {paper.authorName}
                                                 {paper.organization ? ` — ${paper.organization}` : ''}
                                                 {` · Chủ đề ${paper.topic} · ${paper.reviewStatus}`}
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2 flex-shrink-0">
-                                            <button onClick={() => setPaperModal({ isOpen: true, paper })} className="text-sm font-medium text-teal-100 hover:text-teal-300 py-1 px-3 rounded bg-teal-900/50 hover:bg-teal-800/50">Sửa</button>
+                                            <button onClick={() => setPaperModal({ isOpen: true, paper })} className="text-sm font-medium text-amber-100 hover:text-amber-300 py-1 px-3 rounded bg-amber-900/50 hover:bg-amber-800/50">Sửa</button>
                                             <button onClick={() => handleDeletePaper(paper.id)} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Xóa</button>
                                         </div>
                                     </li>
@@ -432,7 +432,7 @@ const AdminPage: React.FC = () => {
                 {/* Keynote Speakers */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-xl sm:text-2xl font-semibold text-teal-100">Diễn giả chính</h3>
+                         <h3 className="text-xl sm:text-2xl font-semibold text-amber-100">Diễn giả chính</h3>
                          <button onClick={() => handleOpenModal(null, 'speaker')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm diễn giả</button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -452,13 +452,13 @@ const AdminPage: React.FC = () => {
                 {/* Sponsors & Partners */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-xl sm:text-2xl font-semibold text-teal-100">Nhà tài trợ & Đối tác</h3>
+                         <h3 className="text-xl sm:text-2xl font-semibold text-amber-100">Nhà tài trợ & Đối tác</h3>
                          <div>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'coOrganizer')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors mr-2">Thêm đồng tổ chức</button>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'sponsor')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm nhà tài trợ</button>
                          </div>
                     </div>
-                    <h4 className="text-xl font-medium text-slate-100 mb-4">Đồng tổ chức</h4>
+                    <h4 className="text-xl font-medium text-stone-100 mb-4">Đồng tổ chức</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                          {siteContent.coOrganizers.map(item => (
                             <ManagementCard 
@@ -470,7 +470,7 @@ const AdminPage: React.FC = () => {
                             />
                         ))}
                     </div>
-                    <h4 className="text-xl font-medium text-slate-100 mb-4">Nhà tài trợ</h4>
+                    <h4 className="text-xl font-medium text-stone-100 mb-4">Nhà tài trợ</h4>
                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                          {siteContent.sponsors.map(item => (
                             <ManagementCard 
@@ -486,7 +486,7 @@ const AdminPage: React.FC = () => {
 
                  {/* General Images */}
                 <div>
-                     <h3 className="text-xl sm:text-2xl font-semibold text-teal-100 mb-8">Ảnh trên website</h3>
+                     <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-8">Ảnh trên website</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <ImageUploadCard title="Logo hội thảo" currentImage={siteContent.conferenceLogo} onImageSelect={(file) => handleImageUpload('conferenceLogo', file)} />
                         <ImageUploadCard title="Logo trường đại học" currentImage={siteContent.universityLogo} onImageSelect={(file) => handleImageUpload('universityLogo', file)} />
@@ -498,9 +498,9 @@ const AdminPage: React.FC = () => {
 
 
             <div className="mt-16">
-                <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-slate-100">Database Management</h2>
-                <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 text-center">
-                    <p className="text-slate-100 mb-4">View the raw data used in this mock application.</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-stone-100">Database Management</h2>
+                <div className="bg-stone-800/50 p-6 rounded-lg shadow-md border border-stone-700/50 text-center">
+                    <p className="text-stone-100 mb-4">View the raw data used in this mock application.</p>
                     <Link to="/admin/database" className="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-lg">
                         <i className="fas fa-database mr-2"></i>View Mock Database
                     </Link>

@@ -54,43 +54,43 @@ const EditTopicModal: React.FC<{
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4" onClick={onClose}>
-      <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-slate-700" onClick={e => e.stopPropagation()}>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-4">Edit Topic</h2>
+      <div className="bg-stone-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-stone-700" onClick={e => e.stopPropagation()}>
+        <h2 className="text-xl sm:text-2xl font-bold text-stone-100 mb-4">Edit Topic</h2>
         <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
           <div>
-            <label htmlFor="topic-title" className="block text-sm font-medium text-slate-100">Title</label>
+            <label htmlFor="topic-title" className="block text-sm font-medium text-stone-100">Title</label>
             <input
               type="text"
               id="topic-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"
             />
           </div>
            <div>
-            <label htmlFor="topic-description" className="block text-sm font-medium text-slate-100">Description</label>
+            <label htmlFor="topic-description" className="block text-sm font-medium text-stone-100">Description</label>
             <textarea
               id="topic-description"
               rows={5}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+              className="mt-1 block w-full px-3 py-2 bg-stone-900 border border-stone-600 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"
             ></textarea>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-100">Image</label>
-            <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-md my-2 bg-slate-900" />
+            <label className="block text-sm font-medium text-stone-100">Image</label>
+            <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-md my-2 bg-stone-900" />
             <input
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/50 file:text-teal-300 hover:file:bg-teal-800/50"
+              className="mt-1 block w-full text-sm text-stone-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-900/50 file:text-amber-300 hover:file:bg-amber-800/50"
             />
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-4">
-          <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
-          <button type="button" onClick={handleSave} disabled={isSaving} className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700 disabled:bg-slate-500">
+          <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-stone-200 bg-stone-600 hover:bg-stone-500">Cancel</button>
+          <button type="button" onClick={handleSave} disabled={isSaving} className="px-4 py-2 rounded-md text-white bg-amber-600 hover:bg-amber-700 disabled:bg-stone-500">
             {isSaving ? 'Saving...' : 'Save Changes'}
           </button>
         </div>
@@ -120,7 +120,7 @@ const IntroductionPage: React.FC = () => {
       >
         <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-300"></div>
         {isAdmin && (
-            <div className="absolute top-2 right-2 z-20 bg-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
+            <div className="absolute top-2 right-2 z-20 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
                 <i className="fas fa-edit mr-1"></i> Edit
             </div>
         )}
@@ -134,7 +134,7 @@ const IntroductionPage: React.FC = () => {
       return (
         <button
           onClick={() => setEditingTopic(topic)}
-          className="group block rounded-lg overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-sky-500/20 text-left w-full"
+          className="group block rounded-lg overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-amber-500/20 text-left w-full"
         >
           {cardContent}
         </button>
@@ -142,7 +142,7 @@ const IntroductionPage: React.FC = () => {
     }
 
     return (
-      <Link to={topic.link} className="group block rounded-lg overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-sky-500/20">
+      <Link to={topic.link} className="group block rounded-lg overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-amber-500/20">
         {cardContent}
       </Link>
     );
@@ -151,10 +151,10 @@ const IntroductionPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Giới thiệu</h1>
-      <p className="text-center text-slate-100 text-lg mb-10">
+      <h1 className="text-4xl font-bold text-center mb-4 text-stone-100">Giới thiệu</h1>
+      <p className="text-center text-stone-100 text-lg mb-10">
         Khám phá các chủ đề chính sẽ được thảo luận và nghiên cứu tại hội thảo.
-        {isAdmin && <span className="block text-sm text-teal-100 mt-2">(Admin: Click vào một chủ đề để chỉnh sửa nội dung)</span>}
+        {isAdmin && <span className="block text-sm text-amber-100 mt-2">(Admin: Click vào một chủ đề để chỉnh sửa nội dung)</span>}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

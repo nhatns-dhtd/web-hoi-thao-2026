@@ -82,14 +82,14 @@ const AnnouncementForm: React.FC<{
     processFiles();
   };
 
-  const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-800/50 border border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500";
+  const inputStyles = "mt-1 block w-full px-3 py-2 bg-stone-800/50 border border-stone-600 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-amber-500 focus:border-amber-500";
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6 border-l-4 border-teal-500">
-      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-slate-100">{announcement ? 'Chỉnh sửa thông báo' : 'Thêm mới thông báo'}</h2>
+    <div className="bg-stone-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6 border-l-4 border-amber-500">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-stone-100">{announcement ? 'Chỉnh sửa thông báo' : 'Thêm mới thông báo'}</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-slate-100">Tiêu đề</label>
+          <label htmlFor="title" className="block text-sm font-medium text-stone-100">Tiêu đề</label>
           <input
             type="text"
             id="title"
@@ -100,7 +100,7 @@ const AnnouncementForm: React.FC<{
           />
         </div>
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-slate-100">Nội dung</label>
+          <label htmlFor="content" className="block text-sm font-medium text-stone-100">Nội dung</label>
           <textarea
             id="content"
             rows={4}
@@ -111,21 +111,21 @@ const AnnouncementForm: React.FC<{
           ></textarea>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-100">Ảnh nền</label>
-          {imagePreview && <img src={imagePreview} alt="Preview" className="w-full aspect-video object-cover rounded-md my-2 bg-slate-900" />}
+          <label className="block text-sm font-medium text-stone-100">Ảnh nền</label>
+          {imagePreview && <img src={imagePreview} alt="Preview" className="w-full aspect-video object-cover rounded-md my-2 bg-stone-900" />}
           <input
             type="file"
             accept="image/*"
             onChange={handleBackgroundFileChange}
-            className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/50 file:text-teal-300 hover:file:bg-teal-800/50"
+            className="mt-1 block w-full text-sm text-stone-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-900/50 file:text-amber-300 hover:file:bg-amber-800/50"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-100">Ảnh nội dung (có thể chọn nhiều)</label>
+          <label className="block text-sm font-medium text-stone-100">Ảnh nội dung (có thể chọn nhiều)</label>
           {contentImagePreviews.length > 0 && (
             <div className="grid grid-cols-3 gap-2 my-2">
               {contentImagePreviews.map((preview, index) => (
-                <img key={index} src={preview} alt={`Content Preview ${index}`} className="w-full aspect-square object-cover rounded-md bg-slate-900" />
+                <img key={index} src={preview} alt={`Content Preview ${index}`} className="w-full aspect-square object-cover rounded-md bg-stone-900" />
               ))}
             </div>
           )}
@@ -134,12 +134,12 @@ const AnnouncementForm: React.FC<{
             accept="image/*"
             multiple
             onChange={handleContentFilesChange}
-            className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/50 file:text-teal-300 hover:file:bg-teal-800/50"
+            className="mt-1 block w-full text-sm text-stone-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-900/50 file:text-amber-300 hover:file:bg-amber-800/50"
           />
         </div>
         <div className="flex justify-end gap-4">
-          <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Hủy</button>
-          <button type="submit" className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700">Lưu</button>
+          <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-stone-200 bg-stone-600 hover:bg-stone-500">Hủy</button>
+          <button type="submit" className="px-4 py-2 rounded-md text-white bg-amber-600 hover:bg-amber-700">Lưu</button>
         </div>
       </form>
     </div>
@@ -152,19 +152,19 @@ const AnnouncementDetailModal: React.FC<{
 }> = ({ announcement, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-slate-800/80 backdrop-blur-sm p-8 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-slate-600">
+      <div className="bg-stone-800/80 backdrop-blur-sm p-8 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-stone-600">
         <div className="flex justify-between items-start mb-4">
-          <h2 className="text-2xl font-bold text-slate-100">{announcement.title}</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-100 text-xl">&times;</button>
+          <h2 className="text-2xl font-bold text-stone-100">{announcement.title}</h2>
+          <button onClick={onClose} className="text-stone-400 hover:text-stone-100 text-xl">&times;</button>
         </div>
-        <span className="text-sm text-slate-400 block mb-4">{announcement.date}</span>
+        <span className="text-sm text-stone-400 block mb-4">{announcement.date}</span>
         {announcement.imageUrl && (
           <img src={announcement.imageUrl} alt={announcement.title} className="w-full aspect-video object-cover rounded-md mb-4" />
         )}
-        <p className="text-slate-100 text-lg mb-6">{announcement.content}</p>
+        <p className="text-stone-100 text-lg mb-6">{announcement.content}</p>
         {announcement.contentImages && announcement.contentImages.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-slate-100">Ảnh nội dung</h3>
+            <h3 className="text-xl font-semibold text-stone-100">Ảnh nội dung</h3>
             {announcement.contentImages.map((img, index) => (
               <img key={index} src={img} alt={`Content Image ${index + 1}`} className="w-full object-contain rounded-md" />
             ))}
@@ -225,8 +225,8 @@ const AnnouncementsPage: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-4 text-slate-100">Thông báo Hội thảo</h1>
-        <p className="text-slate-100 text-lg">Cập nhật các thông tin mới nhất từ ban tổ chức.</p>
+        <h1 className="text-4xl font-bold mb-4 text-stone-100">Thông báo Hội thảo</h1>
+        <p className="text-stone-100 text-lg">Cập nhật các thông tin mới nhất từ ban tổ chức.</p>
          {currentUser?.role === 'admin' && !isFormVisible && (
             <button onClick={handleAddNew} className="mt-6 bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-transform transform hover:scale-105 shadow-lg">
                 <i className="fas fa-plus mr-2"></i>Thêm thông báo mới
@@ -246,7 +246,7 @@ const AnnouncementsPage: React.FC = () => {
         {announcements.map((announcement: Announcement) => (
           <div 
             key={announcement.id} 
-            className="bg-slate-800/50 backdrop-blur-sm rounded-lg shadow-md border border-slate-700/50 overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+            className="bg-stone-800/50 backdrop-blur-sm rounded-lg shadow-md border border-stone-700/50 overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
             onClick={() => handleViewDetail(announcement)}
           >
             {announcement.imageUrl && (
@@ -254,18 +254,18 @@ const AnnouncementsPage: React.FC = () => {
             )}
             <div className="p-4">
               <div className="flex justify-between items-start mb-2">
-                <h2 className="text-lg font-bold text-slate-100 flex-grow">{announcement.title}</h2>
+                <h2 className="text-lg font-bold text-stone-100 flex-grow">{announcement.title}</h2>
                 <div className="flex-shrink-0 text-right ml-4">
-                  <span className="text-xs text-slate-400">{announcement.date}</span>
+                  <span className="text-xs text-stone-400">{announcement.date}</span>
                   {currentUser?.role === 'admin' && (
                     <div className="mt-1 flex gap-2 text-xs">
-                      <button onClick={(e) => { e.stopPropagation(); handleEdit(announcement); }} className="text-teal-100 hover:underline">Chỉnh sửa</button>
+                      <button onClick={(e) => { e.stopPropagation(); handleEdit(announcement); }} className="text-amber-100 hover:underline">Chỉnh sửa</button>
                       <button onClick={(e) => { e.stopPropagation(); handleDelete(announcement.id); }} className="text-red-500 hover:underline">Xóa</button>
                     </div>
                   )}
                 </div>
               </div>
-              <p className="text-slate-100 text-sm line-clamp-3">{announcement.content}</p>
+              <p className="text-stone-100 text-sm line-clamp-3">{announcement.content}</p>
             </div>
           </div>
         ))}
