@@ -14,6 +14,8 @@ const Header: React.FC = () => {
   const linkClasses = "block py-2 px-3 text-slate-100 rounded hover:bg-slate-700/50 md:hover:bg-transparent md:border-0 md:hover:text-yellow-100 md:p-0 transition-colors duration-200";
   const activeLinkClasses = "text-yellow-100 font-semibold md:bg-transparent";
 
+  const ExternalIcon = () => <i className="fas fa-external-link-alt text-[10px] ml-2 opacity-60"></i>;
+
   const closeAllMenus = () => {
     setIsMenuOpen(false);
     setOpenMobileDropdown(null);
@@ -122,9 +124,22 @@ const Header: React.FC = () => {
                         <ul className="py-2 text-sm text-slate-100" aria-label={link.name}>
                           {link.children.map((child) => (
                             <li key={child.id}>
-                              <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 hover:bg-slate-700 ${isActive ? 'text-yellow-100' : ''}`} onClick={closeAllMenus}>
-                                {child.name}
-                              </RouterNavLink>
+                              {child.external ? (
+                                <a
+                                  href={child.path!}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="block px-4 py-2 hover:bg-slate-700"
+                                  onClick={closeAllMenus}
+                                >
+                                  {child.name}
+                                  <ExternalIcon />
+                                </a>
+                              ) : (
+                                <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 hover:bg-slate-700 ${isActive ? 'text-yellow-100' : ''}`} onClick={closeAllMenus}>
+                                  {child.name}
+                                </RouterNavLink>
+                              )}
                             </li>
                           ))}
                         </ul>
@@ -136,9 +151,22 @@ const Header: React.FC = () => {
                           <ul className="space-y-2">
                             {link.children.map((child) => (
                               <li key={child.id}>
-                                <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg hover:bg-slate-700 ${isActive ? 'text-yellow-100 bg-slate-700' : ''}`} onClick={closeAllMenus}>
-                                  {child.name}
-                                </RouterNavLink>
+                                {child.external ? (
+                                  <a
+                                    href={child.path!}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block px-4 py-2 rounded-lg hover:bg-slate-700"
+                                    onClick={closeAllMenus}
+                                  >
+                                    {child.name}
+                                    <ExternalIcon />
+                                  </a>
+                                ) : (
+                                  <RouterNavLink to={child.path!} className={({ isActive }) => `block px-4 py-2 rounded-lg hover:bg-slate-700 ${isActive ? 'text-yellow-100 bg-slate-700' : ''}`} onClick={closeAllMenus}>
+                                    {child.name}
+                                  </RouterNavLink>
+                                )}
                               </li>
                             ))}
                           </ul>
@@ -150,13 +178,26 @@ const Header: React.FC = () => {
 
                 return (
                   <li key={link.id}>
-                    <RouterNavLink
-                      to={link.path!}
-                      className={({ isActive }) => `${linkClasses} ${isActive ? activeLinkClasses : ''}`}
-                      onClick={closeAllMenus}
-                    >
-                      {link.name}
-                    </RouterNavLink>
+                    {link.external ? (
+                      <a
+                        href={link.path!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={linkClasses}
+                        onClick={closeAllMenus}
+                      >
+                        {link.name}
+                        <ExternalIcon />
+                      </a>
+                    ) : (
+                      <RouterNavLink
+                        to={link.path!}
+                        className={({ isActive }) => `${linkClasses} ${isActive ? activeLinkClasses : ''}`}
+                        onClick={closeAllMenus}
+                      >
+                        {link.name}
+                      </RouterNavLink>
+                    )}
                   </li>
                 );
               })}

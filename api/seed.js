@@ -16,20 +16,23 @@ const conferenceContent = {
     conferenceTopics: CONFERENCE_TOPICS_DATA,
     sponsors: SPONSORS_DATA,
     coOrganizers: CO_ORGANIZERS_DATA,
+    // navLinks nằm trong nhóm ghi đè vì menu "Đăng ký & Nộp bài" chứa link Google Form
+    // của hội thảo — đổi link thì menu trên DB phải đổi theo. Đánh đổi: `--force` xoá
+    // phần menu admin đã tự chỉnh qua trang Admin.
+    navLinks: NAV_LINKS,
     heroTitle: "Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba – AFCE 2026",
     heroSubtitle: "Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững",
     conferenceDate: "Tháng 11/2026 (dự kiến)",
     conferenceLocation: "Trường Đại học Thủ đô Hà Nội, số 98 Dương Quảng Hàm, Quan Hoa, Cầu Giấy, Hà Nội",
 };
 
-// Ảnh và navLinks là thứ admin tự chỉnh qua trang Admin (ảnh lưu base64 ngay trong ô JSONB,
-// không có bản sao ở nơi khác). Chỉ dùng làm giá trị khởi tạo cho DB rỗng, `--force` KHÔNG đụng tới.
+// Ảnh do admin tự upload qua trang Admin, lưu base64 ngay trong ô JSONB và không có
+// bản sao ở nơi khác. Chỉ dùng làm giá trị khởi tạo cho DB rỗng, `--force` KHÔNG đụng tới.
 const adminManagedDefaults = {
     conferenceLogo: 'https://picsum.photos/seed/conflogo/60/60',
     universityLogo: 'https://picsum.photos/seed/unilogo/60/60',
     heroBackground: 'https://picsum.photos/seed/hero/1200/400',
     callForPapersImage: 'https://picsum.photos/seed/a4-paper/842/1191',
-    navLinks: NAV_LINKS,
 };
 
 const initialSiteContent = { ...adminManagedDefaults, ...conferenceContent };

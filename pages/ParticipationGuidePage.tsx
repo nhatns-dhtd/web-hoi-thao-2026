@@ -1,10 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { ABSTRACT_FORM_URL, ATTEND_FORM_URL, FULL_PAPER_FORM_URL } from '../constants';
 import type { Sponsor } from '../types';
 import { useSiteContent } from '../contexts/SiteContentContext';
 
 const SUBMISSION_EMAIL = 'afce@hnmu.edu.vn';
 const FULL_TEXT_DEADLINE = '20/8/2026';
+
+// Nút mở Google Form ở tab mới. Chưa có link (xem constants.ts) thì hiện trạng thái
+// "Đang cập nhật" và không bấm được, tránh dẫn tác giả tới một form sai.
+const FormButton: React.FC<{ url: string; label: string; colorClass: string }> = ({ url, label, colorClass }) => {
+    if (!url) {
+        return (
+            <span className="inline-block bg-slate-700 text-slate-400 font-bold py-3 px-6 rounded-lg cursor-not-allowed italic">
+                {label} <span className="not-italic">— Đang cập nhật</span>
+            </span>
+        );
+    }
+
+    return (
+        <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-block ${colorClass} text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105 shadow-lg`}
+        >
+            {label} <i className="fas fa-external-link-alt ml-2"></i>
+        </a>
+    );
+};
 
 
 const SectionCard: React.FC<{ title: string; children: React.ReactNode; icon: string }> = ({ title, children, icon }) => (
@@ -63,32 +86,33 @@ const ParticipationGuidePage: React.FC = () => {
                     Toàn văn báo cáo gửi <strong className="text-amber-300">trước ngày {FULL_TEXT_DEADLINE}</strong>.
                 </p>
                 <div className="mt-6 space-y-6">
-                    {/* Cách 1: Nộp qua website */}
+                    {/* Bước 1: Nộp tóm tắt */}
                     <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
-                        <h3 className="text-xl font-semibold text-slate-100 mb-2">Cách 1: Nộp trực tuyến trên website</h3>
+                        <h3 className="text-xl font-semibold text-slate-100 mb-2">Bước 1: Nộp tóm tắt</h3>
                         <p className="mb-4 text-slate-100">
-                            Tải lên tệp báo cáo toàn văn và khai báo thông tin tác giả tại form nộp bài của Diễn đàn.
+                            Gửi tóm tắt và từ khóa qua Google Form. Ban tổ chức xem xét và thông báo kết quả qua email.
                         </p>
-                        <Link
-                            to="/submit-paper"
-                            className="inline-block bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-yellow-700 transition-transform transform hover:scale-105 shadow-lg"
-                        >
-                            Đi đến Form Nộp Toàn văn <i className="fas fa-arrow-right ml-2"></i>
-                        </Link>
+                        <FormButton url={ABSTRACT_FORM_URL} label="Form Nộp tóm tắt" colorClass="bg-green-600 hover:bg-green-700" />
                     </div>
 
-                    {/* Cách 2: Nộp qua email */}
+                    {/* Bước 2: Nộp báo cáo toàn văn */}
                     <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
-                        <h3 className="text-xl font-semibold text-slate-100 mb-2">Cách 2: Gửi qua email Ban tổ chức</h3>
+                        <h3 className="text-xl font-semibold text-slate-100 mb-2">Bước 2: Nộp báo cáo toàn văn</h3>
                         <p className="mb-4 text-slate-100">
-                            Gửi file mềm báo cáo toàn văn về địa chỉ email của Ban tổ chức Hội thảo.
+                            Sau khi tóm tắt được chấp thuận, nộp báo cáo toàn văn qua Google Form,
+                            trước ngày {FULL_TEXT_DEADLINE}. Tác giả cũng có thể gửi file mềm về email{' '}
+                            <a href={`mailto:${SUBMISSION_EMAIL}`} className="text-amber-300 hover:underline">{SUBMISSION_EMAIL}</a>.
                         </p>
-                        <a
-                            href={`mailto:${SUBMISSION_EMAIL}`}
-                            className="inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-transform transform hover:scale-105 shadow-lg"
-                        >
-                            {SUBMISSION_EMAIL} <i className="fas fa-envelope ml-2"></i>
-                        </a>
+                        <FormButton url={FULL_PAPER_FORM_URL} label="Form Nộp toàn văn" colorClass="bg-yellow-600 hover:bg-yellow-700" />
+                    </div>
+
+                    {/* Bước 3: Đăng ký tham dự */}
+                    <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <h3 className="text-xl font-semibold text-slate-100 mb-2">Bước 3: Đăng ký tham dự</h3>
+                        <p className="mb-4 text-slate-100">
+                            Tất cả đại biểu tham dự, bao gồm cả tác giả có báo cáo, vui lòng đăng ký qua Google Form.
+                        </p>
+                        <FormButton url={ATTEND_FORM_URL} label="Form Đăng ký tham dự" colorClass="bg-sky-600 hover:bg-sky-700" />
                     </div>
                 </div>
             </SectionCard>

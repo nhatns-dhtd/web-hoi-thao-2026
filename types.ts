@@ -4,6 +4,8 @@ export type NavLink = {
   id: number;
   name: string;
   path?: string;
+  /** true = `path` là URL ngoài (Google Form), mở tab mới thay vì điều hướng nội bộ. */
+  external?: boolean;
   children?: NavLink[];
 };
 
