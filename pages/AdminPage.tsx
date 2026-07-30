@@ -42,7 +42,7 @@ const ManagementCard: React.FC<{
             {description && <p className="text-sm text-slate-400">{description}</p>}
         </div>
         <div className="mt-4 flex justify-end gap-2">
-            <button onClick={onEdit} className="text-sm font-medium text-yellow-100 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Edit</button>
+            <button onClick={onEdit} className="text-sm font-medium text-teal-100 hover:text-teal-300 py-1 px-3 rounded bg-teal-900/50 hover:bg-teal-800/50">Edit</button>
             <button onClick={onDelete} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Delete</button>
         </div>
     </div>
@@ -67,7 +67,7 @@ const ImageUploadCard: React.FC<{
             <div className="w-full h-32 mb-4">
               <img src={currentImage} alt={title} className="w-full h-full rounded-md bg-slate-900/50 p-1 object-contain" />
             </div>
-            <label htmlFor={inputId} className="cursor-pointer w-full text-center block bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-700 transition-colors mt-auto">
+            <label htmlFor={inputId} className="cursor-pointer w-full text-center block bg-teal-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors mt-auto">
                 Change Image
             </label>
             <input id={inputId} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
@@ -146,13 +146,13 @@ const EditModal: React.FC<{
                         <div>
                             <label className={labelStyles}>Image/Logo</label>
                             {imagePreview && <img src={imagePreview} alt="Preview" className="w-full h-40 object-contain rounded-md my-2 bg-slate-900" />}
-                            <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-900/50 file:text-yellow-300 hover:file:bg-yellow-800/50"/>
+                            <input type="file" accept="image/*" onChange={handleFileChange} className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/50 file:text-teal-300 hover:file:bg-teal-800/50"/>
                         </div>
                     )}
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
                     <button onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
-                    <button onClick={handleSubmit} className="px-4 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700">Save</button>
+                    <button onClick={handleSubmit} className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700">Save</button>
                 </div>
             </div>
         </div>
@@ -263,7 +263,7 @@ const PaperModal: React.FC<{
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
                     <button onClick={onClose} disabled={saving} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500 disabled:opacity-50">Hủy</button>
-                    <button onClick={handleSubmit} disabled={saving} className="px-4 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700 disabled:opacity-50">
+                    <button onClick={handleSubmit} disabled={saving} className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700 disabled:opacity-50">
                         {saving ? 'Đang lưu...' : 'Lưu'}
                     </button>
                 </div>
@@ -366,7 +366,7 @@ const AdminPage: React.FC = () => {
                 
                 {/* General Conference Info */}
                 <div>
-                     <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100 mb-8">Thông tin chung về hội thảo</h3>
+                     <h3 className="text-xl sm:text-2xl font-semibold text-teal-100 mb-8">Thông tin chung về hội thảo</h3>
                      <div className="bg-slate-800/50 p-6 rounded-lg shadow-md border border-slate-700/50 space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-100">Tiêu đề chính homepage</label>
@@ -387,7 +387,7 @@ const AdminPage: React.FC = () => {
                             </div>
                         </div>
                         <div className="text-right">
-                            <button onClick={handleSaveConfInfo} className="bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-700 transition-colors">Lưu</button>
+                            <button onClick={handleSaveConfInfo} className="bg-teal-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors">Lưu</button>
                         </div>
                      </div>
                 </div>
@@ -395,7 +395,7 @@ const AdminPage: React.FC = () => {
                 {/* Papers / Review results */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                        <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Kết quả duyệt bài</h3>
+                        <h3 className="text-xl sm:text-2xl font-semibold text-teal-100">Kết quả duyệt bài</h3>
                         <button onClick={() => setPaperModal({ isOpen: true, paper: null })} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm bài báo</button>
                     </div>
                     <p className="text-sm text-slate-400 mb-4">
@@ -419,7 +419,7 @@ const AdminPage: React.FC = () => {
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2 flex-shrink-0">
-                                            <button onClick={() => setPaperModal({ isOpen: true, paper })} className="text-sm font-medium text-yellow-100 hover:text-yellow-300 py-1 px-3 rounded bg-yellow-900/50 hover:bg-yellow-800/50">Sửa</button>
+                                            <button onClick={() => setPaperModal({ isOpen: true, paper })} className="text-sm font-medium text-teal-100 hover:text-teal-300 py-1 px-3 rounded bg-teal-900/50 hover:bg-teal-800/50">Sửa</button>
                                             <button onClick={() => handleDeletePaper(paper.id)} className="text-sm font-medium text-red-400 hover:text-red-300 py-1 px-3 rounded bg-red-900/50 hover:bg-red-800/50">Xóa</button>
                                         </div>
                                     </li>
@@ -432,7 +432,7 @@ const AdminPage: React.FC = () => {
                 {/* Keynote Speakers */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Diễn giả chính</h3>
+                         <h3 className="text-xl sm:text-2xl font-semibold text-teal-100">Diễn giả chính</h3>
                          <button onClick={() => handleOpenModal(null, 'speaker')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm diễn giả</button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -452,7 +452,7 @@ const AdminPage: React.FC = () => {
                 {/* Sponsors & Partners */}
                 <div>
                     <div className="flex justify-between items-center mb-8">
-                         <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100">Nhà tài trợ & Đối tác</h3>
+                         <h3 className="text-xl sm:text-2xl font-semibold text-teal-100">Nhà tài trợ & Đối tác</h3>
                          <div>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'coOrganizer')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors mr-2">Thêm đồng tổ chức</button>
                             <button onClick={() => handleOpenModal(null, 'sponsor', 'sponsor')} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Thêm nhà tài trợ</button>
@@ -486,7 +486,7 @@ const AdminPage: React.FC = () => {
 
                  {/* General Images */}
                 <div>
-                     <h3 className="text-xl sm:text-2xl font-semibold text-yellow-100 mb-8">Ảnh trên website</h3>
+                     <h3 className="text-xl sm:text-2xl font-semibold text-teal-100 mb-8">Ảnh trên website</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <ImageUploadCard title="Logo hội thảo" currentImage={siteContent.conferenceLogo} onImageSelect={(file) => handleImageUpload('conferenceLogo', file)} />
                         <ImageUploadCard title="Logo trường đại học" currentImage={siteContent.universityLogo} onImageSelect={(file) => handleImageUpload('universityLogo', file)} />

@@ -32,8 +32,8 @@ const FormButton: React.FC<{ url: string; label: string; colorClass: string }> =
 
 const SectionCard: React.FC<{ title: string; children: React.ReactNode; icon: string }> = ({ title, children, icon }) => (
     <section className="bg-slate-800/40 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700/50">
-        <h2 className="text-xl sm:text-2xl md:text-3xl sm:text-xl sm:text-2xl font-bold text-yellow-100 mb-6 flex items-center">
-            <i className={`fas ${icon} mr-4 text-yellow-500`}></i>
+        <h2 className="text-xl sm:text-2xl md:text-3xl sm:text-xl sm:text-2xl font-bold text-teal-100 mb-6 flex items-center">
+            <i className={`fas ${icon} mr-4 text-teal-500`}></i>
             {title}
         </h2>
         <div className="space-y-4 text-slate-100 text-lg">
@@ -103,7 +103,7 @@ const ParticipationGuidePage: React.FC = () => {
                             trước ngày {FULL_TEXT_DEADLINE}. Tác giả cũng có thể gửi file mềm về email{' '}
                             <a href={`mailto:${SUBMISSION_EMAIL}`} className="text-amber-300 hover:underline">{SUBMISSION_EMAIL}</a>.
                         </p>
-                        <FormButton url={FULL_PAPER_FORM_URL} label="Form Nộp toàn văn" colorClass="bg-yellow-600 hover:bg-yellow-700" />
+                        <FormButton url={FULL_PAPER_FORM_URL} label="Form Nộp toàn văn" colorClass="bg-teal-600 hover:bg-teal-700" />
                     </div>
 
                     {/* Bước 3: Đăng ký tham dự */}
@@ -226,7 +226,7 @@ const ParticipationGuidePage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
                  <section>
-                    <h2 className="text-xl sm:text-2xl font-bold text-yellow-100 mb-4">Đơn vị đồng tổ chức</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-teal-100 mb-4">Đơn vị đồng tổ chức</h2>
                     <div className="flex justify-center items-center gap-6 flex-wrap bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
                         {siteContent.coOrganizers.length === 0 ? (
                             <p className="text-slate-400 italic py-4">Đang cập nhật</p>
@@ -239,7 +239,7 @@ const ParticipationGuidePage: React.FC = () => {
                     </div>
                 </section>
                 <section>
-                    <h2 className="text-xl sm:text-2xl font-bold text-yellow-100 mb-4">Đơn vị tài trợ</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-teal-100 mb-4">Đơn vị tài trợ</h2>
                      <div className="flex justify-center items-center gap-6 flex-wrap bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
                         {siteContent.sponsors.length === 0 ? (
                             <p className="text-slate-400 italic py-4">Đang cập nhật</p>

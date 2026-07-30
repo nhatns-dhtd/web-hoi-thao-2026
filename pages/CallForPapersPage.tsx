@@ -13,16 +13,16 @@ const CallForPapersPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
 
         {/* Call for Papers Image Section (2/3 width) */}
-        <section className="lg:col-span-2 bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800 text-center">Thông tin Kêu gọi Bài báo</h2>
+        <section className="lg:col-span-2 bg-slate-800/40 backdrop-blur-sm p-4 sm:p-6 rounded-xl shadow-xl border border-slate-700/50">
+           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-teal-100 text-center">Thông tin Kêu gọi Bài báo</h2>
            <div className="w-full max-w-2xl mx-auto">
               <img
                 src={siteContent.callForPapersImage}
                 alt="Thông tin kêu gọi bài báo AFCE 2026"
-                className="w-full h-auto object-contain rounded-md shadow-md border border-gray-200"
+                className="w-full h-auto object-contain rounded-md shadow-md border border-slate-700"
               />
            </div>
-           <p className="mt-6 text-center text-gray-700">
+           <p className="mt-6 text-center text-slate-200">
               Toàn văn báo cáo gửi về email <strong>afce@hnmu.edu.vn</strong> trước ngày <strong>20/8/2026</strong>.
               Các báo cáo được chấp nhận đăng sẽ xuất bản trong Kỷ yếu toàn văn có chỉ số ISBN tại Việt Nam.
            </p>
@@ -30,7 +30,7 @@ const CallForPapersPage: React.FC = () => {
 
         {/* Keynote Speakers Section (1/3 width) */}
         <section className="lg:col-span-1">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-yellow-300 text-center">Báo cáo viên</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-teal-300 text-center">Báo cáo viên</h2>
           {siteContent.keynoteSpeakers.length === 0 ? (
             <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-xl text-center text-slate-400 italic">
               Danh sách báo cáo viên đang được cập nhật.
@@ -46,7 +46,7 @@ const CallForPapersPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-2 bg-black/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                   <p className="text-xs sm:text-sm font-bold text-white leading-tight">{speaker.name}</p>
-                  <p className="text-[10px] sm:text-xs text-yellow-100 mt-1 font-semibold leading-tight hidden sm:block">{speaker.keynoteTopic}</p>
+                  <p className="text-[10px] sm:text-xs text-teal-100 mt-1 font-semibold leading-tight hidden sm:block">{speaker.keynoteTopic}</p>
                 </div>
               </div>
             ))}

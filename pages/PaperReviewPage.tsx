@@ -6,7 +6,7 @@ import { usePapers } from '../contexts/PaperContext';
 const reviewStatusStyles: { [key in ReviewStatus]: string } = {
   'Duyệt': 'bg-green-900/60 text-green-300 border border-green-700',
   'Không duyệt': 'bg-red-900/60 text-red-300 border border-red-700',
-  'Đang chờ duyệt': 'bg-yellow-900/60 text-yellow-300 border border-yellow-700',
+  'Đang chờ duyệt': 'bg-amber-900/60 text-amber-300 border border-amber-700',
 };
 
 const reviewStatusText: { [key in ReviewStatus]: string } = {
@@ -16,14 +16,14 @@ const reviewStatusText: { [key in ReviewStatus]: string } = {
 };
 
 const presentationStatusStyles: { [key in PresentationStatus]: string } = {
-  'Trình bày': 'bg-yellow-900/60 text-yellow-300 border border-sky-700',
+  'Trình bày': 'bg-teal-900/60 text-teal-300 border border-teal-700',
   'Không trình bày': 'bg-slate-700/60 text-slate-100 border border-slate-600',
 };
 
 const topicStyles: { [key: number]: string } = {
   1: 'bg-amber-900/70 text-amber-300 border border-amber-700',
   2: 'bg-emerald-900/70 text-emerald-300 border border-emerald-700',
-  3: 'bg-indigo-900/70 text-yellow-300 border border-indigo-700',
+  3: 'bg-indigo-900/70 text-indigo-300 border border-indigo-700',
 };
 
 // Sắp xếp theo mã số bài viết tăng dần. Lấy nhóm chữ số CUỐI để bỏ qua chữ số nằm
@@ -90,7 +90,7 @@ const EditPaperModal: React.FC<{
           <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500 transition-colors">
             Đóng
           </button>
-          <button type="button" onClick={handleSave} className="px-4 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700 transition-colors">
+          <button type="button" onClick={handleSave} className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700 transition-colors">
             Lưu thay đổi
           </button>
         </div>
@@ -263,7 +263,7 @@ const PaperReviewPage: React.FC = () => {
                         <div className="flex items-center justify-center gap-1">
                           <button
                             onClick={() => setEditingPaper(paper)}
-                            className="text-yellow-100 hover:text-yellow-300 p-1.5 rounded-md bg-yellow-900/50 hover:bg-yellow-800/50 border border-yellow-700/50 transition-colors"
+                            className="text-teal-100 hover:text-teal-300 p-1.5 rounded-md bg-teal-900/50 hover:bg-teal-800/50 border border-teal-700/50 transition-colors"
                             title="Sửa"
                           >
                             <i className="fas fa-pencil-alt text-xs"></i>

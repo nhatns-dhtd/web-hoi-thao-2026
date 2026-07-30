@@ -2,12 +2,12 @@ import React from 'react';
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-gray-800">
-      <h1 className="text-2xl md:text-3xl font-bold text-center mb-2 text-blue-700">Về Diễn đàn</h1>
-      <p className="text-center text-gray-600 mb-6 italic">
+    <div className="max-w-4xl mx-auto bg-slate-800/40 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-slate-700/50 text-slate-100">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-2 text-teal-100">Về Diễn đàn</h1>
+      <p className="text-center text-slate-300 mb-6 italic">
         Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba – AFCE 2026
       </p>
-      <div className="space-y-4 text-lg text-gray-700">
+      <div className="space-y-4 text-lg text-slate-200">
         <p>
             Trường Đại học Thủ đô Hà Nội tổ chức Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba với chủ đề
             <strong> “Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững”</strong>, quy mô hội thảo khoa học quốc tế.

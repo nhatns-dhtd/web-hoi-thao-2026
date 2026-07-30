@@ -8,16 +8,16 @@ const getEventStyle = (activity: string) => {
     if (lowerActivity.includes('khai mạc')) return { icon: 'fa-bullhorn', color: 'bg-green-500' };
     if (lowerActivity.includes('báo cáo') || lowerActivity.includes('phiên toàn thể')) return { icon: 'fa-microphone-alt', color: 'bg-blue-500' };
     if (lowerActivity.includes('nghỉ') || lowerActivity.includes('break') || lowerActivity.includes('tiệc trà')) return { icon: 'fa-coffee', color: 'bg-orange-500' };
-    if (lowerActivity.includes('kết thúc')) return { icon: 'fa-flag-checkered', color: 'bg-gray-600' };
+    if (lowerActivity.includes('kết thúc')) return { icon: 'fa-flag-checkered', color: 'bg-slate-700' };
     if (lowerActivity.includes('ăn trưa') || lowerActivity.includes('nghỉ trưa')) return { icon: 'fa-utensils', color: 'bg-teal-500' };
     if (lowerActivity.includes('tiểu ban') || lowerActivity.includes('phiên chuyên đề')) return { icon: 'fa-comments', color: 'bg-indigo-500' };
     if (lowerActivity.includes('thảo luận')) return { icon: 'fa-question-circle', color: 'bg-purple-500' };
     if (lowerActivity.includes('bế mạc')) return { icon: 'fa-door-closed', color: 'bg-red-500' };
     if (lowerActivity.includes('gala dinner')) return { icon: 'fa-glass-cheers', color: 'bg-pink-500' };
     if (lowerActivity.includes('du lịch') || lowerActivity.includes('tham quan')) return { icon: 'fa-bus-alt', color: 'bg-cyan-500' };
-    if (lowerActivity.includes('đón tiếp')) return { icon: 'fa-handshake', color: 'bg-yellow-500' };
+    if (lowerActivity.includes('đón tiếp')) return { icon: 'fa-handshake', color: 'bg-amber-500' };
     if (lowerActivity.includes('tuyên bố') || lowerActivity.includes('giới thiệu')) return { icon: 'fa-users', color: 'bg-indigo-400' };
-    return { icon: 'fa-calendar-day', color: 'bg-gray-400' };
+    return { icon: 'fa-calendar-day', color: 'bg-slate-600' };
 };
 
 // Helper function to get part of day label style
@@ -63,7 +63,7 @@ const SchedulePage: React.FC = () => {
             <div className="space-y-20">
                 {SCHEDULE_DATA.map((day: ScheduleDay) => (
                     <div key={day.day}>
-                        <h2 className="text-2xl md:text-3xl font-bold text-yellow-100 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-slate-700 shadow-md">
+                        <h2 className="text-2xl md:text-3xl font-bold text-teal-100 text-center bg-slate-900/60 backdrop-blur-sm py-3 px-6 rounded-lg w-fit mx-auto mb-10 sticky top-36 lg:top-44 z-20 border border-slate-700 shadow-md">
                             {day.day} - {day.date}
                         </h2>
                         
@@ -86,7 +86,7 @@ const SchedulePage: React.FC = () => {
                                             {/* Event Card */}
                                             <div className="ml-8 md:ml-12">
                                                 <div className="p-6 rounded-lg shadow-lg bg-slate-800/40 backdrop-blur-sm border border-slate-700/50">
-                                                    {event.time && <p className="text-yellow-100 font-semibold mb-2 text-lg"><i className="far fa-clock mr-2"></i>{event.time}</p>}
+                                                    {event.time && <p className="text-teal-100 font-semibold mb-2 text-lg"><i className="far fa-clock mr-2"></i>{event.time}</p>}
                                                     <h3 className="text-xl md:text-2xl font-bold text-slate-100 mb-3">{event.activity}</h3>
                                                     
                                                     {/* Preside info */}
@@ -103,7 +103,7 @@ const SchedulePage: React.FC = () => {
                                                             {event.subSessions.map((sub: SubSession, sIndex: number) => (
                                                                 <div key={sIndex} className="p-4 rounded-md bg-blue-900/30 border-l-4 border-blue-500">
                                                                     {sub.time && (
-                                                                        <p className="text-yellow-300 font-semibold text-sm mb-2">
+                                                                        <p className="text-teal-300 font-semibold text-sm mb-2">
                                                                             <i className="far fa-clock mr-2"></i>{sub.time}
                                                                         </p>
                                                                     )}
@@ -169,7 +169,7 @@ const SchedulePage: React.FC = () => {
                                                                                 {session.presentations.map((pres, presIndex: number) => (
                                                                                     <div key={presIndex} className="p-4 rounded-md bg-blue-900/30 border-l-4 border-blue-500">
                                                                                         {pres.time && (
-                                                                                            <p className="text-yellow-300 font-semibold text-sm mb-2">
+                                                                                            <p className="text-teal-300 font-semibold text-sm mb-2">
                                                                                                 <i className="far fa-clock mr-2"></i>{pres.time}
                                                                                             </p>
                                                                                         )}

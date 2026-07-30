@@ -8,7 +8,7 @@ import type { User } from '../types';
 
 const TableCard: React.FC<{ title: string; headers: string[]; children: React.ReactNode }> = ({ title, headers, children }) => (
     <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50 overflow-hidden mb-12">
-        <h2 className="text-xl sm:text-2xl font-bold text-yellow-100 p-4 bg-slate-900/50">{title}</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-teal-100 p-4 bg-slate-900/50">{title}</h2>
         <div className="overflow-x-auto">
             <table className="min-w-full text-sm text-left text-slate-100">
                 <thead className="bg-slate-900/50 text-xs text-slate-400 uppercase tracking-wider">
@@ -57,7 +57,7 @@ const DatabaseViewPage: React.FC = () => {
                         <td className="px-6 py-4">{user.id}</td>
                         <td className="px-6 py-4 font-medium text-slate-100">{user.username}</td>
                         <td className="px-6 py-4">{user.email}</td>
-                        <td className="px-6 py-4"><span className={`px-2 py-1 text-xs font-semibold rounded-full ${user.role === 'admin' ? 'bg-amber-800 text-amber-300' : 'bg-yellow-800 text-yellow-300'}`}>{user.role}</span></td>
+                        <td className="px-6 py-4"><span className={`px-2 py-1 text-xs font-semibold rounded-full ${user.role === 'admin' ? 'bg-teal-800 text-teal-200' : 'bg-slate-700 text-slate-300'}`}>{user.role}</span></td>
                     </tr>
                 ))}
             </TableCard>

@@ -84,13 +84,13 @@ const EditTopicModal: React.FC<{
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-900/50 file:text-yellow-300 hover:file:bg-yellow-800/50"
+              className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/50 file:text-teal-300 hover:file:bg-teal-800/50"
             />
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-4">
           <button type="button" onClick={onClose} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Cancel</button>
-          <button type="button" onClick={handleSave} disabled={isSaving} className="px-4 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700 disabled:bg-slate-500">
+          <button type="button" onClick={handleSave} disabled={isSaving} className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700 disabled:bg-slate-500">
             {isSaving ? 'Saving...' : 'Save Changes'}
           </button>
         </div>
@@ -120,7 +120,7 @@ const IntroductionPage: React.FC = () => {
       >
         <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-300"></div>
         {isAdmin && (
-            <div className="absolute top-2 right-2 z-20 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
+            <div className="absolute top-2 right-2 z-20 bg-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
                 <i className="fas fa-edit mr-1"></i> Edit
             </div>
         )}
@@ -154,7 +154,7 @@ const IntroductionPage: React.FC = () => {
       <h1 className="text-4xl font-bold text-center mb-4 text-slate-100">Giới thiệu</h1>
       <p className="text-center text-slate-100 text-lg mb-10">
         Khám phá các chủ đề chính sẽ được thảo luận và nghiên cứu tại hội thảo.
-        {isAdmin && <span className="block text-sm text-yellow-100 mt-2">(Admin: Click vào một chủ đề để chỉnh sửa nội dung)</span>}
+        {isAdmin && <span className="block text-sm text-teal-100 mt-2">(Admin: Click vào một chủ đề để chỉnh sửa nội dung)</span>}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

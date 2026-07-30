@@ -14,33 +14,33 @@ const UtilitiesTravelPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-gray-800 space-y-10">
-      <h1 className="text-2xl md:text-3xl font-bold text-center text-blue-700">Thông tin Tiện ích & Du lịch</h1>
+    <div className="max-w-4xl mx-auto bg-slate-800/40 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-slate-700/50 text-slate-100 space-y-10">
+      <h1 className="text-2xl md:text-3xl font-bold text-center text-teal-100">Thông tin Tiện ích & Du lịch</h1>
       
       <section>
-        <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b pb-2">Địa điểm và Tiện ích</h2>
+        <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b border-slate-700 pb-2">Địa điểm và Tiện ích</h2>
         <p className="mb-2"><strong className="w-24 inline-block">Địa điểm:</strong> Trường Đại học Thủ đô Hà Nội, số 98 Dương Quảng Hàm, Quan Hoa, Cầu Giấy, Hà Nội.</p>
         <p className="mb-2"><strong className="w-24 inline-block">Thời gian:</strong> Tháng 11/2026 (dự kiến).</p>
         <p><strong className="w-24 inline-block">Tiện ích:</strong> Thông tin chi tiết về Wi-Fi, ăn uống và đưa đón sẽ được Ban tổ chức cập nhật.</p>
       </section>
 
       <section>
-        <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b pb-2">Khách sạn gợi ý</h2>
-        <p className="text-gray-600 mb-3">Một số khách sạn tại khu vực trung tâm Hà Nội, thuận tiện di chuyển tới địa điểm tổ chức:</p>
+        <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b border-slate-700 pb-2">Khách sạn gợi ý</h2>
+        <p className="text-slate-300 mb-3">Một số khách sạn tại khu vực trung tâm Hà Nội, thuận tiện di chuyển tới địa điểm tổ chức:</p>
         <ul className="space-y-2">
             {hotels.map((hotel, index) => (
-                <li key={index} className="p-2 bg-gray-50 rounded">{hotel.name}</li>
+                <li key={index} className="p-2 bg-slate-900/50 rounded">{hotel.name}</li>
             ))}
         </ul>
       </section>
 
       <section>
-        <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b pb-2">Địa điểm tham quan</h2>
+        <h2 className="text-xl sm:text-2xl font-semibold mb-4 border-b border-slate-700 pb-2">Địa điểm tham quan</h2>
         <div className="space-y-3">
             {attractions.map((place, index) => (
                 <div key={index}>
                     <h3 className="font-bold">{place.name}</h3>
-                    <p className="text-gray-600">{place.description}</p>
+                    <p className="text-slate-300">{place.description}</p>
                 </div>
             ))}
         </div>

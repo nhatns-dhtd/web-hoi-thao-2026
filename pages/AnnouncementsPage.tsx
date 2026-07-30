@@ -85,7 +85,7 @@ const AnnouncementForm: React.FC<{
   const inputStyles = "mt-1 block w-full px-3 py-2 bg-slate-800/50 border border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500";
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6 border-l-4 border-yellow-500">
+    <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6 border-l-4 border-teal-500">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 text-slate-100">{announcement ? 'Chỉnh sửa thông báo' : 'Thêm mới thông báo'}</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -117,7 +117,7 @@ const AnnouncementForm: React.FC<{
             type="file"
             accept="image/*"
             onChange={handleBackgroundFileChange}
-            className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-900/50 file:text-yellow-300 hover:file:bg-yellow-800/50"
+            className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/50 file:text-teal-300 hover:file:bg-teal-800/50"
           />
         </div>
         <div>
@@ -134,12 +134,12 @@ const AnnouncementForm: React.FC<{
             accept="image/*"
             multiple
             onChange={handleContentFilesChange}
-            className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-900/50 file:text-yellow-300 hover:file:bg-yellow-800/50"
+            className="mt-1 block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/50 file:text-teal-300 hover:file:bg-teal-800/50"
           />
         </div>
         <div className="flex justify-end gap-4">
           <button type="button" onClick={onCancel} className="px-4 py-2 rounded-md text-slate-200 bg-slate-600 hover:bg-slate-500">Hủy</button>
-          <button type="submit" className="px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700">Lưu</button>
+          <button type="submit" className="px-4 py-2 rounded-md text-white bg-teal-600 hover:bg-teal-700">Lưu</button>
         </div>
       </form>
     </div>
@@ -259,7 +259,7 @@ const AnnouncementsPage: React.FC = () => {
                   <span className="text-xs text-slate-400">{announcement.date}</span>
                   {currentUser?.role === 'admin' && (
                     <div className="mt-1 flex gap-2 text-xs">
-                      <button onClick={(e) => { e.stopPropagation(); handleEdit(announcement); }} className="text-yellow-100 hover:underline">Chỉnh sửa</button>
+                      <button onClick={(e) => { e.stopPropagation(); handleEdit(announcement); }} className="text-teal-100 hover:underline">Chỉnh sửa</button>
                       <button onClick={(e) => { e.stopPropagation(); handleDelete(announcement.id); }} className="text-red-500 hover:underline">Xóa</button>
                     </div>
                   )}

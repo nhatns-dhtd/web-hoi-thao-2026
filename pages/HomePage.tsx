@@ -32,7 +32,7 @@ const ImageLightbox: React.FC<{
         {/* Close button */}
         <button
           onClick={onClose}
-          className="flex items-center absolute -top-10 right-0 text-white hover:text-yellow-400 transition-colors"
+          className="flex items-center absolute -top-10 right-0 text-white hover:text-teal-400 transition-colors"
         >
           <i className="fas fa-times text-2xl"></i>
           <span className="ml-2 text-sm">Đóng</span>
@@ -81,7 +81,7 @@ const SpeakerModal: React.FC<{
     >
       <div className="bg-slate-800 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-700">
         {/* Header with gradient */}
-        <div className="bg-gradient-to-r from-yellow-900/80 to-amber-900/60 p-6 relative">
+        <div className="bg-gradient-to-r from-teal-900/80 to-cyan-900/60 p-6 relative">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
@@ -100,7 +100,7 @@ const SpeakerModal: React.FC<{
             {/* Name & Affiliation */}
             <div className="flex-1">
               <h3 className="text-xl font-bold text-white mb-1">{speaker.name}</h3>
-              <p className="text-yellow-200 text-sm flex items-center gap-2">
+              <p className="text-teal-200 text-sm flex items-center gap-2">
                 <i className="fas fa-university"></i>
                 {speaker.affiliation}
               </p>
@@ -113,11 +113,11 @@ const SpeakerModal: React.FC<{
           {/* Keynote Topic */}
           {speaker.keynoteTopic && (
             <div>
-              <h4 className="text-sm font-semibold text-yellow-400 uppercase tracking-wide mb-2 flex items-center gap-2">
+              <h4 className="text-sm font-semibold text-teal-400 uppercase tracking-wide mb-2 flex items-center gap-2">
                 <i className="fas fa-microphone-alt"></i>
                 Chủ đề báo cáo
               </h4>
-              <p className="text-slate-100 bg-slate-700/50 rounded-lg p-3 border-l-4 border-yellow-500">
+              <p className="text-slate-100 bg-slate-700/50 rounded-lg p-3 border-l-4 border-teal-500">
                 {speaker.keynoteTopic}
               </p>
             </div>
@@ -186,7 +186,7 @@ const HomePage: React.FC = () => {
       <section className="bg-slate-900/40 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-slate-700/50">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="flex flex-col items-center">
-             <div className="bg-yellow-900/50 text-yellow-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
+             <div className="bg-teal-900/50 text-teal-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-calendar-alt fa-2x"></i>
              </div>
             <h3 className="text-xl font-bold mb-2 text-slate-100">Thời gian</h3>
@@ -200,7 +200,7 @@ const HomePage: React.FC = () => {
             <p className="text-lg text-slate-100">{siteContent.conferenceLocation}</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-violet-900/50 text-violet-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
+            <div className="bg-cyan-900/50 text-cyan-300 rounded-full flex items-center justify-center mb-3 w-[70px] h-[70px]">
                 <i className="fas fa-users fa-2x"></i>
             </div>
             <h3 className="text-xl font-bold mb-2 text-slate-100">Quy mô</h3>
@@ -214,9 +214,9 @@ const HomePage: React.FC = () => {
         {/* Call for Papers - Left side (2/5 width on desktop) */}
         <div className="lg:col-span-2">
           <div className="bg-slate-900/40 backdrop-blur-sm rounded-lg shadow-lg border border-slate-700/50 overflow-hidden h-full flex flex-col">
-            <div className="bg-gradient-to-r from-yellow-900/60 to-amber-900/40 px-6 py-4 border-b border-slate-700/50">
-              <h3 className="text-xl font-bold text-yellow-100 flex items-center gap-3">
-                <i className="fas fa-newspaper text-yellow-400"></i>
+            <div className="bg-gradient-to-r from-teal-900/60 to-cyan-900/40 px-6 py-4 border-b border-slate-700/50">
+              <h3 className="text-xl font-bold text-teal-100 flex items-center gap-3">
+                <i className="fas fa-newspaper text-teal-400"></i>
                 Kêu gọi Bài báo
               </h3>
             </div>
@@ -242,7 +242,7 @@ const HomePage: React.FC = () => {
             <div className="p-4 pt-0">
               <Link 
                 to="/participation-guide" 
-                className="block w-full text-center bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-yellow-700 transition-all hover:shadow-lg"
+                className="block w-full text-center bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-teal-700 transition-all hover:shadow-lg"
               >
                 <i className="fas fa-paper-plane mr-2"></i>
                 Nộp bài ngay
@@ -279,7 +279,7 @@ const HomePage: React.FC = () => {
                       <img
                         src={speaker.imageUrl}
                         alt={speaker.name}
-                        className="w-full h-full object-cover rounded-full border-3 border-slate-600 group-hover:border-yellow-500 transition-all duration-300 shadow-lg group-hover:shadow-yellow-500/20"
+                        className="w-full h-full object-cover rounded-full border-3 border-slate-600 group-hover:border-teal-500 transition-all duration-300 shadow-lg group-hover:shadow-teal-500/20"
                       />
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -287,7 +287,7 @@ const HomePage: React.FC = () => {
                       </div>
                     </div>
                     {/* Name always visible */}
-                    <h4 className="text-sm font-semibold text-slate-100 leading-tight line-clamp-2 group-hover:text-yellow-300 transition-colors">
+                    <h4 className="text-sm font-semibold text-slate-100 leading-tight line-clamp-2 group-hover:text-teal-300 transition-colors">
                       {speaker.name}
                     </h4>
                     {/* Affiliation */}
@@ -311,7 +311,7 @@ const HomePage: React.FC = () => {
               </span>
               <Link 
                 to="/schedule" 
-                className="text-sm text-yellow-400 hover:text-yellow-300 font-medium transition-colors"
+                className="text-sm text-teal-400 hover:text-teal-300 font-medium transition-colors"
               >
                 Xem chương trình <i className="fas fa-arrow-right ml-1"></i>
               </Link>
@@ -322,7 +322,7 @@ const HomePage: React.FC = () => {
 
       {/* Call to Action Section */}
       <section className="text-center max-w-4xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-yellow-100">Kính mời viết bài và tham dự Diễn đàn</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-teal-100">Kính mời viết bài và tham dự Diễn đàn</h2>
         <p className="text-lg text-slate-100 mb-8">
           Ban tổ chức trân trọng kính mời các cơ quan, tổ chức, chuyên gia, nhà khoa học, giảng viên, giáo viên,
           nghiên cứu sinh, học viên cao học và sinh viên tham gia viết bài và tham dự Diễn đàn.
@@ -331,13 +331,13 @@ const HomePage: React.FC = () => {
         <div className="flex justify-center items-center gap-4 flex-wrap">
             <Link 
                 to="/participation-guide" 
-                className="bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-700 transition-transform transform hover:scale-105 shadow-lg"
+                className="bg-teal-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-teal-700 transition-transform transform hover:scale-105 shadow-lg"
             >
                 Đăng ký ngay
             </Link>
             <Link 
                 to="/schedule"
-                className="bg-yellow-900/50 text-yellow-50 font-bold py-3 px-8 rounded-lg hover:bg-yellow-800/50 transition-transform transform hover:scale-105 shadow-lg border border-yellow-700"
+                className="bg-teal-900/50 text-teal-50 font-bold py-3 px-8 rounded-lg hover:bg-teal-800/50 transition-transform transform hover:scale-105 shadow-lg border border-teal-700"
             >
                 Xem chương trình
             </Link>

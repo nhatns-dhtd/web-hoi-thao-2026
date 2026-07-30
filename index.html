@@ -5,59 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba – AFCE 2026</title>
     <meta name="description" content="Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba (AFCE 2026) - Hội thảo khoa học quốc tế với chủ đề &quot;Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững&quot;, do Trường Đại học Thủ đô Hà Nội tổ chức vào tháng 11/2026." />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230d9488'/><text x='16' y='22' font-size='13' font-weight='bold' text-anchor='middle' fill='white'>AF</text></svg>" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
     <style>
-      @keyframes backgroundGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-
-      /* New keyframe for the image pan effect */
-      @keyframes subtlePan {
-        0% { transform: scale(1.05) translate(0, 0); }
-        50% { transform: scale(1.1) translate(-20px, 10px); }
-        100% { transform: scale(1.05) translate(0, 0); }
-      }
+      /* ===== BASE ===== */
+      * { box-sizing: border-box; }
 
       body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        /* A more professional dark blue gradient */
-        background-color: #eab308; /* slate-900 */
-        background-image: linear-gradient(135deg, #a16207, #eab308, #fde047);
-        background-size: 300% 300%;
-        animation: backgroundGradient 15s ease infinite;
+        /* Be Vietnam Pro: dấu tiếng Việt hiển thị đều hơn font hệ thống */
+        font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+        background-color: #052027;
         color: #cbd5e1;
-        position: relative;
         overflow-x: hidden;
+        margin: 0;
       }
-      
-      /* Thematic background image layer */
+
+      /* ===== NỀN ĐỘNG =====
+         Ba khối gradient teal mờ, thở nhẹ theo chu kỳ 20s. */
       body::before {
         content: '';
         position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
+        inset: 0;
         z-index: 0;
-
-        background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80');
-        background-size: cover;
-        background-position: center center;
-        
-        /* Increased opacity to make image clearer */
-        opacity: 0.2; 
-        /* Blend mode suitable for dark backgrounds */
-        mix-blend-mode: soft-light;
-
-        /* Gentle motion effect */
-        animation: subtlePan 90s ease-in-out infinite;
-        will-change: transform;
+        background:
+          radial-gradient(ellipse 80% 60% at 20% 30%, rgba(13,148,136,0.38) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 80% at 80% 70%, rgba(6,182,212,0.16) 0%, transparent 50%),
+          radial-gradient(ellipse 50% 50% at 50% 50%, rgba(94,234,212,0.06) 0%, transparent 70%);
+        animation: bgPulse 20s ease-in-out infinite;
       }
-      
+
+      @keyframes bgPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+
+      /* Lưới mờ phủ lên trên, tạo cảm giác có cấu trúc */
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-image:
+          linear-gradient(rgba(94,234,212,0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(94,234,212,0.035) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+
       #root {
         position: relative;
         z-index: 1;
       }
+
+      /* ===== ANIMATIONS ===== */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .animate-fadeIn {
+        animation: fadeIn 0.4s ease-out;
+      }
+
+      /* ===== SCROLLBAR ===== */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #052027; }
+      ::-webkit-scrollbar-thumb { background: #115e59; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #0d9488; }
+
+      /* ===== SELECTION ===== */
+      ::selection {
+        background: rgba(13,148,136,0.35);
+        color: #ccfbf1;
+      }
+
+      /* ===== SMOOTH SCROLL ===== */
+      html { scroll-behavior: smooth; }
     </style>
   <script type="importmap">
 {
