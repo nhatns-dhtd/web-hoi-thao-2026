@@ -285,7 +285,7 @@ const AdminPage: React.FC = () => {
         location: siteContent.conferenceLocation,
     });
 
-    const handleConfInfoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleConfInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setConfInfo({ ...confInfo, [e.target.name]: e.target.value });
     }
 
@@ -365,7 +365,7 @@ const AdminPage: React.FC = () => {
                      <div className="bg-surface p-6 rounded-lg shadow-md border border-line/50 space-y-4">
                         <div>
                             <Label>Tiêu đề chính homepage</Label>
-                            <input type="text" name="title" value={confInfo.title} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-surface-sunken border border-line-strong rounded-md"/>
+                            <textarea name="title" rows={3} value={confInfo.title} onChange={handleConfInfoChange} className="mt-1 block w-full px-3 py-2 bg-surface-sunken border border-line-strong rounded-md resize-y"/>
                         </div>
                         <div>
                             <Label>Tiêu đề phụ homepage</Label>

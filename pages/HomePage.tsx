@@ -172,8 +172,12 @@ const HomePage: React.FC = () => {
         style={{ backgroundImage: `url('${siteContent.heroBackground}')` }}
       >
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+        {/* max-w-5xl chứ không phải 4xl: ở text-6xl, dòng "và Giáo dục mùa thu lần thứ ba"
+            cần 935px, khung 4xl chặn ở 896px nên chữ "ba" bị đẩy xuống thành dòng thứ tư. */}
+        <div className="relative z-10 max-w-5xl mx-auto">
+          {/* whitespace-pre-line: ngat dong do noi dung quyet dinh, khong hardcode trong code
+              — heroTitle la truong admin sua duoc qua trang Admin. */}
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 whitespace-pre-line">
             {siteContent.heroTitle}
           </h1>
           <p className="text-xl md:text-2xl text-stone-200">

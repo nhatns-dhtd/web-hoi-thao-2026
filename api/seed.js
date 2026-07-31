@@ -16,7 +16,9 @@ const conferenceContent = {
     conferenceTopics: CONFERENCE_TOPICS_DATA,
     sponsors: SPONSORS_DATA,
     coOrganizers: CO_ORGANIZERS_DATA,
-    heroTitle: "Diễn đàn Văn hoá và Giáo dục mùa thu lần thứ ba – AFCE 2026",
+    // Xuống dòng nằm trong chính nội dung, không hardcode trong component: banner
+    // render bằng `whitespace-pre-line` nên admin đổi chỗ ngắt dòng được qua trang Admin.
+    heroTitle: "Diễn đàn Văn hoá\nvà Giáo dục mùa thu lần thứ ba\nAFCE 2026",
     heroSubtitle: "Văn hóa và giáo dục sáng tạo – Giải pháp phát triển bền vững",
     conferenceDate: "Tháng 11/2026 (dự kiến)",
     conferenceLocation: "Trường Đại học Thủ đô Hà Nội, số 98 Dương Quảng Hàm, Quan Hoa, Cầu Giấy, Hà Nội",
